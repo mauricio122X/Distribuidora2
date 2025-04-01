@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace lib_dominio.Entidades
+{
+    public class Empleados
+    {
+        public int ID { get; set; }
+        public string? Carnet { get; set; }
+        public string? Nombre { get; set; }
+        public int ID_Rol { get; set; }
+        public int ID_Bodega { get; set; }
+
+        //Objetos relacionados
+        [ForeignKey("Roles")]
+        public Roles? _Roles { get; set; }
+        [ForeignKey("Bodegas")]
+        public Bodegas? _Bodegas { get; set; }
+    }//Fin clase empleados
+}

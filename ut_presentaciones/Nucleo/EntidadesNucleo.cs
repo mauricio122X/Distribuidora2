@@ -25,6 +25,16 @@ namespace ut_presentacion.Nucleo
             return entidad;
         }
 
+        public static Vehiculos? Vehiculos()
+        {
+            var entidad = new Vehiculos();
+            entidad.Placa = "Pruebas-" + DateTime.Now.ToString("yyyyMMddhhmmss");
+            entidad.Tipo = "Camioneta";
+            entidad.Capacidad = 100;
+
+            return entidad;
+        }
+
 
         
     }

@@ -1,5 +1,5 @@
 drop database DB_Distribuidora;
-
+go
 CREATE DATABASE DB_Distribuidora ;
 GO 
 USE DB_Distribuidora;
@@ -24,7 +24,7 @@ CREATE TABLE [Productos](
 go
 CREATE TABLE [Vehiculos](
 	[ID] INT PRIMARY KEY IDENTITY (1,1),
-	[Placa] NVARCHAR (10) not null,
+	[Placa] NVARCHAR (50) unique not null,
 	[Tipo] NVARCHAR (50) not null,
 	[Capacidad] INT not null
 );

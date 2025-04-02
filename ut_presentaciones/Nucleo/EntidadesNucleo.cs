@@ -90,6 +90,16 @@ namespace ut_presentacion.Nucleo
             return entidad;
         }
 
+        public static Vehiculos_Documentos? Vehiculos_Documentos(Documentos documentos, Vehiculos vehiculos)
+        {
+            var entidad = new Vehiculos_Documentos();
+            entidad.Cantidad = 5;
+            entidad.ID_Documentos = documentos.ID;
+            entidad.ID_Vehiculos = vehiculos.ID;
+
+            return entidad;
+        }
+
 
     }
 }

@@ -69,19 +69,19 @@ go
 CREATE TABLE [Productos_Documentos](
 [ID] INT PRIMARY KEY IDENTITY (1,1) not null,
 [Cantidad] INT not null,
-[ID_Documento] INT not null,
-[ID_Producto] INT not null,
-FOREIGN KEY ([ID_Documento]) REFERENCES [Documentos]([ID]),
-FOREIGN KEY ([ID_Producto]) REFERENCES [Productos]([ID])
+[ID_Documentos] INT not null,
+[ID_Productos] INT not null,
+FOREIGN KEY ([ID_Documentos]) REFERENCES [Documentos]([ID]),
+FOREIGN KEY ([ID_Productos]) REFERENCES [Productos]([ID])
 );
 go
 CREATE TABLE [Vehiculos_Documentos](
 [ID] INT PRIMARY KEY IDENTITY (1,1) not null,
 [Cantidad] INT not null,
-[ID_Documento] INT not null,
-[ID_Vehiculo] INT not null,
-FOREIGN KEY ([ID_Documento]) REFERENCES [Documentos] ([ID]),
-FOREIGN KEY ([ID_Vehiculo]) REFERENCES [Vehiculos] ([ID])
+[ID_Documentos] INT not null,
+[ID_Vehiculos] INT not null,
+FOREIGN KEY ([ID_Documentos]) REFERENCES [Documentos] ([ID]),
+FOREIGN KEY ([ID_Vehiculos]) REFERENCES [Vehiculos] ([ID])
 );
 
 go

@@ -56,6 +56,18 @@ namespace ut_presentacion.Nucleo
             return entidad;
         }
 
+        public static Documentos? Documentos(Bodegas Bodegas , Empresas Empresas)
+        {
+            var entidad = new Documentos();
+            entidad.Tipo_Movimiento = "Pruebas-Venta";
+            entidad.ID_Bodega = Bodegas.ID;
+            entidad.Valor = 100;
+            entidad.Fecha = DateTime.Now;   
+            entidad.ID_Empresa = Empresas.ID;
+
+            return entidad; 
+        }
+
 
 
     }

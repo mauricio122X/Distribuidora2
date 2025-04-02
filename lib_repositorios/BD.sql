@@ -86,3 +86,7 @@ FOREIGN KEY ([ID_Vehiculo]) REFERENCES [Vehiculos] ([ID])
 go
 --Inserts/
 insert into Bodegas values('Bodega 1', 1000), ('Bodega2',200);
+insert	into Empresas values ('Empresa1' ,'calle1','123','cliente','123' );
+
+select * from Bodegas;
+select * from Empresas

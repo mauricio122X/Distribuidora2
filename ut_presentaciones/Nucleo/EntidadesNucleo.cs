@@ -56,29 +56,39 @@ namespace ut_presentacion.Nucleo
             return entidad;
         }
 
-        public static Documentos? Documentos(Bodegas Bodegas , Empresas Empresas)
+        public static Documentos? Documentos(Bodegas bodegas , Empresas empresas)
         {
             var entidad = new Documentos();
             entidad.Tipo_Movimiento = "Pruebas-Venta";
-            entidad.ID_Bodega = Bodegas.ID;
+            entidad.ID_Bodega = bodegas.ID;
             entidad.Valor = 100;
             entidad.Fecha = DateTime.Now;   
-            entidad.ID_Empresa = Empresas.ID;
+            entidad.ID_Empresa = empresas.ID;
 
             return entidad; 
         }
 
-        public static Empleados? Empleados(Bodegas Bodegas, Roles Roles)
+        public static Empleados? Empleados(Bodegas bodegas, Roles roles)
         {
             var entidad = new Empleados();
             entidad.Carnet = "Pruebas-" + DateTime.Now.ToString("yyyyMMddhhmmss");
             entidad.Nombre = "prueba-Nombre";
-            entidad.ID_Rol = Roles.ID;
-            entidad.ID_Bodega = Bodegas.ID;
+            entidad.ID_Rol = roles.ID;
+            entidad.ID_Bodega = bodegas.ID;
 
             return entidad;
         }
 
+
+        public static Productos_Documentos? Productos_Documentos(Documentos documentos, Productos productos)
+        {
+            var entidad = new Productos_Documentos();
+            entidad.Cantidad = 5;
+            entidad.ID_Documentos = documentos.ID;
+            entidad.ID_Productos = productos.ID;
+
+            return entidad;
+        }
 
 
     }

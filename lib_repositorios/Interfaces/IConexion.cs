@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore;
 using lib_dominio.Entidades;
+using System.Collections.Generic;
 
 
 namespace lib_repositorios.Interfaces

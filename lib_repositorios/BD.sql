@@ -1,4 +1,4 @@
-﻿drop database DB_Distribuidora;
+drop database DB_Distribuidora;
 
 CREATE DATABASE DB_Distribuidora ;
 GO 
@@ -11,13 +11,14 @@ CREATE TABLE [Bodegas](
 	[Capacidad_max] INT not null
 );
 
-go
+Go
 CREATE TABLE [Productos](
 	[ID] INT PRIMARY KEY IDENTITY(1,1),
 	[Nombre] NVARCHAR (50) not null,
 	[Precio_Compra] DECIMAL(10,2) not null,
 	[Cantidad_Embase] INT not null,
 	[Descripcion] NVARCHAR (100) not null,
+	[Precio_Venta] decimal(10,2),
 	[Stock] INT not null
 );
 go
@@ -69,8 +70,8 @@ CREATE TABLE [Productos_Documentos](
 [Cantidad] INT not null,
 [ID_Documento] INT not null,
 [ID_Producto] INT not null,
-FOREIGN KEY ([ID_Documento]) REFERENCES [Documentos] ([ID]),
-FOREIGN KEY ([ID_Producto]) REFERENCES [Productos] ([ID])
+FOREIGN KEY ([ID_Documento]) REFERENCES [Documentos]([ID]),
+FOREIGN KEY ([ID_Producto]) REFERENCES [Productos]([ID])
 );
 go
 CREATE TABLE [Vehiculos_Documentos](
@@ -83,6 +84,5 @@ FOREIGN KEY ([ID_Vehiculo]) REFERENCES [Vehiculos] ([ID])
 );
 
 go
---Inserts
+--Inserts/
 insert into Bodegas values('Bodega 1', 1000), ('Bodega2',200);
-

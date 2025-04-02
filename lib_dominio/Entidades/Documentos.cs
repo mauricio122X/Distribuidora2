@@ -13,7 +13,7 @@ namespace lib_dominio.Entidades
         public string? Tipo_Movimiento { get; set; }
         public DateTime? Fecha { get; set; }
         public int? ID_Bodega { get; set; }
-        public double? Valor { get; set; }
+        public decimal? Valor { get; set; }
         public int ID_Empresa { get; set; }
         public int ID_Empleados { get; set; }
 

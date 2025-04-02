@@ -10,7 +10,7 @@ namespace lib_dominio.Entidades
     {
         public int ID { get; set; }
         public string? Nombre { get; set; }
-        public double? Salario { get; set; }
+        public decimal? Salario { get; set; }
 
         //public List<Empleados>? RolesEmpleados { get; set; }
 

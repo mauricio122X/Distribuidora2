@@ -14,6 +14,7 @@ namespace lib_repositorios.Implementaciones
             optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
         }
         public DbSet<Bodegas>? Bodegas { get; set; }
+      
     }
 
 }

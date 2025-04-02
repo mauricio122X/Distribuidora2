@@ -1,56 +1,85 @@
-﻿Create database DB_Distribuidora ;
-go 
-use DB_Distribuidora;
-go 
+﻿CREATE DATABASE DB_Distribuidora ;
+GO 
+USE DB_Distribuidora;
+GO 
 
-create table Bodegas(
-	ID int primary key identity(1,1),
-	Nombre varchar(50) not null,
-	Capacidad_max int not null
+CREATE TABLE [Bodegas](
+	[ID] INT PRIMARY KEY IDENTITY (1,1),
+	[Nombre] NVARCHAR (50) not null,
+	[Capacidad_max] INT not null
 );
 
-go
 
-create table [Productos](
-	[ID] int primary key identity(1,1),
-	[Nombre] varchar(50) not null,
-	[Precio_Compra] float not null,
-	[Cantidad_Embase] int not null,
-	[Descripcion] varchar(100) not null,
-	[Stock] int not null
+CREATE TABLE [Productos](
+	[ID] INT PRIMARY KEY IDENTITY(1,1),
+	[Nombre] NVARCHAR (50) not null,
+	[Precio_Compra] DECIMAL not null,
+	[Cantidad_Embase] INT not null,
+	[Descripcion] NVARCHAR (100) not null,
+	[Stock] INT not null
 );
 
-create table [Vehiculos](
-	[ID] int primary key identity(1,1),
-	[Placa] varchar(10) not null,
-	[Tipo] varchar(50) not null,
-	[Capacidad] int not null
+CREATE TABLE [Vehiculos](
+	[ID] INT PRIMARY KEY IDENTITY (1,1),
+	[Placa] NVARCHAR (10) not null,
+	[Tipo] NVARCHAR (50) not null,
+	[Capacidad] INT not null
 );
 
-create table [Roles](
-	[ID] int primary key identity(1,1),
-	[Nombre] varchar(50) not null,
-	[Salario] decimal(10,2) not null
+CREATE TABLE [Roles](
+	[ID] INT PRIMARY KEY IDENTITY (1,1),
+	[Nombre] NVARCHAR (50) not null,
+	[Salario] DECIMAL (10,2) not null
 );
 
-Create table [Empresas](
-	[ID] int primary key identity(1,1),
-	[Nombre] varchar(50) not null,
-	[Direccion] varchar(50) not null,
-	[NIT] varchar(100) not null,
-	[Tipo] varchar(50) not null,
-	[Telefono] varchar(50) not null
-);
-/*   No se a ejecutado */
-Create table [Documentos](
-	[ID] int primary key identity(1,1),
-	[Tipo_Movimiento] varchar(50) not null,
-	[Fecha] smalldatetime not null,
-	[Valor] float not null,
-
+CREATE TABLE [Empresas](
+	[ID] INT PRIMARY KEY IDENTITY (1,1),
+	[Nombre] NVARCHAR (50) not null,
+	[Direccion] NVARCHAR (50) not null,
+	[NIT] NVARCHAR (100) not null,
+	[Tipo] NVARCHAR (50) not null,
+	[Telefono] NVARCHAR (50) not null
 );
 
+CREATE TABLE [Documentos](
+	[ID] INT PRIMARY KEY IDENTITY (1,1),
+	[Tipo_Movimiento] NVARCHAR (50) not null,
+	[ID_Bodega] INT not null,
+	[Valor] DECIMAL not null,
+	[Fecha] SMALLDATETIME not null,
+	[ID_Empresa] INT not null,
+	FOREIGN KEY ([ID_Bodega]) REFERENCES [Bodegas] ([ID]),
+	FOREIGN KEY ([ID_Empresa]) REFERENCES [Empresas] ([ID])
+);
+
+CREATE TABLE [Empleados](
+[ID] INT PRIMARY KEY IDENTITY (1,1) not null,
+[Carnet] NVARCHAR (50) not null,
+[Nombre] NVARCHAR (50) not null,
+[ID_Roles] INT,
+[ID_Bodega] INT,
+FOREIGN KEY ([ID_Roles]) REFERENCES [Roles] ([ID]),
+FOREIGN KEY ([ID_Bodega]) REFERENCES [Bodegas] ([ID])
+);
+
+CREATE TABLE [Productos_Documentos](
+[ID] INT PRIMARY KEY IDENTITY (1,1) not null,
+[Cantidad] INT not null,
+[ID_Documento] INT not null,
+[ID_Producto] INT not null,
+FOREIGN KEY ([ID_Documento]) REFERENCES [Documentos] ([ID]),
+FOREIGN KEY ([ID_Producto]) REFERENCES [Productos] ([ID])
+);
+
+CREATE TABLE [Vehiculos_Documentos](
+[ID] INT PRIMARY KEY IDENTITY (1,1) not null,
+[Cantidad] INT not null,
+[ID_Documento] INT not null,
+[ID_Vehiculo] INT not null,
+FOREIGN KEY ([ID_Documento]) REFERENCES [Documentos] ([ID]),
+FOREIGN KEY ([ID_Vehiculo]) REFERENCES [Vehiculos] ([ID])
+);
 
 
 /*Inserts*/
-insert into Bodegas values('Bodega 1', 1000), ('Bodega2',200); 
+insert into Bodegas values('Bodega 1', 1000), ('Bodega2',200);

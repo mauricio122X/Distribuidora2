@@ -44,6 +44,18 @@ namespace ut_presentacion.Nucleo
             return entidad;
         }
 
+        public static Empresas? Empresas()
+        {
+            var entidad = new Empresas();
+            entidad.Nombre = "Pruebas-" + DateTime.Now.ToString("yyyyMMddhhmmss");
+            entidad.Direccion = "calle 1";
+            entidad.NIT = "123";
+            entidad.Tipo = "Cliente";
+            entidad.Telefono = "123456";
+
+            return entidad;
+        }
+
 
 
     }

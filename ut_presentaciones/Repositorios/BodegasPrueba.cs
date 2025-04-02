@@ -1,10 +1,10 @@
-﻿using lib_dominio.Entidades;
-using lib_repositorios.Implementaciones;
+﻿using lib_repositorios.Implementaciones;
 using lib_repositorios.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using ut_presentacion.Nucleo;
+using lib_dominio.Entidades;
 
-namespace ut_presentacion.Repositorios
+namespace ut_presentaciones.Repositorios
 {
     [TestClass]
     public class BodegasPrueba
@@ -30,32 +30,32 @@ namespace ut_presentacion.Repositorios
 
         public bool Listar()
         {
-            this.lista = this.iConexion!.Bodegas!.ToList();
+            lista = iConexion!.Bodegas!.ToList();
             return lista.Count > 0;
         }
 
         public bool Guardar()
         {
-            this.entidad = EntidadesNucleo.Bodegas()!;
-            this.iConexion!.Bodegas!.Add(this.entidad);
-            this.iConexion!.SaveChanges();
+            entidad = EntidadesNucleo.Bodegas()!;
+            iConexion!.Bodegas!.Add(entidad);
+            iConexion!.SaveChanges();
             return true;
         }
 
         public bool Modificar()
         {
-            this.entidad!.Capacidad_Max = 1;
+            entidad!.Capacidad_Max = 1;
 
-            var entry = this.iConexion!.Entry<Bodegas>(this.entidad);
+            var entry = iConexion!.Entry<Bodegas>(entidad);
             entry.State = EntityState.Modified;
-            this.iConexion!.SaveChanges();
+            iConexion!.SaveChanges();
             return true;
         }
 
         public bool Borrar()
         {
-            this.iConexion!.Bodegas!.Remove(this.entidad!);
-            this.iConexion!.SaveChanges();
+            iConexion!.Bodegas!.Remove(entidad!);
+            iConexion!.SaveChanges();
             return true;
         }
     }

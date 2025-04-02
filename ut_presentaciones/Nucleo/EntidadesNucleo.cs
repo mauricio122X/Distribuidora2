@@ -12,5 +12,7 @@ namespace ut_presentacion.Nucleo
            
             return entidad;
         }
+
+        
     }
 }

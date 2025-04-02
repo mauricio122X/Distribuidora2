@@ -14,5 +14,6 @@ namespace lib_dominio.Entidades
         //public List<Productos_Documentos>? ProductosDocumentos { get; set; }
 
 
+
     }//Fin Clase Productos
 }

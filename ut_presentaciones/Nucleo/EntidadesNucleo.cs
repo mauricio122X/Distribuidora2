@@ -35,7 +35,16 @@ namespace ut_presentacion.Nucleo
             return entidad;
         }
 
+        public static Roles? Roles()
+        {
+            var entidad = new Roles();
+            entidad.Nombre = "Pruebas-" + DateTime.Now.ToString("yyyyMMddhhmmss");
+            entidad.Salario = 100;
 
-        
+            return entidad;
+        }
+
+
+
     }
 }

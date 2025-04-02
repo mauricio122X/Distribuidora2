@@ -68,6 +68,17 @@ namespace ut_presentacion.Nucleo
             return entidad; 
         }
 
+        public static Empleados? Empleados(Bodegas Bodegas, Roles Roles)
+        {
+            var entidad = new Empleados();
+            entidad.Carnet = "Pruebas-" + DateTime.Now.ToString("yyyyMMddhhmmss");
+            entidad.Nombre = "prueba-Nombre";
+            entidad.ID_Rol = Roles.ID;
+            entidad.ID_Bodega = Bodegas.ID;
+
+            return entidad;
+        }
+
 
 
     }

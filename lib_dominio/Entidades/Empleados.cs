@@ -17,9 +17,9 @@ namespace lib_dominio.Entidades
         public int ID_Bodega { get; set; }
 
         //Objetos relacionados
-        [ForeignKey("Roles")]
+        [ForeignKey("ID_Rol")]
         public Roles? _Roles { get; set; }
-        [ForeignKey("Bodegas")]
+        [ForeignKey("ID_Bodega")]
         public Bodegas? _Bodegas { get; set; }
     }//Fin clase empleados
 }

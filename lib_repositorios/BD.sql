@@ -1,3 +1,4 @@
+use master;
 drop database DB_Distribuidora;
 go
 CREATE DATABASE DB_Distribuidora ;
@@ -57,11 +58,11 @@ CREATE TABLE [Documentos](
 go
 CREATE TABLE [Empleados](
 [ID] INT PRIMARY KEY IDENTITY (1,1) not null,
-[Carnet] NVARCHAR (50) not null,
+[Carnet] NVARCHAR(50) unique not null,
 [Nombre] NVARCHAR (50) not null,
-[ID_Roles] INT,
+[ID_Rol] INT,
 [ID_Bodega] INT,
-FOREIGN KEY ([ID_Roles]) REFERENCES [Roles] ([ID]),
+FOREIGN KEY ([ID_Rol]) REFERENCES [Roles] ([ID]),
 FOREIGN KEY ([ID_Bodega]) REFERENCES [Bodegas] ([ID])
 );
 go
@@ -87,6 +88,8 @@ go
 --Inserts/
 insert into Bodegas values('Bodega 1', 1000), ('Bodega2',200);
 insert	into Empresas values ('Empresa1' ,'calle1','123','cliente','123' );
-
+insert into Roles values('rol1',200);
+go
 select * from Bodegas;
-select * from Empresas
+select * from Empresas;
+select * from Roles; 

@@ -15,10 +15,7 @@ namespace lib_dominio.Entidades
         public int? ID_Bodega { get; set; }
         public decimal? Valor { get; set; }
         public int ID_Empresa { get; set; }
-        //public int ID_Empleados { get; set; }
-
-        //public List<Vehiculos_Documentos>? vehiculosDocumentos { get; set; }
-       // public List<Productos_Documentos>? ProductosDocumentos { get; set; }
+   
 
         [ForeignKey("ID_Bodega")]
         public Bodegas? _Bodegas { get; set; }

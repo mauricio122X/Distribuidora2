@@ -1,5 +1,5 @@
 use master;
-drop database DB_Distribuidora;
+drop database IF EXISTS DB_Distribuidora;
 go
 CREATE DATABASE DB_Distribuidora ;
 GO 

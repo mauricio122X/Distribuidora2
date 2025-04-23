@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace lib_dominio.Entidades
 {
     public class Empleados
     {
-        public int ID { get; set; }
+        [Key] public int ID { get; set; }
         public string? Carnet { get; set; }
         public string? Nombre { get; set; }
         public int ID_Rol { get; set; }

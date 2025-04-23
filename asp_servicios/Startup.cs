@@ -4,6 +4,7 @@ using lib_aplicaciones.Interfaces;
 using lib_repositorios.Implementaciones;
 using lib_repositorios.Interfaces;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.EntityFrameworkCore;
 
 namespace asp_servicios
 {
@@ -23,6 +24,10 @@ namespace asp_servicios
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             //services.AddSwaggerGen();
+            ///////////////////////////////////////////////////
+           // services.AddDbContext<Conexion>(options =>
+                //options.UseSqlServer(Configuration!.GetConnectionString("DefaultConnection")));
+            /////////////////////////////////////////////////////
             // Repositorios
             services.AddScoped<IConexion, Conexion>();
             // Aplicaciones

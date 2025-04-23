@@ -1,8 +1,10 @@
-﻿namespace lib_dominio.Entidades
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace lib_dominio.Entidades
 {
     public class Vehiculos
     {
-        public int ID { get; set; }
+        [Key] public int ID { get; set; }
         public string? Placa { get; set; }
         public string? Tipo { get; set; }
         public int? Capacidad { get; set; }

@@ -2,14 +2,20 @@
 using lib_aplicaciones.Interfaces;
 using lib_dominio.Entidades;
 using lib_dominio.Nucleo;
+using lib_repositorios.Implementaciones;
+using lib_repositorios.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace asp_servicios.Controllers
 {
     [ApiController]
-    [Route("[controller]/[action]")]
+    //[Route("[controller]/[action]")]
+    [Route("[controller]")]
+
     public class BodegasController : ControllerBase
     {
+        /*
         private IBodegasAplicacion? iAplicacion = null;
         private TokenController? tokenController = null;
 
@@ -176,6 +182,22 @@ namespace asp_servicios.Controllers
                 respuesta["Error"] = ex.Message.ToString();
                 return JsonConversor.ConvertirAString(respuesta);
             }
+        }
+        */
+        private readonly IConexion? iConexion;
+        private List<Bodegas>? lista;
+        public BodegasController()
+        {
+            iConexion = new Conexion
+            {
+                StringConexion = "server=localhost;database=DB_Distribuidora;Integrated Security=True;TrustServerCertificate=true;"
+            };
+        }
+        [HttpGet]
+        public IEnumerable<Bodegas> Get()
+        {
+            lista = iConexion!.Bodegas!.ToList();
+            return lista!;
         }
     }
 }

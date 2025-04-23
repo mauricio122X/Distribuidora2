@@ -1,8 +1,10 @@
-﻿namespace lib_dominio.Entidades
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace lib_dominio.Entidades
 {
     public class Bodegas
     {
-        public int ID { get; set; }
+        [Key]public int ID { get; set; }
         public string? Nombre { get; set; }
         public int? Capacidad_Max { get; set; }
 

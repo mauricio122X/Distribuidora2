@@ -1,9 +1,11 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+
 namespace lib_dominio.Entidades
 {
     public class Productos
     {
-        public int ID { get; set; }
+        [Key] public int ID { get; set; }
         public string? Nombre { get; set; }
         public decimal Precio_Compra { get; set; }
         public int? Cantidad_Embase { get; set; }

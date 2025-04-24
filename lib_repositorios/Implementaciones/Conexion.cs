@@ -9,7 +9,14 @@ namespace lib_repositorios.Implementaciones
     public partial class Conexion : DbContext, IConexion
     {
         public string? StringConexion { get; set; }
+        public Conexion()
+        {
 
+        }
+        public Conexion(string stringConexion)
+        {
+            this.StringConexion = stringConexion;
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(this.StringConexion!, p => { });

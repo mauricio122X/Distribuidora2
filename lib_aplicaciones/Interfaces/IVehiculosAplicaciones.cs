@@ -2,13 +2,13 @@
 
 namespace lib_aplicaciones.Interfaces
 {
-    public interface IBodegasAplicacion
+    public interface IVehiculosAplicacion
     {
         void Configurar(string StringConexion);
-        List<Bodegas> PorCodigo(Bodegas? entidad);
-        List<Bodegas> Listar();
-        Bodegas? Guardar(Bodegas? entidad);
-        Bodegas? Modificar(Bodegas? entidad);
-        Bodegas? Borrar(Bodegas? entidad);
+        List<Vehiculos> PorCodigo(Vehiculos? entidad);
+        List<Vehiculos> Listar();
+        Vehiculos? Guardar(Vehiculos? entidad);
+        Vehiculos? Modificar(Vehiculos? entidad);
+        Vehiculos? Borrar(Vehiculos? entidad);
     }
 }

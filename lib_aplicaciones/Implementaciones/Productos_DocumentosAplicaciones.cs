@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace lib_aplicaciones.Implementaciones
 {
-    public class VehiculosAplicacion : IVehiculosAplicacion
+    public class Productos_DocumentosAplicacion : IProductos_DocumentosAplicacion
     {
         private IConexion? IConexion = null;
 
-        public VehiculosAplicacion(IConexion iConexion)
+        public Productos_DocumentosAplicacion(IConexion iConexion)
         {
             this.IConexion = iConexion;
         }
@@ -19,7 +19,7 @@ namespace lib_aplicaciones.Implementaciones
             this.IConexion!.StringConexion = StringConexion;
         }
 
-        public Vehiculos? Borrar(Vehiculos? entidad)
+        public Productos_Documentos? Borrar(Productos_Documentos? entidad)
         {
             if (entidad == null)
                 throw new Exception("lbFaltaInformacion");
@@ -29,12 +29,12 @@ namespace lib_aplicaciones.Implementaciones
 
             // Calculos
 
-            this.IConexion!.Vehiculos!.Remove(entidad);
+            this.IConexion!.Productos_Documentos!.Remove(entidad);
             this.IConexion.SaveChanges();
             return entidad;
         }
 
-        public Vehiculos? Guardar(Vehiculos? entidad)
+        public Productos_Documentos? Guardar(Productos_Documentos? entidad)
         {
             if (entidad == null)
                 throw new Exception("lbFaltaInformacion");
@@ -44,24 +44,24 @@ namespace lib_aplicaciones.Implementaciones
 
             // Calculos
 
-            this.IConexion!.Vehiculos!.Add(entidad);
+            this.IConexion!.Productos_Documentos!.Add(entidad);
             this.IConexion.SaveChanges();
             return entidad;
         }
 
-        public List<Vehiculos> Listar()
+        public List<Productos_Documentos> Listar()
         {
-            return this.IConexion!.Vehiculos!.Take(20).ToList();
+            return this.IConexion!.Productos_Documentos!.Take(20).ToList();
         }
 
-        public List<Vehiculos> PorCodigo(Vehiculos? entidad)
+        public List<Productos_Documentos> PorCodigo(Productos_Documentos? entidad)
         {
-            return this.IConexion!.Vehiculos!
-                .Where(x => x.Tipo!.Contains(entidad!.Tipo!))
+            return this.IConexion!.Productos_Documentos!
+                .Where(x => x.Cantidad!.Equals(entidad!.Cantidad!))
                 .ToList();
         }
 
-        public Vehiculos? Modificar(Vehiculos? entidad)
+        public Productos_Documentos? Modificar(Productos_Documentos? entidad)
         {
             if (entidad == null)
                 throw new Exception("lbFaltaInformacion");
@@ -71,7 +71,7 @@ namespace lib_aplicaciones.Implementaciones
 
             // Calculos
 
-            var entry = this.IConexion!.Entry<Vehiculos>(entidad);
+            var entry = this.IConexion!.Entry<Productos_Documentos>(entidad);
             entry.State = EntityState.Modified;
             this.IConexion.SaveChanges();
             return entidad;

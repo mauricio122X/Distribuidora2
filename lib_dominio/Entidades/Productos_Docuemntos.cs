@@ -9,7 +9,7 @@ namespace lib_dominio.Entidades
         [Key] public int ID { get; set; }
         public int ID_Documentos { get; set; }
         public int ID_Productos { get; set; }
-        public int Cantidad { get; set; }
+        public int? Cantidad { get; set; }
 
         [ForeignKey("ID_Documentos")]
         public Documentos? _Documentos { get; set; }

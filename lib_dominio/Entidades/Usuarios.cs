@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace lib_dominio.Entidades
 {
-    public class Empleados
+    public class Usuarios
     {
         [Key] public int ID { get; set; }
         public string? Carnet { get; set; }

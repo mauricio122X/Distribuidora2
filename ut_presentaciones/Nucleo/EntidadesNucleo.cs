@@ -68,9 +68,9 @@ namespace ut_presentacion.Nucleo
             return entidad; 
         }
 
-        public static Empleados? Empleados(Bodegas bodegas, Roles roles)
+        public static Usuarios? Usuarios(Bodegas bodegas, Roles roles)
         {
-            var entidad = new Empleados();
+            var entidad = new Usuarios();
             entidad.Carnet = "Pruebas-" + DateTime.Now.ToString("yyyyMMddhhmmss");
             entidad.Nombre = "prueba-Nombre";
             entidad.ID_Rol = roles.ID;

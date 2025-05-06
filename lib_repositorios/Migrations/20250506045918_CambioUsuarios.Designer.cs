@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using lib_repositorios.Implementaciones;
 
@@ -11,9 +12,11 @@ using lib_repositorios.Implementaciones;
 namespace lib_repositorios.Migrations
 {
     [DbContext(typeof(Conexion))]
-    partial class ConexionModelSnapshot : ModelSnapshot
+    [Migration("20250506045918_CambioUsuarios")]
+    partial class CambioUsuarios
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,8 +43,6 @@ namespace lib_repositorios.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("ID_Usuario");
 
                     b.ToTable("Auditorias");
                 });
@@ -137,8 +138,6 @@ namespace lib_repositorios.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("ID_Usuario");
 
                     b.ToTable("Permisos");
                 });
@@ -296,17 +295,6 @@ namespace lib_repositorios.Migrations
                     b.ToTable("Vehiculos_Documentos");
                 });
 
-            modelBuilder.Entity("lib_dominio.Entidades.Auditorias", b =>
-                {
-                    b.HasOne("lib_dominio.Entidades.Usuarios", "_Usuario")
-                        .WithMany()
-                        .HasForeignKey("ID_Usuario")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("_Usuario");
-                });
-
             modelBuilder.Entity("lib_dominio.Entidades.Documentos", b =>
                 {
                     b.HasOne("lib_dominio.Entidades.Bodegas", "_Bodegas")
@@ -322,17 +310,6 @@ namespace lib_repositorios.Migrations
                     b.Navigation("_Bodegas");
 
                     b.Navigation("_Empresas");
-                });
-
-            modelBuilder.Entity("lib_dominio.Entidades.Permisos", b =>
-                {
-                    b.HasOne("lib_dominio.Entidades.Usuarios", "_Usuario")
-                        .WithMany()
-                        .HasForeignKey("ID_Usuario")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("_Usuario");
                 });
 
             modelBuilder.Entity("lib_dominio.Entidades.Productos_Documentos", b =>

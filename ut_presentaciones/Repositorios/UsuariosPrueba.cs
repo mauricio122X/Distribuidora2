@@ -7,13 +7,13 @@ using lib_dominio.Entidades;
 namespace ut_presentaciones.Repositorios
 {
     [TestClass]
-    public class EmpleadosPrueba
+    public class UsuariosPrueba
     {
         private readonly IConexion? iConexion;
-        private List<Empleados>? lista;
-        private Empleados? entidad;
+        private List<Usuarios>? lista;
+        private Usuarios? entidad;
 
-        public EmpleadosPrueba()
+        public UsuariosPrueba()
         {
             iConexion = new Conexion();
             iConexion.StringConexion = Configuracion.ObtenerValor("StringConexion");
@@ -30,7 +30,7 @@ namespace ut_presentaciones.Repositorios
 
         public bool Listar()
         {
-            lista = iConexion!.Empleados!.ToList();
+            lista = iConexion!.Usuarios!.ToList();
             return lista.Count > 0;
         }
 
@@ -38,8 +38,8 @@ namespace ut_presentaciones.Repositorios
         {
             var bodega = this.iConexion.Bodegas.FirstOrDefault(x => x.ID == 1);
             var rol = this.iConexion.Roles.FirstOrDefault(x => x.ID == 1);
-            entidad = EntidadesNucleo.Empleados(bodega, rol)!;
-            iConexion!.Empleados!.Add(entidad);
+            entidad = EntidadesNucleo.Usuarios(bodega, rol)!;
+            iConexion!.Usuarios!.Add(entidad);
             iConexion!.SaveChanges();
             return true;
         }
@@ -48,7 +48,7 @@ namespace ut_presentaciones.Repositorios
         {
             entidad!.Nombre = "Prueba-nombre2";
 
-            var entry = iConexion!.Entry<Empleados>(entidad);
+            var entry = iConexion!.Entry<Usuarios>(entidad);
             entry.State = EntityState.Modified;
             iConexion!.SaveChanges();
             return true;
@@ -56,7 +56,7 @@ namespace ut_presentaciones.Repositorios
 
         public bool Borrar()
         {
-            iConexion!.Empleados!.Remove(entidad!);
+            iConexion!.Usuarios!.Remove(entidad!);
             iConexion!.SaveChanges();
             return true;
         }

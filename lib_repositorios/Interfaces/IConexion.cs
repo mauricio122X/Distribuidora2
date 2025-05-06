@@ -16,7 +16,7 @@ namespace lib_repositorios.Interfaces
         DbSet<Vehiculos_Documentos>? Vehiculos_Documentos { get; set; }
         DbSet<Productos_Documentos>? Productos_Documentos { get; set; }
         DbSet<Empresas>? Empresas { get; set; }
-        DbSet<Empleados>? Empleados { get; set; }
+        DbSet<Usuarios>? Usuarios { get; set; }
         DbSet<Roles>? Roles { get; set; }
 
 

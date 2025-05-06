@@ -118,7 +118,7 @@ namespace lib_repositorios.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Empleados",
+                name: "Usuarios",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
@@ -130,15 +130,15 @@ namespace lib_repositorios.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Empleados", x => x.ID);
+                    table.PrimaryKey("PK_Usuarios", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Empleados_Bodegas_ID_Bodega",
+                        name: "FK_Usuarios_Bodegas_ID_Bodega",
                         column: x => x.ID_Bodega,
                         principalTable: "Bodegas",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Empleados_Roles_ID_Rol",
+                        name: "FK_Usuarios_Roles_ID_Rol",
                         column: x => x.ID_Rol,
                         principalTable: "Roles",
                         principalColumn: "ID",
@@ -210,13 +210,13 @@ namespace lib_repositorios.Migrations
                 column: "ID_Empresa");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Empleados_ID_Bodega",
-                table: "Empleados",
+                name: "IX_Usuarios_ID_Bodega",
+                table: "Usuarios",
                 column: "ID_Bodega");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Empleados_ID_Rol",
-                table: "Empleados",
+                name: "IX_Usuarios_ID_Rol",
+                table: "Usuarios",
                 column: "ID_Rol");
 
             migrationBuilder.CreateIndex(
@@ -244,7 +244,7 @@ namespace lib_repositorios.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Empleados");
+                name: "Usuarios");
 
             migrationBuilder.DropTable(
                 name: "Productos_Documentos");

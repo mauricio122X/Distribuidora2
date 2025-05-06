@@ -30,8 +30,11 @@ namespace lib_repositorios.Implementaciones
         public DbSet<Vehiculos_Documentos>? Vehiculos_Documentos { get; set; }
         public DbSet<Productos_Documentos>? Productos_Documentos { get; set; }
         public DbSet<Empresas>? Empresas { get; set; }
-        public DbSet<Empleados>? Empleados { get; set; }
+        public DbSet<Usuarios>? Usuarios { get; set; }
         public DbSet<Roles>? Roles { get; set; }
+        public DbSet<Auditorias> Auditorias { get; set; }
+        public DbSet<Permisos> Permisos { get; set; }
+
 
 
     }

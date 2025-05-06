@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace lib_aplicaciones.Implementaciones
 {
-    public class EmpleadosAplicacion : IEmpleadosAplicacion
+    public class UsuariosAplicacion : IUsuariosAplicacion
     {
         private IConexion? IConexion = null;
 
-        public EmpleadosAplicacion(IConexion iConexion)
+        public UsuariosAplicacion(IConexion iConexion)
         {
             this.IConexion = iConexion;
         }
@@ -19,7 +19,7 @@ namespace lib_aplicaciones.Implementaciones
             this.IConexion!.StringConexion = StringConexion;
         }
 
-        public Empleados? Borrar(Empleados? entidad)
+        public Usuarios? Borrar(Usuarios? entidad)
         {
             if (entidad == null)
                 throw new Exception("lbFaltaInformacion");
@@ -29,12 +29,12 @@ namespace lib_aplicaciones.Implementaciones
 
             // Calculos
 
-            this.IConexion!.Empleados!.Remove(entidad);
+            this.IConexion!.Usuarios!.Remove(entidad);
             this.IConexion.SaveChanges();
             return entidad;
         }
 
-        public Empleados? Guardar(Empleados? entidad)
+        public Usuarios? Guardar(Usuarios? entidad)
         {
             if (entidad == null)
                 throw new Exception("lbFaltaInformacion");
@@ -44,24 +44,24 @@ namespace lib_aplicaciones.Implementaciones
 
             // Calculos
 
-            this.IConexion!.Empleados!.Add(entidad);
+            this.IConexion!.Usuarios!.Add(entidad);
             this.IConexion.SaveChanges();
             return entidad;
         }
 
-        public List<Empleados> Listar()
+        public List<Usuarios> Listar()
         {
-            return this.IConexion!.Empleados!.Take(20).ToList();
+            return this.IConexion!.Usuarios!.Take(20).ToList();
         }
 
-        public List<Empleados> PorCodigo(Empleados? entidad)
+        public List<Usuarios> PorCodigo(Usuarios? entidad)
         {
-            return this.IConexion!.Empleados!
+            return this.IConexion!.Usuarios!
                 .Where(x => x.Nombre!.Contains(entidad!.Nombre!))
                 .ToList();
         }
 
-        public Empleados? Modificar(Empleados? entidad)
+        public Usuarios? Modificar(Usuarios? entidad)
         {
             if (entidad == null)
                 throw new Exception("lbFaltaInformacion");
@@ -71,7 +71,7 @@ namespace lib_aplicaciones.Implementaciones
 
             // Calculos
 
-            var entry = this.IConexion!.Entry<Empleados>(entidad);
+            var entry = this.IConexion!.Entry<Usuarios>(entidad);
             entry.State = EntityState.Modified;
             this.IConexion.SaveChanges();
             return entidad;

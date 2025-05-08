@@ -18,6 +18,9 @@ namespace lib_repositorios.Interfaces
         DbSet<Empresas>? Empresas { get; set; }
         DbSet<Usuarios>? Usuarios { get; set; }
         DbSet<Roles>? Roles { get; set; }
+        DbSet<Permisos>? Permisos { get; set; }
+        DbSet<Auditorias>? Auditorias { get; set; }
+
 
 
 

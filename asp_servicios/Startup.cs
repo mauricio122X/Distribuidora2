@@ -32,6 +32,18 @@ namespace asp_servicios
             services.AddScoped<IConexion, Conexion>();
             // Aplicaciones
             services.AddScoped<IBodegasAplicacion, BodegasAplicacion>();
+            services.AddScoped<IDocumentosAplicacion, DocumentosAplicacion>();
+            services.AddScoped<IUsuariosAplicacion, UsuariosAplicacion>();
+            services.AddScoped<IEmpresasAplicacion, EmpresasAplicacion>();
+            services.AddScoped<IPermisosAplicacion, PermisosAplicacion>();
+            services.AddScoped<IProductosAplicacion, ProductosAplicacion>();
+            services.AddScoped<IRolesAplicacion, RolesAplicacion>();
+            services.AddScoped<IVehiculosAplicacion, VehiculosAplicacion>();
+            services.AddScoped<IAuditoriasAplicacion, AuditoriasAplicacion>();
+            services.AddScoped<IPermisosAplicacion, PermisosAplicacion>();
+            services.AddScoped<IProductos_DocumentosAplicacion, Productos_DocumentosAplicacion>();
+            services.AddScoped<IVehiculos_DocumentosAplicacion, Vehiculos_DocumentosAplicacion>();
+
             // services.AddScoped<IAvionesAplicacion, AvionesAplicacion>();
             // Controladores
             services.AddScoped<TokenController, TokenController>();

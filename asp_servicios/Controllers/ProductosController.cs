@@ -10,13 +10,13 @@ namespace asp_servicios.Controllers
     [Route("[controller]/[action]")]
     //[Route("[controller]")]
 
-    public class BodegasController : ControllerBase
+    public class ProductosController : ControllerBase
     {
-        
-        private IBodegasAplicacion? iAplicacion = null;
+
+        private IProductosAplicacion? iAplicacion = null;
         private TokenController? tokenController = null;
 
-        public BodegasController(IBodegasAplicacion? iAplicacion,
+        public ProductosController(IProductosAplicacion? iAplicacion,
             TokenController tokenController)
         {
             this.iAplicacion = iAplicacion;
@@ -48,7 +48,7 @@ namespace asp_servicios.Controllers
                 respuesta["Entidades"] = this.iAplicacion!.Listar();
 
                 respuesta["Respuesta"] = "OK";
-                respuesta["Fecha"] = DateTime.Now.ToString();   
+                respuesta["Fecha"] = DateTime.Now.ToString();
                 return JsonConversor.ConvertirAString(respuesta);
             }
             catch (Exception ex)
@@ -71,7 +71,7 @@ namespace asp_servicios.Controllers
                     return JsonConversor.ConvertirAString(respuesta);
                 }
 
-                var entidad = JsonConversor.ConvertirAObjeto<Bodegas>(
+                var entidad = JsonConversor.ConvertirAObjeto<Productos>(
                     JsonConversor.ConvertirAString(datos["Entidad"]));
 
                 this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion")!);
@@ -101,7 +101,7 @@ namespace asp_servicios.Controllers
                     return JsonConversor.ConvertirAString(respuesta);
                 }
 
-                var entidad = JsonConversor.ConvertirAObjeto<Bodegas>(
+                var entidad = JsonConversor.ConvertirAObjeto<Productos>(
                     JsonConversor.ConvertirAString(datos["Entidad"]));
 
                 this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion")!);
@@ -132,7 +132,7 @@ namespace asp_servicios.Controllers
                     return JsonConversor.ConvertirAString(respuesta);
                 }
 
-                var entidad = JsonConversor.ConvertirAObjeto<Bodegas>(
+                var entidad = JsonConversor.ConvertirAObjeto<Productos>(
                     JsonConversor.ConvertirAString(datos["Entidad"]));
 
                 this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion")!);
@@ -163,7 +163,7 @@ namespace asp_servicios.Controllers
                     return JsonConversor.ConvertirAString(respuesta);
                 }
 
-                var entidad = JsonConversor.ConvertirAObjeto<Bodegas>(
+                var entidad = JsonConversor.ConvertirAObjeto<Productos>(
                     JsonConversor.ConvertirAString(datos["Entidad"]));
 
                 this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion")!);
@@ -180,18 +180,18 @@ namespace asp_servicios.Controllers
                 return JsonConversor.ConvertirAString(respuesta);
             }
         }
-        
+
         /*
         private readonly IConexion? iConexion;
-        private List<Bodegas>? lista;
-        public BodegasController()
+        private List<Productos>? lista;
+        public ProductosController()
         {
             iConexion = new Conexion("server=localhost;database=DB_Distribuidora;Integrated Security=True;TrustServerCertificate=true;");
         }
         [HttpGet]
-        public IEnumerable<Bodegas> Get()
+        public IEnumerable<Productos> Get()
         {
-            lista = iConexion!.Bodegas!.ToList();
+            lista = iConexion!.Productos!.ToList();
             return lista!;
         }
         */

@@ -57,7 +57,7 @@ namespace lib_aplicaciones.Implementaciones
         public List<Empresas> PorCodigo(Empresas? entidad)
         {
             return this.IConexion!.Empresas!
-                .Where(x => x.Nombre!.Contains(entidad!.Nombre!))
+                .Where(x => x.NIT!.Contains(entidad!.NIT!))
                 .ToList();
         }
 

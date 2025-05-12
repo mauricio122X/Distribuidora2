@@ -57,7 +57,7 @@ namespace lib_aplicaciones.Implementaciones
         public List<Vehiculos_Documentos> PorCodigo(Vehiculos_Documentos? entidad)
         {
             return this.IConexion!.Vehiculos_Documentos!
-                .Where(x => x.Cantidad!.Equals(entidad!.Cantidad!))
+                .Where(x => x._Vehiculos!.Placa!.Equals(entidad!._Vehiculos!.Placa!))
                 .ToList();
         }
 

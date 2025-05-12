@@ -57,7 +57,7 @@ namespace lib_aplicaciones.Implementaciones
         public List<Productos_Documentos> PorCodigo(Productos_Documentos? entidad)
         {
             return this.IConexion!.Productos_Documentos!
-                .Where(x => x.Cantidad!.Equals(entidad!.Cantidad!))
+                .Where(x => x._Productos!.Nombre!.Equals(entidad!._Productos!.Nombre!))
                 .ToList();
         }
 

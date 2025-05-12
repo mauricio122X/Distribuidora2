@@ -57,7 +57,7 @@ namespace lib_aplicaciones.Implementaciones
         public List<Vehiculos> PorCodigo(Vehiculos? entidad)
         {
             return this.IConexion!.Vehiculos!
-                .Where(x => x.Tipo!.Contains(entidad!.Tipo!))
+                .Where(x => x.Placa!.Contains(entidad!.Placa!))
                 .ToList();
         }
 

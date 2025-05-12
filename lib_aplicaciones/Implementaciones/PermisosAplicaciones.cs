@@ -57,7 +57,7 @@ namespace lib_aplicaciones.Implementaciones
         public List<Permisos> PorCodigo(Permisos? entidad)
         {
             return this.IConexion!.Permisos!
-                .Where(x => x._Usuario!.ID_Rol!.Equals(entidad!._Usuario!.ID_Rol!))
+                .Where(x => x.ID_Usuario!.Equals(entidad!.ID_Usuario!))
                 .ToList();
         }
 

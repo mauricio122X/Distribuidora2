@@ -57,7 +57,7 @@ namespace lib_aplicaciones.Implementaciones
         public List<Usuarios> PorCodigo(Usuarios? entidad)
         {
             return this.IConexion!.Usuarios!
-                .Where(x => x.Nombre!.Contains(entidad!.Nombre!))
+                .Where(x => x.Carnet!.Contains(entidad!.Carnet!))
                 .ToList();
         }
 

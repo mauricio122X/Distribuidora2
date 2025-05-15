@@ -10,25 +10,23 @@ namespace asp_servicios
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration) //Recibimos la configuracion
         {
             Configuration = configuration;
         }
 
         public static IConfiguration? Configuration { set; get; }
 
+        //Este metodo se llama en el arranque de la aplicacion y registra los servicios con inyeccion de dependencias
         public void ConfigureServices(WebApplicationBuilder builder, IServiceCollection services)
         {
             services.Configure<KestrelServerOptions>(x => { x.AllowSynchronousIO = true; });
             services.Configure<IISServerOptions>(x => { x.AllowSynchronousIO = true; });
-            services.AddControllers();
-            services.AddEndpointsApiExplorer();
+            services.AddControllers(); // agrega todos los controladores del servicio
+            services.AddEndpointsApiExplorer(); // agrega todos  los endpoints()
             //services.AddSwaggerGen();
-            ///////////////////////////////////////////////////
-           // services.AddDbContext<Conexion>(options =>
-                //options.UseSqlServer(Configuration!.GetConnectionString("DefaultConnection")));
-            /////////////////////////////////////////////////////
-            // Repositorios
+
+            // Repositorios 
             services.AddScoped<IConexion, Conexion>();
             // Aplicaciones
             services.AddScoped<IBodegasAplicacion, BodegasAplicacion>();
@@ -44,13 +42,13 @@ namespace asp_servicios
             services.AddScoped<IProductos_DocumentosAplicacion, Productos_DocumentosAplicacion>();
             services.AddScoped<IVehiculos_DocumentosAplicacion, Vehiculos_DocumentosAplicacion>();
 
-            // services.AddScoped<IAvionesAplicacion, AvionesAplicacion>();
             // Controladores
             services.AddScoped<TokenController, TokenController>();
 
-            services.AddCors(o => o.AddDefaultPolicy(b => b.AllowAnyOrigin()));
+            services.AddCors(o => o.AddDefaultPolicy(b => b.AllowAnyOrigin())); //permite que se puedan hacer peticiones desde cualquier origen a la API
         }
 
+        //Define el comportamiento de la aplicacion en el arranque
         public void Configure(WebApplication app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

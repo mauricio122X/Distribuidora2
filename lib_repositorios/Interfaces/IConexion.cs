@@ -9,7 +9,7 @@ namespace lib_repositorios.Interfaces
     {
         string? StringConexion { get; set; }
 
-        DbSet<Bodegas>? Bodegas { get; set; }
+        DbSet<Bodegas>? Bodegas { get; set; }  
         DbSet<Productos>? Productos { get; set; }
         DbSet<Vehiculos>? Vehiculos { get; set; }
         DbSet<Documentos>? Documentos { get; set; }

@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
+﻿using Microsoft.EntityFrameworkCore.Design;
 
 namespace lib_repositorios.Implementaciones
 {
@@ -8,7 +7,7 @@ namespace lib_repositorios.Implementaciones
     {
         public Conexion CreateDbContext(string[] args)
         {
-            var connectionString = "Server=GATO;Database=DB_Distribuidora;Integrated Security=True;TrustServerCertificate=True;";
+            var connectionString = "Server=localhost;Database=DB_Distribuidora;Integrated Security=True;TrustServerCertificate=True;";
             return new Conexion(connectionString); //Crea e instancia el stringconexion 
         }
     }

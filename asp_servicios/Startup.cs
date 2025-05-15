@@ -4,7 +4,6 @@ using lib_aplicaciones.Interfaces;
 using lib_repositorios.Implementaciones;
 using lib_repositorios.Interfaces;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
-using Microsoft.EntityFrameworkCore;
 
 namespace asp_servicios
 {

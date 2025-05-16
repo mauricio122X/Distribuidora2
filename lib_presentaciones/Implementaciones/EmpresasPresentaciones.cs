@@ -1,12 +1,117 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using lib_dominio.Entidades;
+using lib_dominio.Nucleo;
+using lib_presentaciones.Interfaces;
 
 namespace lib_presentaciones.Implementaciones
 {
-    internal class EmpresasPresentaciones
+    public class EmpresasPresentacion : IEmpresasPresentacion
     {
+        private Comunicaciones? comunicaciones = null;
+
+        public async Task<List<Empresas>> Listar()
+        {
+            var lista = new List<Empresas>();
+            var datos = new Dictionary<string, object>();
+
+            comunicaciones = new Comunicaciones();
+            datos = comunicaciones.ConstruirUrl(datos, "Empresas/Listar");
+            var respuesta = await comunicaciones!.Ejecutar(datos);
+
+            if (respuesta.ContainsKey("Error"))
+            {
+                throw new Exception(respuesta["Error"].ToString()!);
+            }
+            lista = JsonConversor.ConvertirAObjeto<List<Empresas>>(
+                JsonConversor.ConvertirAString(respuesta["Entidades"]));
+            return lista;
+        }
+
+        public async Task<List<Empresas>> PorCodigo(Empresas? entidad)
+        {
+            var lista = new List<Empresas>();
+            var datos = new Dictionary<string, object>();
+            datos["Entidad"] = entidad!;
+
+            comunicaciones = new Comunicaciones();
+            datos = comunicaciones.ConstruirUrl(datos, "Empresas/PorCodigo");
+            var respuesta = await comunicaciones!.Ejecutar(datos);
+
+            if (respuesta.ContainsKey("Error"))
+            {
+                throw new Exception(respuesta["Error"].ToString()!);
+            }
+            lista = JsonConversor.ConvertirAObjeto<List<Empresas>>(
+                JsonConversor.ConvertirAString(respuesta["Entidades"]));
+            return lista;
+        }
+
+        public async Task<Empresas?> Guardar(Empresas? entidad)
+        {
+            if (entidad!.ID != 0)
+            {
+                throw new Exception("lbFaltaInformacion");
+            }
+
+            var datos = new Dictionary<string, object>();
+            datos["Entidad"] = entidad;
+
+            comunicaciones = new Comunicaciones();
+            datos = comunicaciones.ConstruirUrl(datos, "Empresas/Guardar");
+            var respuesta = await comunicaciones!.Ejecutar(datos);
+
+            if (respuesta.ContainsKey("Error"))
+            {
+                throw new Exception(respuesta["Error"].ToString()!);
+            }
+            entidad = JsonConversor.ConvertirAObjeto<Empresas>(
+                JsonConversor.ConvertirAString(respuesta["Entidad"]));
+            return entidad;
+        }
+
+        public async Task<Empresas?> Modificar(Empresas? entidad)
+        {
+            if (entidad!.ID == 0)
+            {
+                throw new Exception("lbFaltaInformacion");
+            }
+
+            var datos = new Dictionary<string, object>();
+            datos["Entidad"] = entidad;
+
+            comunicaciones = new Comunicaciones();
+            datos = comunicaciones.ConstruirUrl(datos, "Empresas/Modificar");
+            var respuesta = await comunicaciones!.Ejecutar(datos);
+
+            if (respuesta.ContainsKey("Error"))
+            {
+                throw new Exception(respuesta["Error"].ToString()!);
+            }
+            entidad = JsonConversor.ConvertirAObjeto<Empresas>(
+                JsonConversor.ConvertirAString(respuesta["Entidad"]));
+            return entidad;
+        }
+
+        public async Task<Empresas?> Borrar(Empresas? entidad)
+        {
+            if (entidad!.ID == 0)
+            {
+                throw new Exception("lbFaltaInformacion");
+            }
+
+            var datos = new Dictionary<string, object>();
+            datos["Entidad"] = entidad;
+
+            comunicaciones = new Comunicaciones();
+            datos = comunicaciones.ConstruirUrl(datos, "Empresas/Borrar");
+            var respuesta = await comunicaciones!.Ejecutar(datos);
+
+            if (respuesta.ContainsKey("Error"))
+            {
+                throw new Exception(respuesta["Error"].ToString()!);
+            }
+            entidad = JsonConversor.ConvertirAObjeto<Empresas>(
+                JsonConversor.ConvertirAString(respuesta["Entidad"]));
+            return entidad;
+        }
     }
 }

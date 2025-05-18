@@ -5,15 +5,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace asp_presentacion.Pages.Ventanas
 {
-    public class BodegasModel : PageModel
+    public class RolesModel : PageModel
     {
-        private IBodegasPresentacion? iPresentacion = null;
-        public BodegasModel(IBodegasPresentacion iPresentacion)
+        private IRolesPresentacion? iPresentacion = null;
+        public RolesModel(IRolesPresentacion iPresentacion)
         {
             try
             {
                 this.iPresentacion = iPresentacion;
-                Filtro = new Bodegas();
+                Filtro = new Roles();
             }
             catch (Exception ex)
             {
@@ -22,16 +22,16 @@ namespace asp_presentacion.Pages.Ventanas
         }
         public IFormFile? FormFile { get; set; }
         [BindProperty] public Enumerables.Ventanas Accion { get; set; }
-        [BindProperty] public Bodegas? Actual { get; set; }
-        [BindProperty] public Bodegas? Filtro { get; set; }
-        [BindProperty] public List<Bodegas>? Lista { get; set; }
+        [BindProperty] public Roles? Actual { get; set; }
+        [BindProperty] public Roles? Filtro { get; set; }
+        [BindProperty] public List<Roles>? Lista { get; set; }
         public virtual void OnGet() { OnPostBtRefrescar(); }
         public void OnPostBtRefrescar()
-            {
+        {
             try
             {
                 var variable_session = HttpContext.Session.GetString("Usuario");
-                    if (String.IsNullOrEmpty(variable_session))
+                if (String.IsNullOrEmpty(variable_session))
                 {
                     HttpContext.Response.Redirect("/");
                     return;
@@ -54,7 +54,7 @@ namespace asp_presentacion.Pages.Ventanas
             try
             {
                 Accion = Enumerables.Ventanas.Editar;
-                Actual = new Bodegas();
+                Actual = new Roles();
                 //Actual.Fecha = DateTime.Now;
             }
             catch (Exception ex)
@@ -80,7 +80,7 @@ namespace asp_presentacion.Pages.Ventanas
             try
             {
                 Accion = Enumerables.Ventanas.Editar;
-                Task<Bodegas>? task = null;
+                Task<Roles>? task = null;
                 if (Actual!.ID == 0)
                     task = this.iPresentacion!.Guardar(Actual!)!;
                 else

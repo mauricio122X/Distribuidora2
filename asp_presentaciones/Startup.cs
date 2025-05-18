@@ -13,6 +13,18 @@ namespace asp_presentacion
         {
             // Presentaciones
             services.AddScoped<IBodegasPresentacion, BodegasPresentacion>();
+            services.AddScoped<IAuditoriasPresentacion, AuditoriasPresentacion>();
+            services.AddScoped<IBodegasPresentacion, BodegasPresentacion>();
+            services.AddScoped<IDocumentosPresentacion, DocumentosPresentacion>();
+            services.AddScoped<IEmpresasPresentacion, EmpresasPresentacion>();
+            services.AddScoped<IPermisosPresentacion, PermisosPresentacion>();
+            services.AddScoped<IProductos_DocumentosPresentacion, Productos_DocumentosPresentacion>();
+            services.AddScoped<IProductosPresentacion, ProductosPresentacion>();
+            services.AddScoped<IRolesPresentacion, RolesPresentacion>();
+            services.AddScoped<IUsuariosPresentacion, UsuariosPresentacion>();
+            services.AddScoped<IVehiculos_DocumentosPresentacion, Vehiculos_DocumentosPresentacion>();
+            services.AddScoped<IVehiculosPresentacion, VehiculosPresentacion>();
+
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddRazorPages();

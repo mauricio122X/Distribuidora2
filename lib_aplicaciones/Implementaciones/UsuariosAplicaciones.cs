@@ -51,14 +51,19 @@ namespace lib_aplicaciones.Implementaciones
 
         public List<Usuarios> Listar()
         {
-            return this.IConexion!.Usuarios!.Take(20).ToList();
+            return this.IConexion!.Usuarios!.Take(20)
+            .Include(x => x._Roles)
+            .Include(x => x._Bodegas)
+            .ToList();
         }
 
         public List<Usuarios> PorCodigo(Usuarios? entidad)
         {
             return this.IConexion!.Usuarios!
-                .Where(x => x.Carnet!.Contains(entidad!.Carnet!))
-                .ToList();
+                .Where(x => x.Carnet!.Contains(entidad!.Carnet!))// Include para cargar la relación con Bodegas y Roles 
+                .Include(x => x._Roles)
+                .Include(x => x._Bodegas)
+                .ToList(); 
         }
 
         public Usuarios? Modificar(Usuarios? entidad)

@@ -10,7 +10,7 @@
             @Html.AntiForgeryToken()
             <div align="left">
                 <h3>Usuarios</h3> @* <!--Titulo -->  *@
-            </div>
+            </div>  
             @* Botones Reflescar , nuevo , guardar , cancelar *@
 
             <div align="left"
@@ -45,7 +45,7 @@
 
             }
             @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
-            {
+            {   
                 <input type="hidden"
                        asp-for="@Model.Actual!.Carnet" />
                 <input type="hidden"
@@ -83,19 +83,24 @@
                                 Rol
                             </label>
                             <div class="col-lg-6">
-                                <input id="nmMateria"
-                                       class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.ID_Rol" />
+                                <select id="nmBodegas"
+                                         class="form-control"
+                                         asp-for="@Model.Actual!.ID_Rol"
+                                         asp-items="@(new SelectList(Model.ListRoles, "ID", "Nombre"))">
+                                </select>
                             </div>
+                            
                         </div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">
-                                Usuario
+                                Bodega
                             </label>
                             <div class="col-lg-6">
-                                <input id="nmMateria"
-                                       class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.ID_Bodega" />
+                                <select id="nmBodegas"
+                                        class="form-control"
+                                        asp-for="@Model.Actual!.ID_Bodega"
+                                        asp-items="@(new SelectList(Model.ListBodegas, "ID", "Nombre"))">
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -179,10 +184,10 @@
                                         @elemento.Nombre
                                     </td>
                                     <td>
-                                        @elemento.ID_Rol
+                                        @elemento._Roles!.Nombre
                                     </td>
                                     <td>
-                                        @elemento.ID_Bodega
+                                        @elemento._Bodegas!.Nombre
                                     </td>
                                     <td>
                                         <input type="submit"

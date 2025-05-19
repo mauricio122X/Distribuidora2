@@ -8,6 +8,7 @@ namespace asp_presentacion.Pages.Ventanas
     public class BodegasModel : PageModel
     {
         private IBodegasPresentacion? iPresentacion = null;
+        //Metodo constructor que recibe la interfaz de la presentacion(Inyecion de dependencias)
         public BodegasModel(IBodegasPresentacion iPresentacion)
         {
             try
@@ -25,6 +26,8 @@ namespace asp_presentacion.Pages.Ventanas
         [BindProperty] public Bodegas? Actual { get; set; }
         [BindProperty] public Bodegas? Filtro { get; set; }
         [BindProperty] public List<Bodegas>? Lista { get; set; }
+        
+        //cargar la pagina la reflesca para mostrar la informacion
         public virtual void OnGet() { OnPostBtRefrescar(); }
         public void OnPostBtRefrescar()
             {
@@ -40,7 +43,7 @@ namespace asp_presentacion.Pages.Ventanas
                 //Filtro!.Materia = Filtro!.Materia ?? "";
                 Accion = Enumerables.Ventanas.Listas;
                 var task = this.iPresentacion!.PorCodigo(Filtro!);
-                task.Wait();
+                task.Wait();//Espere que se ejecute la peticion , task representa que corre de forma asincronica
                 Lista = task.Result;
                 Actual = null;
             }

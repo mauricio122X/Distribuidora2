@@ -5,17 +5,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace asp_presentacion.Pages.Ventanas
 {
-    public class BodegasModel : PageModel
+    public class ProductosModel : PageModel
     {
         //Listas que va a recibir
-        private IBodegasPresentacion? iPresentacion = null;
+        private IProductosPresentacion? iPresentacion = null;
         //Metodo constructor que recibe la interfaz de la presentacion(Inyecion de dependencias)
-        public BodegasModel(IBodegasPresentacion iPresentacion)
+        public ProductosModel(IProductosPresentacion iPresentacion)
         {
             try
             {
                 this.iPresentacion = iPresentacion;
-                Filtro = new Bodegas();
+                Filtro = new Productos();
             }
             catch (Exception ex)
             {
@@ -24,24 +24,23 @@ namespace asp_presentacion.Pages.Ventanas
         }
         public IFormFile? FormFile { get; set; }
         [BindProperty] public Enumerables.Ventanas Accion { get; set; }
-        [BindProperty] public Bodegas? Actual { get; set; }
-        [BindProperty] public Bodegas? Filtro { get; set; }
-        [BindProperty] public List<Bodegas>? Lista { get; set; }
-        
+        [BindProperty] public Productos? Actual { get; set; }
+        [BindProperty] public Productos? Filtro { get; set; }
+        [BindProperty] public List<Productos>? Lista { get; set; }
+
         //cargar la pagina la reflesca para mostrar la informacion
         public virtual void OnGet() { OnPostBtRefrescar(); }
         public void OnPostBtRefrescar()
-            {
+        {
             try
             {
                 var variable_session = HttpContext.Session.GetString("Usuario");
-                    if (String.IsNullOrEmpty(variable_session))
+                if (String.IsNullOrEmpty(variable_session))
                 {
                     HttpContext.Response.Redirect("/");
                     return;
                 }
                 Filtro!.Nombre = Filtro!.Nombre ?? "";
-                //Filtro!.Materia = Filtro!.Materia ?? "";
                 Accion = Enumerables.Ventanas.Listas;
                 var task = this.iPresentacion!.PorCodigo(Filtro!);
                 task.Wait();//Espere que se ejecute la peticion , task representa que corre de forma asincronica
@@ -58,7 +57,7 @@ namespace asp_presentacion.Pages.Ventanas
             try
             {
                 Accion = Enumerables.Ventanas.Editar;
-                Actual = new Bodegas();
+                Actual = new Productos();
                 //Actual.Fecha = DateTime.Now;
             }
             catch (Exception ex)
@@ -84,7 +83,7 @@ namespace asp_presentacion.Pages.Ventanas
             try
             {
                 Accion = Enumerables.Ventanas.Editar;
-                Task<Bodegas>? task = null;
+                Task<Productos>? task = null;
                 if (Actual!.ID == 0)
                     task = this.iPresentacion!.Guardar(Actual!)!;
                 else

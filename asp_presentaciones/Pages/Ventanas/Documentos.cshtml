@@ -1,4 +1,228 @@
 ﻿@page
-@model asp_presentaciones.Pages.Ventanas.DocumentosModel
+@model asp_presentacion.Pages.Ventanas.DocumentosModel
 @{
+    ViewData["Titulo"] = "";
 }
+<center>
+    <div>
+        <form method="POST"
+              enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <div align="left">
+                <h3>Documentos</h3> @* <!--Titulo -->  *@
+            </div>
+            @* Botones Reflescar , nuevo , guardar , cancelar *@
+
+            <div align="left"
+                 class="bt_panel_buttons">
+                <input type="submit"
+                       value="Refrescar"
+                       asp-page-handler="BtRefrescar"
+                       class="btn btn-secondary"
+                       disabled="@(Model.Accion != lib_dominio.Nucleo.Enumerables.Ventanas.Listas)" /> @* Esta hacion vuelve a listar la tabla *@
+                <input type="submit"
+                       value="Nuevo"
+                       asp-page-handler="BtNuevo"
+                       class="btn btn-secondary"
+                       disabled="@(Model.Accion != lib_dominio.Nucleo.Enumerables.Ventanas.Listas)" />
+                <input type="submit"
+                       value="Guardar"
+                       asp-page-handler="BtGuardar"
+                       class="btn btn-secondary"
+                       disabled="@(Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Listas)" />
+                <input type="submit"
+                       value="Cancelar"
+                       asp-page-handler="BtCancelar"
+                       class="btn btn-secondary"
+                       disabled="@(Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Listas)" />
+            </div>
+            @* si la accion es diferente a listar o igual a borrar utilice Obtenga su ID *@
+            @if (Model.Accion != lib_dominio.Nucleo.Enumerables.Ventanas.Listas ||
+            Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
+            {
+                <input type="hidden"
+                       asp-for="@Model.Actual!.ID" />
+
+            }
+            @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
+            {
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Tipo_Movimiento" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Fecha" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.ID_Bodega" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Valor" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.ID_Empresa" />
+
+
+            }
+            @*   Menu que aparece cuando se da nuevo y editar*@
+            @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Editar)
+            {
+                <div class="containers_vn panel panel-default">
+                    <h3>Documentos</h3>
+                    <div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Tipo movimiento
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmEstudiante"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.Tipo_Movimiento" /> @* Si en actual tiene un registro pone la info(Nombre) si no lo deja en blanco *@
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Fecha
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmMateria"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.Fecha" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Bodega
+                            </label>
+                            <div class="col-lg-6">
+                                <select id="nmBodegas"
+                                        class="form-control"
+                                        asp-for="@Model.Actual!.ID_Bodega"
+                                        asp-items="@(new SelectList(Model.ListBodegas, "ID", "Nombre"))">
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Empresa
+                            </label>
+                            <div class="col-lg-6">
+                                <select id="nmBodegas"
+                                        class="form-control"
+                                        asp-for="@Model.Actual!.ID_Empresa"
+                                        asp-items="@(new SelectList(Model.ListEmpresas, "ID", "Nombre"))">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (ViewData.ContainsKey("Mensaje"))
+            {
+                <input type="hidden"
+                       asp-for="@Model.Accion" />
+                @await Html.PartialAsync("../Emergentes/Mensajes.cshtml")
+                ;
+            }
+            @* Si se da a borrar un registro *@
+            @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
+            {
+                <div class='popup'>
+                    <div class='pp_del_inner'>
+                        <div style='width:95%'>
+                            <h2 align="left">
+                                Mensaje
+                            </h2>
+                            <h4 align="left">
+                                Desea borrar la entidad?
+                            </h4>
+                            <h6 align="left">
+                                Carnet: @Model.Actual!.Tipo_Movimiento
+                                Nombre: @Model.Actual!.Fecha
+                                Valor : @Model.Actual!.Valor
+                                Bodega: @Model.Actual!._Bodegas!.Nombre
+                                Empresa: @Model.Actual!._Empresas!.Nombre
+                            </h6>
+                            <br />
+                            <br />
+                            <input type="submit"
+                                   value="Borrar"
+                                   asp-page-handler="BtBorrar"
+                                   class="btn btn-secondary" />
+                            <input type="submit"
+                                   value="Cerrar"
+                                   asp-page-handler="BtCancelar"
+                                   class="btn btn-secondary" />
+                        </div>
+                    </div>
+                </div>
+            }
+            @* si la accion es listar o despues de borrar lista los valores de la tabla *@
+            @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Listas ||
+            Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
+            {
+                <input id="flNombre"
+                       class="cts_forms form-control"
+                       asp-for="@Model.Filtro!.Tipo_Movimiento"
+                       placeholder="Movimiento" />
+                <br />
+                <div class="containers_vn panel panel-default">
+                    <table class="tb_data table table-striped table-bordered tablehover">
+                        <tr>
+                            <th>
+                                Tipo movimiento
+                            </th>
+                            <th>
+                                Fecha
+                            </th>
+                            <th>
+                                valor
+                            </th>
+                            <th>
+                                Bodega
+                            </th>
+                            <th>
+                                Empresa
+                            </th>
+                            <th class="cl_actions">
+                                Accion
+                            </th>
+                        </tr>
+                        @if (Model != null && Model.Lista != null)
+                        {
+                            @* Busca cada elemento de la lista que le mandaron lib?presentaciones *@
+                            @foreach (var elemento in Model.Lista)
+                            {
+                                <tr>
+                                    <td>
+                                        @elemento.Tipo_Movimiento
+                                    </td>
+                                    <td>
+                                        @elemento.Fecha
+                                    </td>
+                                    <td>
+                                        @elemento.Valor
+                                    </td>
+                                    <td>
+                                        @elemento._Bodegas!.Nombre
+                                    </td>
+                                    <td>
+                                        @elemento._Empresas!.Nombre
+                                    </td>
+                                    <td>
+                                        <input type="submit"
+                                               value="Modicar"
+                                               asp-page-handler="BtModificar"
+                                               class="btn btn-secondary"
+                                               asp-route-data="@elemento.ID" />
+                                        <input type="submit"
+                                               value="Borrar"
+                                               asp-page-handler="BtBorrarVal"
+                                               class="btn btn-secondary"
+                                               asp-route-data="@elemento.ID" />
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                </div>
+            }
+        </form>
+    </div>
+</center>

@@ -13,6 +13,6 @@ namespace lib_dominio.Entidades
         public DateTime Fecha { get; set; }
 
         [ForeignKey("ID_Usuario")]
-        public Bodegas? _Usuarios { get; set; }
+        public Usuarios? _Usuarios { get; set; }
     }
 }

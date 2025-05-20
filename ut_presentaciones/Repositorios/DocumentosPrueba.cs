@@ -36,9 +36,9 @@ namespace ut_presentaciones.Repositorios
 
         public bool Guardar()
         {
-            var bodega = this.iConexion.Bodegas.FirstOrDefault(x => x.ID == 1);
-            var empresa = this.iConexion.Empresas.FirstOrDefault(x => x.ID == 1);
-            entidad = EntidadesNucleo.Documentos(bodega, empresa)!;
+            var bodega = this.iConexion!.Bodegas!.FirstOrDefault(x => x.ID == 1);
+            var empresa = this.iConexion!.Empresas!.FirstOrDefault(x => x.ID == 1);
+            entidad = EntidadesNucleo.Documentos(bodega!, empresa!)!;
             iConexion!.Documentos!.Add(entidad);
             iConexion!.SaveChanges();
             return true;

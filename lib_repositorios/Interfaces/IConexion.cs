@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore;
 using lib_dominio.Entidades;
-using System.Collections.Generic;
 
 
 namespace lib_repositorios.Interfaces
@@ -10,15 +9,18 @@ namespace lib_repositorios.Interfaces
     {
         string? StringConexion { get; set; }
 
-        DbSet<Bodegas>? Bodegas { get; set; }
+        DbSet<Bodegas>? Bodegas { get; set; }  
         DbSet<Productos>? Productos { get; set; }
         DbSet<Vehiculos>? Vehiculos { get; set; }
         DbSet<Documentos>? Documentos { get; set; }
         DbSet<Vehiculos_Documentos>? Vehiculos_Documentos { get; set; }
         DbSet<Productos_Documentos>? Productos_Documentos { get; set; }
         DbSet<Empresas>? Empresas { get; set; }
-        DbSet<Empleados>? Empleados { get; set; }
+        DbSet<Usuarios>? Usuarios { get; set; }
         DbSet<Roles>? Roles { get; set; }
+        DbSet<Permisos>? Permisos { get; set; }
+        DbSet<Auditorias>? Auditorias { get; set; }
+
 
 
 

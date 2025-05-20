@@ -89,7 +89,7 @@ go
 insert into Bodegas values('Bodega 1', 1000), ('Bodega2',200);
 insert	into Empresas values ('Empresa1' ,'calle1','123','cliente','123' );
 insert into Productos values ('producto1',200,20,'descripcion1',300,5);
-insert into Roles values('rol1',200);
+insert into Roles values('rol1',200) , ('rol2',200);
 insert into Vehiculos values('123abc','camioneta',100);
 insert into Documentos values ('venta',1,200,GETDATE(),1);
 go

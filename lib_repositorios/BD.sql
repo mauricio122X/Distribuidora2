@@ -56,10 +56,11 @@ CREATE TABLE [Documentos](
 	FOREIGN KEY ([ID_Empresa]) REFERENCES [Empresas] ([ID])
 );
 go
-CREATE TABLE [Empleados](
+CREATE TABLE [Usuarios](
 [ID] INT PRIMARY KEY IDENTITY (1,1) not null,
 [Carnet] NVARCHAR(50) unique not null,
 [Nombre] NVARCHAR (50) not null,
+[Contraseña] NVARCHAR(100) not null,
 [ID_Rol] INT,
 [ID_Bodega] INT,
 FOREIGN KEY ([ID_Rol]) REFERENCES [Roles] ([ID]),
@@ -82,6 +83,21 @@ CREATE TABLE [Vehiculos_Documentos](
 [ID_Vehiculos] INT not null,
 FOREIGN KEY ([ID_Documentos]) REFERENCES [Documentos] ([ID]),
 FOREIGN KEY ([ID_Vehiculos]) REFERENCES [Vehiculos] ([ID])
+);
+go
+CREATE TABLE [Permisos](
+[ID] INT PRIMARY KEY IDENTITY (1,1) not null,
+[Nombre] NVARCHAR(50) not null,
+[ID_Usuario] INT not null,
+FOREIGN KEY ([ID_Usuario]) REFERENCES [Usuarios] ([ID])
+);
+go
+CREATE TABLE [Auditorias](
+[ID] INT PRIMARY KEY IDENTITY (1,1) not null,
+[Accion] NVARCHAR(100) not null,
+[Fecha] SMALLDATETIME not null,
+[ID_Usuario] INT not null,
+FOREIGN KEY ([ID_Usuario]) REFERENCES [Usuario] ([ID])
 );
 
 go

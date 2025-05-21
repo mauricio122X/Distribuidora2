@@ -2,7 +2,6 @@ using lib_dominio.Nucleo;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using lib_presentaciones.Interfaces;
-
 namespace asp_presentacion.Pages
 {
     /// <summary>

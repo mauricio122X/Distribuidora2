@@ -52,14 +52,14 @@ namespace lib_aplicaciones.Implementaciones
         public List<Auditorias> Listar()
         {
             return this.IConexion!.Auditorias!.Take(20)
-                .Include(x => x._Usuarios)
-                .ToList();
+            .Include(x => x._Usuarios)
+            .ToList();
         }
 
         public List<Auditorias> PorCodigo(Auditorias? entidad)
         {
             return this.IConexion!.Auditorias!
-                .Where(x => x.ID!.Equals(entidad!.ID!))
+                .Where(x => x._Usuarios!.Carnet!.Contains(entidad!._Usuarios!.Carnet!))
                 .Include(x => x._Usuarios)
                 .ToList();
         }

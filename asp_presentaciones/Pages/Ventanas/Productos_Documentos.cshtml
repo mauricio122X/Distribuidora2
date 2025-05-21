@@ -1,5 +1,5 @@
 ﻿@page
-@model asp_presentacion.Pages.Ventanas.DocumentosModel
+@model asp_presentacion.Pages.Ventanas.Productos_DocumentosModel
 @{
     ViewData["Titulo"] = "";
 }
@@ -9,7 +9,7 @@
               enctype="multipart/form-data">
             @Html.AntiForgeryToken()
             <div align="left">
-                <h3>Documentos</h3> @* <!--Titulo -->  *@
+                <h3>Productos_Documentos</h3> @* <!--Titulo -->  *@
             </div>
             @* Botones Reflescar , nuevo , guardar , cancelar *@
 
@@ -37,8 +37,8 @@
                        disabled="@(Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Listas)" />
             </div>
             @* si la accion es diferente a listar o igual a borrar utilice Obtenga su ID *@
-            @if (Model.Accion != lib_dominio.Nucleo.Enumerables.Ventanas.Listas || 
-            Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)//NO CAMBIAR
+            @if (Model.Accion != lib_dominio.Nucleo.Enumerables.Ventanas.Listas ||
+            Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
             {
                 <input type="hidden"
                        asp-for="@Model.Actual!.ID" />
@@ -47,67 +47,50 @@
             @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
             {
                 <input type="hidden"
-                       asp-for="@Model.Actual!.Tipo_Movimiento" />
+                       asp-for="@Model.Actual!.ID_Documentos" />
                 <input type="hidden"
-                       asp-for="@Model.Actual!.Fecha" />
-                <input type="hidden"
-                       asp-for="@Model.Actual!.ID_Bodega" />
-                <input type="hidden"
-                       asp-for="@Model.Actual!.Valor" />
-                <input type="hidden"
-                       asp-for="@Model.Actual!.ID_Empresa" />
-
+                       asp-for="@Model.Actual!.ID_Productos" />
 
             }
             @*   Menu que aparece cuando se da nuevo y editar*@
             @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Editar)
             {
                 <div class="containers_vn panel panel-default">
-                    <h3>Documentos</h3>
+                    <h3>Productos_Documentos</h3>
                     <div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">
-                                Tipo movimiento
+                                Productos
+                            </label>
+                            <div class="col-lg-6">
+                                <select id="nmBodegas"
+                                        class="form-control"
+                                        asp-for="@Model.Actual!.ID_Productos"
+                                        asp-items="@(new SelectList(Model.ListProductos, "ID" , "Nombre"))">
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Documentos
+                            </label>
+                            <div class="col-lg-6">
+                                <select id="nmBodegas"
+                                        class="form-control"
+                                        asp-for="@Model.Actual!.ID_Documentos"
+                                        asp-items="@(new SelectList(Model.ListDocumentos, "ID", "Tipo_Movimiento"))">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Cantidad
                             </label>
                             <div class="col-lg-6">
                                 <input id="nmEstudiante"
                                        class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.Tipo_Movimiento" /> @* Si en actual tiene un registro pone la info(Nombre) si no lo deja en blanco *@
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-4 control-label">
-                                Fecha
-                            </label>
-                            <div class="col-lg-6">
-                                <input id="nmMateria"
-                                       class="cts_forms form-control" type="date"
-                                       asp-for="@Model.Actual!.Fecha" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-4 control-label">
-                                Bodega
-                            </label>
-                            <div class="col-lg-6">
-                                <select id="nmBodegas"
-                                        class="form-control"
-                                        asp-for="@Model.Actual!.ID_Bodega"
-                                        asp-items="@(new SelectList(Model.ListBodegas, "ID", "Nombre"))">
-                                </select>
-                            </div>
-
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-4 control-label">
-                                Empresa
-                            </label>
-                            <div class="col-lg-6">
-                                <select id="nmBodegas"
-                                        class="form-control"
-                                        asp-for="@Model.Actual!.ID_Empresa"
-                                        asp-items="@(new SelectList(Model.ListEmpresas, "ID", "Nombre"))">
-                                </select>
+                                       asp-for="@Model.Actual!.Cantidad" /> @* Si en actual tiene un registro pone la info(Nombre) si no lo deja en blanco *@
                             </div>
                         </div>
                     </div>
@@ -133,11 +116,9 @@
                                 Desea borrar la entidad?
                             </h4>
                             <h6 align="left">
-                                Carnet: @Model.Actual!.Tipo_Movimiento
-                                Nombre: @Model.Actual!.Fecha
-                                Valor : @Model.Actual!.Valor
-                                Bodega: @Model.Actual!._Bodegas!.Nombre
-                                Empresa: @Model.Actual!._Empresas!.Nombre
+                                Documento: @Model.Actual!._Documentos!.Tipo_Movimiento
+                                Producto: @Model.Actual!._Productos!.Nombre
+                                Cantidad: @Model.Actual!.Cantidad
                             </h6>
                             <br />
                             <br />
@@ -159,52 +140,42 @@
             {
                 <input id="flNombre"
                        class="cts_forms form-control"
-                       asp-for="@Model.Filtro!.Tipo_Movimiento"
-                       placeholder="Movimiento" />
+                       asp-for="@Model.Filtro!._Productos!.Nombre"
+                       placeholder="Nombre Producto" />
                 <br />
                 <div class="containers_vn panel panel-default">
                     <table class="tb_data table table-striped table-bordered tablehover">
                         <tr>
                             <th>
-                                Tipo movimiento
+                                Producto
                             </th>
                             <th>
-                                Fecha
+                                Documento
                             </th>
                             <th>
-                                valor
+                                Cantidad
                             </th>
-                            <th>
-                                Bodega
-                            </th>
-                            <th>
-                                Empresa
-                            </th>
+                          
                             <th class="cl_actions">
                                 Accion
                             </th>
                         </tr>
                         @if (Model != null && Model.Lista != null)
                         {
-                            @* Busca cada elemento de la lista que le mandaron libpresentaciones *@
+                            @* Busca cada elemento de la lista que le mandaron lib?presentaciones *@
                             @foreach (var elemento in Model.Lista)
                             {
                                 <tr>
                                     <td>
-                                        @elemento.Tipo_Movimiento
+                                        @elemento._Productos!.Nombre
                                     </td>
                                     <td>
-                                        @elemento.Fecha
+                                        @elemento._Documentos!.Tipo_Movimiento
                                     </td>
                                     <td>
-                                        @elemento.Valor
+                                        @elemento.Cantidad
                                     </td>
-                                    <td>
-                                        @elemento._Bodegas!.Nombre 
-                                    </td>
-                                    <td>
-                                        @elemento._Empresas!.Nombre 
-                                    </td>
+                                   
                                     <td>
                                         <input type="submit"
                                                value="Modicar"

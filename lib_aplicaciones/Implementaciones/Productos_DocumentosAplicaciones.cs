@@ -51,13 +51,18 @@ namespace lib_aplicaciones.Implementaciones
 
         public List<Productos_Documentos> Listar()
         {
-            return this.IConexion!.Productos_Documentos!.Take(20).ToList();
+            return this.IConexion!.Productos_Documentos!.Take(20)
+                .Include(x => x._Productos)
+                .Include(x => x._Documentos)
+                .ToList();
         }
 
         public List<Productos_Documentos> PorCodigo(Productos_Documentos? entidad)
         {
             return this.IConexion!.Productos_Documentos!
-                .Where(x => x._Productos!.Nombre!.Equals(entidad!._Productos!.Nombre!))
+                .Where(x => x._Productos!.Nombre!.Contains(entidad!._Productos!.Nombre!))
+                .Include(x => x._Productos)
+                .Include(x => x._Documentos)
                 .ToList();
         }
 

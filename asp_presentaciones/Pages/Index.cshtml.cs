@@ -1,9 +1,12 @@
 using lib_dominio.Nucleo;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-
+using lib_presentaciones.Interfaces;
 namespace asp_presentacion.Pages
 {
+    /// <summary>
+    /// ////////////////////////
+    /// </summary>
     public class IndexModel : PageModel
     {
         // Estado de sesión del usuario
@@ -15,6 +18,19 @@ namespace asp_presentacion.Pages
 
         [BindProperty]
         public string? Contrasena { get; set; }
+
+        private IUsuariosPresentacion? iUsuariosPresentacion = null;
+        public IndexModel(IUsuariosPresentacion iUsuariosPresentacion)
+        {
+            try
+            {
+                this.iUsuariosPresentacion = iUsuariosPresentacion;
+            }
+            catch (Exception ex)
+            {
+                LogConversor.Log(ex, ViewData!);
+            }
+        }
 
         // Método que se ejecuta al cargar la página (GET)
         public void OnGet()
@@ -53,9 +69,16 @@ namespace asp_presentacion.Pages
                     OnPostBtClean();
                     return;
                 }
+                /////////////////////////////////////////////////////////
+                var task = this.iUsuariosPresentacion!.PorCodigo(new lib_dominio.Entidades.Usuarios() { 
+                    Nombre = Email,
+                    Contraseña = Contrasena
+                });
+                task.Wait();
+                var usuario = task.Result.FirstOrDefault();
 
                 // Validación de credenciales (método simple y no seguro)
-                if ("admin.123" != Email + "." + Contrasena)
+                if (usuario == null)///////////
                 {
                     OnPostBtClean();    
                     return;
@@ -63,7 +86,7 @@ namespace asp_presentacion.Pages
 
                 // Usuario autenticado
                 ViewData["Logged"] = true;
-                HttpContext.Session.SetString("Usuario", Email!);
+                HttpContext.Session.SetString("Usuario", usuario.ID.ToString()!);
                 EstaLogueado = true;
 
                 // Limpiar campos después de login

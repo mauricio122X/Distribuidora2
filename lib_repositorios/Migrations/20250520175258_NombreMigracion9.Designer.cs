@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using lib_repositorios.Implementaciones;
 
@@ -11,9 +12,11 @@ using lib_repositorios.Implementaciones;
 namespace lib_repositorios.Migrations
 {
     [DbContext(typeof(Conexion))]
-    partial class ConexionModelSnapshot : ModelSnapshot
+    [Migration("20250520175258_NombreMigracion9")]
+    partial class NombreMigracion9
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -304,7 +307,7 @@ namespace lib_repositorios.Migrations
 
             modelBuilder.Entity("lib_dominio.Entidades.Auditorias", b =>
                 {
-                    b.HasOne("lib_dominio.Entidades.Usuarios", "_Usuarios")
+                    b.HasOne("lib_dominio.Entidades.Bodegas", "_Usuarios")
                         .WithMany()
                         .HasForeignKey("ID_Usuario")
                         .OnDelete(DeleteBehavior.Cascade)

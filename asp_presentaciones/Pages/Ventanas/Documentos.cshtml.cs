@@ -1,5 +1,6 @@
 using lib_dominio.Entidades;
 using lib_dominio.Nucleo;
+using lib_presentaciones.Implementaciones;
 using lib_presentaciones.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -33,7 +34,7 @@ namespace asp_presentacion.Pages.Ventanas
         [BindProperty] public Documentos? Filtro { get; set; }
         [BindProperty] public List<Documentos>? Lista { get; set; }
         [BindProperty] public List<Bodegas>? ListBodegas { get; set; }//Lista que recibe de todas las bodegas
-        [BindProperty] public List<Empresas>? ListEmpresas { get; set; }//Lista que recibe de todos los Empresas
+        [BindProperty] public List<Empresas>? ListEmpresas { get; set; }//Lista que recibe de todos los roles
 
 
         //cargar la pagina la reflesca para mostrar la informacion

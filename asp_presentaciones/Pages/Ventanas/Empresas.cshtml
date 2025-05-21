@@ -136,8 +136,8 @@
                                 Desea borrar la entidad?
                             </h4>
                             <h6 align="left">
-                                @Model.Actual!.NIT
-                                @Model.Actual!.Nombre
+                                NIT: @Model.Actual!.NIT
+                                Nombre: @Model.Actual!.Nombre
                             </h6>
                             <br />
                             <br />
@@ -159,7 +159,7 @@
             {
                 <input id="flNombre"
                        class="cts_forms form-control"
-                       asp-for="@Model.Filtro!.Nombre"
+                       asp-for="@Model.Filtro!.NIT"
                        placeholder="Nombre" />
                 <br />
                 <div class="containers_vn panel panel-default">
@@ -175,11 +175,8 @@
                                 Direccion
                             </th>
                             <th>
-                                Telefono
-                            </th>   
-                            <th>
                                 Tipo
-                            </th>
+                            </th>   
                             <th>
                                 Telefono
                             </th>

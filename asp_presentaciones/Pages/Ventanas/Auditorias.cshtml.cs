@@ -1,5 +1,6 @@
 using lib_dominio.Entidades;
 using lib_dominio.Nucleo;
+using lib_presentaciones.Implementaciones;
 using lib_presentaciones.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -7,14 +8,18 @@ namespace asp_presentacion.Pages.Ventanas
 {
     public class AuditoriasModel : PageModel
     {
-        //Listas que va a recibir
+        //listas que recibe para mostrar en la vista
         private IAuditoriasPresentacion? iPresentacion = null;
-        //Metodo constructor que recibe la interfaz de la presentacion(Inyecion de dependencias)
-        public AuditoriasModel(IAuditoriasPresentacion iPresentacion)
+        private IUsuariosPresentacion? iUsuariosPresentacion = null;
+
+
+
+        public AuditoriasModel(IAuditoriasPresentacion iPresentacion, IUsuariosPresentacion iUsuariosPresentacion)
         {
             try
             {
                 this.iPresentacion = iPresentacion;
+                this.iUsuariosPresentacion = iUsuariosPresentacion;
                 Filtro = new Auditorias();
             }
             catch (Exception ex)
@@ -27,6 +32,8 @@ namespace asp_presentacion.Pages.Ventanas
         [BindProperty] public Auditorias? Actual { get; set; }
         [BindProperty] public Auditorias? Filtro { get; set; }
         [BindProperty] public List<Auditorias>? Lista { get; set; }
+        [BindProperty] public List<Usuarios>? ListUsuarios { get; set; }//Lista que recibe de todas las bodegas
+
 
         //cargar la pagina la reflesca para mostrar la informacion
         public virtual void OnGet() { OnPostBtRefrescar(); }
@@ -40,13 +47,34 @@ namespace asp_presentacion.Pages.Ventanas
                     HttpContext.Response.Redirect("/");
                     return;
                 }
-                Filtro!.Accion = Filtro!.Accion ?? "";
-                //Filtro!.Materia = Filtro!.Materia ?? "";
+
+                if (Filtro!._Usuarios == null)
+                {
+                    Filtro._Usuarios = new Usuarios();
+                }
+                Filtro!._Usuarios!.Carnet = Filtro!._Usuarios.Carnet ?? "";
+                Filtro!._Usuarios!.Nombre = Filtro!._Usuarios.Nombre ?? "";
+
+                //Filtro!.Materia = Filtro!.Materia ?? ""; 
                 Accion = Enumerables.Ventanas.Listas;
                 var task = this.iPresentacion!.PorCodigo(Filtro!);
-                task.Wait();//Espere que se ejecute la peticion , task representa que corre de forma asincronica
+                task.Wait();
                 Lista = task.Result;
                 Actual = null;
+            }
+            catch (Exception ex)
+            {
+                LogConversor.Log(ex, ViewData!);
+            }
+        }
+
+        private void CargarCombox()
+        {
+            try
+            {
+                var task = this.iUsuariosPresentacion!.Listar(); //Llama el metodo listar de Ibodegaspresentaciones
+                task.Wait();//Espere que se ejecute la peticion , task representa que corre de forma asincronica
+                ListUsuarios = task.Result; //Guarda el resultado en la lista 
             }
             catch (Exception ex)
             {
@@ -57,9 +85,9 @@ namespace asp_presentacion.Pages.Ventanas
         {
             try
             {
-                Accion = Enumerables.Ventanas.Editar;
-                Actual = new Auditorias();
-                //Actual.Fecha = DateTime.Now;
+                Accion = Enumerables.Ventanas.Editar; //Asigna la accion en editar para abrir el menu
+                Actual = new Auditorias();//Para crear un objeto nuevo
+                CargarCombox();//carga la lista de las tablas relacionadas 
             }
             catch (Exception ex)
             {
@@ -70,9 +98,10 @@ namespace asp_presentacion.Pages.Ventanas
         {
             try
             {
-                OnPostBtRefrescar();
-                Accion = Enumerables.Ventanas.Editar;
-                Actual = Lista!.FirstOrDefault(x => x.ID.ToString() == data);
+                OnPostBtRefrescar();//llama al metodo refrescar
+                Accion = Enumerables.Ventanas.Editar;//asigna la accion de editar para abrir el formulario
+                Actual = Lista!.FirstOrDefault(x => x.ID.ToString() == data);//Busca la entidad que se quiere modificar
+                CargarCombox();//carga las listas relacionadas
             }
             catch (Exception ex)
             {

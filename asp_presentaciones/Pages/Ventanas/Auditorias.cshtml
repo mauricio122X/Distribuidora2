@@ -1,5 +1,5 @@
 ﻿@page
-@model asp_presentacion.Pages.Ventanas.BodegasModel
+@model asp_presentacion.Pages.Ventanas.AuditoriasModel
 @{
     ViewData["Titulo"] = "";
 }
@@ -9,7 +9,7 @@
               enctype="multipart/form-data">
             @Html.AntiForgeryToken()
             <div align="left">
-                <h3>Bodegas</h3> @* <!--Titulo -->  *@
+                <h3>Auditorias</h3> @* <!--Titulo -->  *@
             </div>
             @* Botones Reflescar , nuevo , guardar , cancelar *@
 
@@ -47,36 +47,55 @@
             @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
             {
                 <input type="hidden"
-                       asp-for="@Model.Actual!.Nombre" />
+                       asp-for="@Model.Actual!.ID_Usuario" />
                 <input type="hidden"
-                       asp-for="@Model.Actual!.Capacidad_Max" />
+                       asp-for="@Model.Actual!.Fecha" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Accion" />
+              
+
+
             }
             @*   Menu que aparece cuando se da nuevo y editar*@
             @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Editar)
             {
                 <div class="containers_vn panel panel-default">
-                    <h3>Bodegas</h3>
+                    <h3>Auditorias</h3>
                     <div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">
-                                Nombre
+                                Usuario
                             </label>
                             <div class="col-lg-6">
-                                <input id="nmEstudiante"
-                                       class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.Nombre" /> @* Si en actual tiene un registro pone la info(Nombre) si no lo deja en blanco *@
+                                <select id="nmBodegas"
+                                        class="form-control"
+                                        asp-for="@Model.Actual!.ID_Usuario"
+                                        asp-items="@(new SelectList(Model.ListUsuarios, "ID", "Nombre"))">
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">
-                                Capacidad maxima
+                                Accion
                             </label>
                             <div class="col-lg-6">
                                 <input id="nmMateria"
                                        class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.Capacidad_Max" />
+                                       asp-for="@Model.Actual!.Accion" />
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Fecha
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmMateria"
+                                       type="date"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.Fecha" />
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             }
@@ -100,7 +119,9 @@
                                 Desea borrar la entidad?
                             </h4>
                             <h6 align="left">
-                                @Model.Actual!.Nombre
+                                Usuario: @Model.Actual!._Usuarios?.Nombre
+                                Accion: @Model.Actual!.Accion
+                                
                             </h6>
                             <br />
                             <br />
@@ -122,17 +143,20 @@
             {
                 <input id="flNombre"
                        class="cts_forms form-control"
-                       asp-for="@Model.Filtro!.Nombre"
-                       placeholder="Nombre" />
+                       asp-for="@Model.Filtro!._Usuarios!.Carnet"
+                       placeholder="Carnet Usuario" />
                 <br />
                 <div class="containers_vn panel panel-default">
                     <table class="tb_data table table-striped table-bordered tablehover">
                         <tr>
                             <th>
-                                Nombre
+                                Usuario
                             </th>
                             <th>
-                                Capacidad Maxima
+                                Accion
+                            </th>
+                            <th>
+                                Fecha
                             </th>
                             <th class="cl_actions">
                                 Accion
@@ -145,10 +169,13 @@
                             {
                                 <tr>
                                     <td>
-                                        @elemento.Nombre
+                                        @elemento._Usuarios?.Nombre
                                     </td>
                                     <td>
-                                        @elemento.Capacidad_Max
+                                        @elemento.Accion
+                                    </td>
+                                    <td>
+                                        @elemento.Fecha
                                     </td>
                                     <td>
                                         <input type="submit"

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using lib_repositorios.Implementaciones;
 
@@ -11,9 +12,11 @@ using lib_repositorios.Implementaciones;
 namespace lib_repositorios.Migrations
 {
     [DbContext(typeof(Conexion))]
-    partial class ConexionModelSnapshot : ModelSnapshot
+    [Migration("20250520165928_ContraseñaUsuarios")]
+    partial class ContraseñaUsuarios
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,8 +43,6 @@ namespace lib_repositorios.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("ID_Usuario");
 
                     b.ToTable("Auditorias");
                 });
@@ -300,17 +301,6 @@ namespace lib_repositorios.Migrations
                     b.HasIndex("ID_Vehiculos");
 
                     b.ToTable("Vehiculos_Documentos");
-                });
-
-            modelBuilder.Entity("lib_dominio.Entidades.Auditorias", b =>
-                {
-                    b.HasOne("lib_dominio.Entidades.Usuarios", "_Usuarios")
-                        .WithMany()
-                        .HasForeignKey("ID_Usuario")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("_Usuarios");
                 });
 
             modelBuilder.Entity("lib_dominio.Entidades.Documentos", b =>

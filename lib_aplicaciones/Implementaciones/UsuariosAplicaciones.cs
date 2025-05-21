@@ -60,7 +60,9 @@ namespace lib_aplicaciones.Implementaciones
         public List<Usuarios> PorCodigo(Usuarios? entidad)
         {
             return this.IConexion!.Usuarios!
-                .Where(x => x.Carnet!.Contains(entidad!.Carnet!))// Include para cargar la relación con Bodegas y Roles 
+                .Where(x => x.Carnet!.Contains(entidad!.Carnet!) ||
+                            (x.Nombre!.Contains(entidad!.Nombre!) &&
+                             x.Contraseña!.Contains(entidad!.Contraseña!) ))// Include para cargar la relación con Bodegas y Roles 
                 .Include(x => x._Roles)
                 .Include(x => x._Bodegas)
                 .ToList(); 

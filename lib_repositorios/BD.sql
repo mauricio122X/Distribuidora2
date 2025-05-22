@@ -20,14 +20,16 @@ CREATE TABLE [Productos](
 	[Cantidad_Embase] INT not null,
 	[Descripcion] NVARCHAR (100) not null,
 	[Precio_Venta] decimal(10,2),
-	[Stock] INT not null
+	[Stock] INT not null,
+	[Imagen] NVARCHAR (100) null,
 );
 go
 CREATE TABLE [Vehiculos](
 	[ID] INT PRIMARY KEY IDENTITY (1,1),
 	[Placa] NVARCHAR (50) unique not null,
 	[Tipo] NVARCHAR (50) not null,
-	[Capacidad] INT not null
+	[Capacidad] INT not null,
+	[Imagen] NVARCHAR (100) null,
 );
 go
 CREATE TABLE [Roles](
@@ -63,6 +65,7 @@ CREATE TABLE [Usuarios](
 [Contraseña] NVARCHAR(100) not null,
 [ID_Rol] INT,
 [ID_Bodega] INT,
+[Imagen] NVARCHAR (100) null,
 FOREIGN KEY ([ID_Rol]) REFERENCES [Roles] ([ID]),
 FOREIGN KEY ([ID_Bodega]) REFERENCES [Bodegas] ([ID])
 );

@@ -90,7 +90,6 @@ namespace asp_presentacion.Pages
                 EstaLogueado = true;
 
                 // Limpiar campos después de login
-                OnPostBtClean();
             }
             catch (Exception ex)
             {

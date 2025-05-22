@@ -17,6 +17,7 @@ namespace lib_dominio.Entidades
         public string? Contraseña { get; set; }
         public int ID_Rol { get; set; }
         public int ID_Bodega { get; set; }
+        public string? Imagen { get; set; }
 
         //Objetos relacionados
         [ForeignKey("ID_Rol")]

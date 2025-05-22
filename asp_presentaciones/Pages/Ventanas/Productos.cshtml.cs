@@ -83,6 +83,14 @@ namespace asp_presentacion.Pages.Ventanas
             try
             {
                 Accion = Enumerables.Ventanas.Editar;
+                if (FormFile != null)
+                {
+                    var memoryStream = new MemoryStream();
+                    FormFile.CopyToAsync(memoryStream).Wait();
+                    Actual!.Imagen = EncodingHelper.ToString(memoryStream.ToArray());
+                    memoryStream.Dispose();
+                }
+
                 Task<Productos>? task = null;
                 if (Actual!.ID == 0)
                     task = this.iPresentacion!.Guardar(Actual!)!;

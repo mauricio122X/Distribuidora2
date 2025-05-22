@@ -12,6 +12,7 @@ namespace lib_dominio.Entidades
         public string? Descripcion { get; set; }
         public decimal Precio_Venta { get; set; }
         public int? Stock { get; set; }
+        public string? Imagen { get; set; }
 
         //public List<Productos_Documentos>? ProductosDocumentos { get; set; }
 

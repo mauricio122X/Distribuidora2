@@ -51,13 +51,16 @@ namespace lib_aplicaciones.Implementaciones
 
         public List<Permisos> Listar()
         {
-            return this.IConexion!.Permisos!.Take(20).ToList();
+            return this.IConexion!.Permisos!.Take(20)
+                .Include(x=>x._Usuario)
+                .ToList();
         }
 
         public List<Permisos> PorCodigo(Permisos? entidad)
         {
             return this.IConexion!.Permisos!
-                .Where(x => x.ID_Usuario!.Equals(entidad!.ID_Usuario!))
+                .Where(x => x.Nombre!.Contains(entidad!.Nombre!))
+                .Include(x => x._Usuario)
                 .ToList();
         }
 

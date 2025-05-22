@@ -97,17 +97,19 @@ CREATE TABLE [Auditorias](
 [Accion] NVARCHAR(100) not null,
 [Fecha] SMALLDATETIME not null,
 [ID_Usuario] INT not null,
-FOREIGN KEY ([ID_Usuario]) REFERENCES [Usuario] ([ID])
+FOREIGN KEY ([ID_Usuario]) REFERENCES [Usuarios] ([ID])
 );
 
 go
 --Inserts/
-insert into Bodegas values('Bodega 1', 1000), ('Bodega2',200);
+insert into Bodegas(Nombre,Capacidad_Max) values('Bodega 1', 1000), ('Bodega2',200);
 insert	into Empresas values ('Empresa1' ,'calle1','123','cliente','123' );
-insert into Productos values ('producto1',200,20,'descripcion1',300,5);
-insert into Roles values('rol1',200) , ('rol2',200);
-insert into Vehiculos values('123abc','camioneta',100);
-insert into Documentos values ('venta',1,200,GETDATE(),1);
+insert into Productos(Nombre,Precio_Compra,Cantidad_Embase,Descripcion,Precio_Venta,Stock) values ('producto1',200,20,'descripcion1',300,5);
+insert into Roles(Nombre,Salario) values('rol1',200) , ('rol2',200);
+insert into Vehiculos(Placa,Tipo,Capacidad) values('123abc','camioneta',100);
+insert into Documentos(Tipo_Movimiento, ID_Bodega, Valor,Fecha,ID_Empresa) values ('venta',1,200,GETDATE(),1);
+insert into Productos_Documentos(ID_Documentos, ID_Productos,Cantidad) values (1,1,1);
+insert into Usuarios(Carnet,Nombre,Contraseña, ID_Rol,ID_Bodega) VALUES ('123', 'henao','3456', 1, 1);
 go
 select * from Bodegas;
 select * from Productos;
@@ -115,4 +117,6 @@ select * from Empresas;
 select * from Roles; 
 select * from Vehiculos;
 select * from Documentos;
-
+select * from Usuarios
+select * from Permisos
+select * from Productos_Documentos

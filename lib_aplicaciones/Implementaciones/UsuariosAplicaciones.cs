@@ -68,6 +68,10 @@ namespace lib_aplicaciones.Implementaciones
                 .ToList(); 
         }
 
+        public Usuarios? BuscarID(int usuario)
+        {
+            return this.IConexion!.Usuarios!.FirstOrDefault(x => x.ID!.Equals(usuario));
+        }
         public Usuarios? Modificar(Usuarios? entidad)
         {
             if (entidad == null)

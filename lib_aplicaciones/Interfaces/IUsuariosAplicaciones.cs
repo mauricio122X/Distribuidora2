@@ -10,5 +10,6 @@ namespace lib_aplicaciones.Interfaces
         Usuarios? Guardar(Usuarios? entidad);
         Usuarios? Modificar(Usuarios? entidad);
         Usuarios? Borrar(Usuarios? entidad);
+        Usuarios? BuscarID(int usuario);
     }
 }

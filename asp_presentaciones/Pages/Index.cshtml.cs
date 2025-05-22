@@ -86,7 +86,7 @@ namespace asp_presentacion.Pages
 
                 // Usuario autenticado
                 ViewData["Logged"] = true;
-                HttpContext.Session.SetString("Usuario", usuario.ID.ToString()!);
+                HttpContext.Session.SetString("Usuario", usuario.ID.ToString()!);//Obtengo el ID del que se log
                 EstaLogueado = true;
 
                 // Limpiar campos después de login

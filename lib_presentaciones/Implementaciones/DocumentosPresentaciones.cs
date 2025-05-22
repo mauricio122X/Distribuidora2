@@ -45,7 +45,7 @@ namespace lib_presentaciones.Implementaciones
             return lista;
         }
 
-        public async Task<Documentos?> Guardar(Documentos? entidad)
+        public async Task<Documentos?> Guardar(Documentos? entidad, int usuario)
         {
             if (entidad!.ID != 0)
             {
@@ -54,6 +54,7 @@ namespace lib_presentaciones.Implementaciones
 
             var datos = new Dictionary<string, object>();
             datos["Entidad"] = entidad;
+            datos["Usuario"] = usuario;//Guardo el Dicionario Usuario
 
             comunicaciones = new Comunicaciones();
             datos = comunicaciones.ConstruirUrl(datos, "Documentos/Guardar");
@@ -68,7 +69,7 @@ namespace lib_presentaciones.Implementaciones
             return entidad;
         }
 
-        public async Task<Documentos?> Modificar(Documentos? entidad)
+        public async Task<Documentos?> Modificar(Documentos? entidad, int usuario)
         {
             if (entidad!.ID == 0)
             {
@@ -77,6 +78,7 @@ namespace lib_presentaciones.Implementaciones
 
             var datos = new Dictionary<string, object>();
             datos["Entidad"] = entidad;
+            datos["Usuario"] = usuario;//Guardo el Dicionario Usuario
 
             comunicaciones = new Comunicaciones();
             datos = comunicaciones.ConstruirUrl(datos, "Documentos/Modificar");
@@ -90,8 +92,8 @@ namespace lib_presentaciones.Implementaciones
                 JsonConversor.ConvertirAString(respuesta["Entidad"]));
             return entidad;
         }
-
-        public async Task<Documentos?> Borrar(Documentos? entidad)
+        //Metodod Borrar que recibe la entidad(Docuemntos) y el ID del usuario log
+        public async Task<Documentos?> Borrar(Documentos? entidad, int usuario)
         {
             if (entidad!.ID == 0)
             {
@@ -99,7 +101,8 @@ namespace lib_presentaciones.Implementaciones
             }
 
             var datos = new Dictionary<string, object>();
-            datos["Entidad"] = entidad;
+            datos["Entidad"] = entidad;//Guardo el Dicionario Entidades
+            datos["Usuario"] = usuario;//Guardo el Dicionario Usuario
 
             comunicaciones = new Comunicaciones();
             datos = comunicaciones.ConstruirUrl(datos, "Documentos/Borrar");

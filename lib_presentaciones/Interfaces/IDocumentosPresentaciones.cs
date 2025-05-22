@@ -6,8 +6,8 @@ namespace lib_presentaciones.Interfaces
     {
         Task<List<Documentos>> Listar();
         Task<List<Documentos>> PorCodigo(Documentos? entidad);
-        Task<Documentos?> Guardar(Documentos? entidad);
-        Task<Documentos?> Modificar(Documentos? entidad);
-        Task<Documentos?> Borrar(Documentos? entidad);
+        Task<Documentos?> Guardar(Documentos? entidad, int usuario);
+        Task<Documentos?> Modificar(Documentos? entidad,int usuario);
+        Task<Documentos?> Borrar(Documentos? entidad, int usuario);
     }
 }

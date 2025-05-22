@@ -42,7 +42,9 @@ namespace asp_presentacion.Pages.Ventanas
         public void OnPostBtRefrescar()
         {
             try
-            {
+
+               {
+                //HttpContext.Session.SetString("Usuario", usuario.ID.ToString()!);
                 var variable_session = HttpContext.Session.GetString("Usuario");
                 if (String.IsNullOrEmpty(variable_session))
                 {
@@ -112,10 +114,11 @@ namespace asp_presentacion.Pages.Ventanas
             {
                 Accion = Enumerables.Ventanas.Editar;
                 Task<Documentos>? task = null;
+                var usuario = Convert.ToInt32(HttpContext.Session.GetString("Usuario"));
                 if (Actual!.ID == 0)
-                    task = this.iPresentacion!.Guardar(Actual!)!;
+                    task = this.iPresentacion!.Guardar(Actual!, usuario)!;
                 else
-                    task = this.iPresentacion!.Modificar(Actual!)!;
+                    task = this.iPresentacion!.Modificar(Actual!,usuario)!;
                 task.Wait();
                 Actual = task.Result;
                 Accion = Enumerables.Ventanas.Listas;
@@ -143,7 +146,9 @@ namespace asp_presentacion.Pages.Ventanas
         {
             try
             {
-                var task = this.iPresentacion!.Borrar(Actual!);
+                //Obtenemos el usuario(json) que esta logiado y lo convertimos en entero
+                var usuario = Convert.ToInt32(HttpContext.Session.GetString("Usuario"));
+                var task = this.iPresentacion!.Borrar(Actual!, usuario);//le mandamos el ID usuario para auditoria
                 Actual = task.Result;
                 OnPostBtRefrescar();
             }

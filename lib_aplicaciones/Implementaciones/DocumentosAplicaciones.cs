@@ -8,12 +8,12 @@ namespace lib_aplicaciones.Implementaciones
     public class DocumentosAplicacion : IDocumentosAplicacion
     {
         private IConexion? IConexion = null;
-        private IAuditoriasAplicacion? IAuditoriasAplicacion = null;
+        private IAuditoriasAplicacion? iAuditoriasAplicacion = null;
 
-        public DocumentosAplicacion(IConexion iConexion)
+        public DocumentosAplicacion(IConexion iConexion , IAuditoriasAplicacion iAuditoriasAplicacion )
         {
             this.IConexion = iConexion;
-            this.IAuditoriasAplicacion = new AuditoriasAplicacion(iConexion);
+            this.iAuditoriasAplicacion = iAuditoriasAplicacion;
         }
 
         public void Configurar(string StringConexion)
@@ -34,7 +34,7 @@ namespace lib_aplicaciones.Implementaciones
             this.IConexion!.Documentos!.Remove(entidad);
             this.IConexion.SaveChanges();
             //Cuando se elimina la entidad(Documentos) se crea la Auditoria
-            this.IAuditoriasAplicacion!.Guardar(new Auditorias()
+            this.iAuditoriasAplicacion!.Guardar(new Auditorias()
             {
                 ID_Usuario = usuario,
                 Fecha = DateTime.Now,
@@ -56,7 +56,7 @@ namespace lib_aplicaciones.Implementaciones
             this.IConexion!.Documentos!.Add(entidad);
             this.IConexion.SaveChanges();
 
-            this.IAuditoriasAplicacion!.Guardar(new Auditorias()
+            this.iAuditoriasAplicacion!.Guardar(new Auditorias()
             {
                 ID_Usuario = usuario,
                 Fecha = DateTime.Now,
@@ -97,7 +97,7 @@ namespace lib_aplicaciones.Implementaciones
             entry.State = EntityState.Modified;
             this.IConexion.SaveChanges();
             // Cuando se Modifique una entidad Documento va a crear una Auditoria
-            this.IAuditoriasAplicacion!.Guardar(new Auditorias()
+            this.iAuditoriasAplicacion!.Guardar(new Auditorias()
             {
                 ID_Usuario = usuario,
                 Fecha = DateTime.Now,

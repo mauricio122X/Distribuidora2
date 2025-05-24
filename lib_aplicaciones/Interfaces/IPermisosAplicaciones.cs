@@ -10,5 +10,6 @@ namespace lib_aplicaciones.Interfaces
         Permisos? Guardar(Permisos? entidad);
         Permisos? Modificar(Permisos? entidad);
         Permisos? Borrar(Permisos? entidad);
+        Permisos? BuscarIdUsuario(int usuario);
     }
 }

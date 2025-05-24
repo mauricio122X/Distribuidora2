@@ -55,7 +55,10 @@ namespace lib_aplicaciones.Implementaciones
                 .Include(x=>x._Usuario)
                 .ToList();
         }
-
+        public Permisos? BuscarIdUsuario(int usuario)
+        {
+            return this.IConexion!.Permisos!.FirstOrDefault(x => x.ID_Usuario!.Equals(usuario));
+        }
         public List<Permisos> PorCodigo(Permisos? entidad)
         {
             return this.IConexion!.Permisos!

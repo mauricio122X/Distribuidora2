@@ -59,6 +59,38 @@ namespace asp_servicios.Controllers
         }
 
         [HttpPost]
+        public string BuscarIdUsuario()
+        {
+            var respuesta = new Dictionary<string, object>();
+            try
+            {
+                var datos = ObtenerDatos();
+                if (!tokenController!.Validate(datos))
+                {
+                    respuesta["Error"] = "lbNoAutenticacion";
+                    return JsonConversor.ConvertirAString(respuesta);
+                }
+
+                //var entidad = JsonConversor.ConvertirAObjeto<Permisos>(
+                //   JsonConversor.ConvertirAString(datos["Entidad"]));
+                var usuario = Convert.ToInt32(datos["Usuario"]);
+
+                this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion")!);
+                respuesta["Entidad"] = this.iAplicacion!.BuscarIdUsuario(usuario);
+
+
+                respuesta["Respuesta"] = "OK";
+                respuesta["Fecha"] = DateTime.Now.ToString();
+                return JsonConversor.ConvertirAString(respuesta);
+            }
+            catch (Exception ex)
+            {
+                respuesta["Error"] = ex.Message.ToString();
+                return JsonConversor.ConvertirAString(respuesta);
+            }
+        }
+
+        [HttpPost]
         public string PorCodigo()
         {
             var respuesta = new Dictionary<string, object>();

@@ -51,13 +51,18 @@ namespace lib_aplicaciones.Implementaciones
 
         public List<Vehiculos_Documentos> Listar()
         {
-            return this.IConexion!.Vehiculos_Documentos!.Take(20).ToList();
+            return this.IConexion!.Vehiculos_Documentos!.Take(20)
+                .Include(x => x._Vehiculos)
+                .Include(x => x._Documentos)
+                .ToList();
         }
 
         public List<Vehiculos_Documentos> PorCodigo(Vehiculos_Documentos? entidad)
         {
             return this.IConexion!.Vehiculos_Documentos!
-                .Where(x => x._Vehiculos!.Placa!.Equals(entidad!._Vehiculos!.Placa!))
+                .Where(x => x._Vehiculos!.Placa!.Contains(entidad!._Vehiculos!.Placa!))
+                .Include(x => x._Vehiculos)
+                .Include(x => x._Documentos)
                 .ToList();
         }
 

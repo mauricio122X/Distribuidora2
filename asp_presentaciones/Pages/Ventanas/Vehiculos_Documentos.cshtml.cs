@@ -3,24 +3,25 @@ using lib_dominio.Nucleo;
 using lib_presentaciones.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-namespace asp_presentacion.Pages.Ventanas
+
+namespace asp_presentaciones.Pages.Ventanas
 {
-    public class Productos_DocumentosModel : PageModel
+    public class Vehiculos_DocumentosModel : PageModel
     {
         //listas que recibe para mostrar en la vista
-        private IProductos_DocumentosPresentacion? iPresentacion = null;
-        private IProductosPresentacion? iProductosPresentacion = null;
+        private IVehiculos_DocumentosPresentacion? iPresentacion = null;
+        private IVehiculosPresentacion? iVehiculosPresentacion = null;
         private IDocumentosPresentacion? iDocumentosPresentacion = null;
 
 
-        public Productos_DocumentosModel(IProductos_DocumentosPresentacion iPresentacion, IProductosPresentacion iProductosPresentacion, IDocumentosPresentacion iDocumentosPresentacion)
+        public Vehiculos_DocumentosModel(IVehiculos_DocumentosPresentacion iPresentacion, IVehiculosPresentacion iVehiculosPresentacion, IDocumentosPresentacion iDocumentosPresentacion)
         {
             try
             {
                 this.iPresentacion = iPresentacion;
-                this.iProductosPresentacion = iProductosPresentacion;
+                this.iVehiculosPresentacion = iVehiculosPresentacion;
                 this.iDocumentosPresentacion = iDocumentosPresentacion;
-                Filtro = new Productos_Documentos();
+                Filtro = new Vehiculos_Documentos();
             }
             catch (Exception ex)
             {
@@ -29,11 +30,11 @@ namespace asp_presentacion.Pages.Ventanas
         }
         public IFormFile? FormFile { get; set; }
         [BindProperty] public Enumerables.Ventanas Accion { get; set; }
-        [BindProperty] public Productos_Documentos? Actual { get; set; }
-        [BindProperty] public Productos_Documentos? Filtro { get; set; }
-        [BindProperty] public List<Productos_Documentos>? Lista { get; set; }
+        [BindProperty] public Vehiculos_Documentos? Actual { get; set; }
+        [BindProperty] public Vehiculos_Documentos? Filtro { get; set; }
+        [BindProperty] public List<Vehiculos_Documentos>? Lista { get; set; }
         [BindProperty] public List<Documentos>? ListDocumentos { get; set; }//Lista que recibe de todas las bodegas
-        [BindProperty] public List<Productos>? ListProductos { get; set; }//Lista que recibe de todos los roles
+        [BindProperty] public List<Vehiculos>? ListVehiculos { get; set; }//Lista que recibe de todos los roles
 
 
         //cargar la pagina la reflesca para mostrar la informacion
@@ -48,12 +49,12 @@ namespace asp_presentacion.Pages.Ventanas
                     HttpContext.Response.Redirect("/");
                     return;
                 }
-                if (Filtro!._Productos == null)
+                if (Filtro!._Vehiculos == null)
                 {
-                    Filtro!._Productos = new Productos();
+                    Filtro!._Vehiculos = new Vehiculos();
                 }
-                Filtro!._Productos.Nombre = Filtro!._Productos.Nombre ?? "";
-                //Filtro!.Materia = Filtro!.Materia ?? ""; 
+                Filtro!._Vehiculos.Placa = Filtro!._Vehiculos.Placa ?? "";
+                //Filtro!.Cantidad = Filtro!.Cantidad ; 
                 Accion = Enumerables.Ventanas.Listas;
                 var task = this.iPresentacion!.PorCodigo(Filtro!);
                 task.Wait();
@@ -71,11 +72,11 @@ namespace asp_presentacion.Pages.Ventanas
             try
             {
                 var task = this.iDocumentosPresentacion!.Listar(); //Llama el metodo listar de Ibodegaspresentaciones
-                var task2 = this.iProductosPresentacion!.Listar(); //Llama el metodo listar de IProductos_DocumentosPresentaciones
+                var task2 = this.iVehiculosPresentacion!.Listar(); //Llama el metodo listar de IProductos_DocumentosPresentaciones
                 task.Wait();//Espere que se ejecute la peticion , task representa que corre de forma asincronica
                 task2.Wait();//Espere que se ejecute la peticion , task representa que corre de forma asincronica
                 ListDocumentos = task.Result; //Guarda el resultado en la lista 
-                ListProductos = task2.Result; //Guarda el resultado en la lista
+                ListVehiculos = task2.Result; //Guarda el resultado en la lista
             }
             catch (Exception ex)
             {
@@ -87,7 +88,7 @@ namespace asp_presentacion.Pages.Ventanas
             try
             {
                 Accion = Enumerables.Ventanas.Editar; //Asigna la accion en editar para abrir el menu
-                Actual = new Productos_Documentos();//Para crear un objeto nuevo
+                Actual = new Vehiculos_Documentos();//Para crear un objeto nuevo
                 CargarCombox();//carga la lista de las tablas relacionadas 
             }
             catch (Exception ex)
@@ -114,7 +115,7 @@ namespace asp_presentacion.Pages.Ventanas
             try
             {
                 Accion = Enumerables.Ventanas.Editar;
-                Task<Productos_Documentos>? task = null;
+                Task<Vehiculos_Documentos>? task = null;
                 if (Actual!.ID == 0)
                     task = this.iPresentacion!.Guardar(Actual!)!;
                 else

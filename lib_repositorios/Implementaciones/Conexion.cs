@@ -28,7 +28,6 @@ namespace lib_repositorios.Implementaciones
         public DbSet<Vehiculos>? Vehiculos { get; set; }
         public DbSet<Documentos>? Documentos { get; set; }
         public DbSet<Vehiculos_Documentos>? Vehiculos_Documentos { get; set; }
-        public DbSet<Productos_Documentos>? Productos_Documentos { get; set; }
         public DbSet<Empresas>? Empresas { get; set; }
         public DbSet<Usuarios>? Usuarios { get; set; }
         public DbSet<Roles>? Roles { get; set; }

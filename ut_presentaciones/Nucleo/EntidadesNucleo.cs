@@ -79,17 +79,6 @@ namespace ut_presentacion.Nucleo
             return entidad;
         }
 
-
-        public static Productos_Documentos? Productos_Documentos(Documentos documentos, Productos productos)
-        {
-            var entidad = new Productos_Documentos();
-            entidad.Cantidad = 5;
-            entidad.ID_Documentos = documentos.ID;
-            entidad.ID_Productos = productos.ID;
-
-            return entidad;
-        }
-
         public static Vehiculos_Documentos? Vehiculos_Documentos(Documentos documentos, Vehiculos vehiculos)
         {
             var entidad = new Vehiculos_Documentos();

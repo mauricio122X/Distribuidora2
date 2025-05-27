@@ -1,5 +1,5 @@
 ﻿@page
-@model asp_presentacion.Pages.Ventanas.Productos_DocumentosModel
+@model asp_presentaciones.Pages.Ventanas.Vehiculos_DocumentosModel
 @{
     ViewData["Titulo"] = "";
 }
@@ -9,7 +9,7 @@
               enctype="multipart/form-data">
             @Html.AntiForgeryToken()
             <div align="left">
-                <h3>Productos_Documentos</h3> @* <!--Titulo -->  *@
+                <h3>Vehiculos y Documentos</h3> @* <!--Titulo -->  *@
             </div>
             @* Botones Reflescar , nuevo , guardar , cancelar *@
 
@@ -49,28 +49,28 @@
                 <input type="hidden"
                        asp-for="@Model.Actual!.ID_Documentos" />
                 <input type="hidden"
-                       asp-for="@Model.Actual!.ID_Productos" />
+                       asp-for="@Model.Actual!.ID_Vehiculos" />
 
             }
             @*   Menu que aparece cuando se da nuevo y editar*@
             @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Editar)
             {
                 <div class="containers_vn panel panel-default">
-                    <h3>Productos_Documentos</h3>
+                    <h3>Vehiculos_Documentos</h3>
                     <div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">
-                                Productos
+                                Vehiculos
                             </label>
                             <div class="col-lg-6">
                                 <select id="nmBodegas"
                                         class="form-control"
-                                        asp-for="@Model.Actual!.ID_Productos"
-                                        asp-items="@(new SelectList(Model.ListProductos, "ID" , "Nombre"))">
+                                        asp-for="@Model.Actual!.ID_Vehiculos"
+                                        asp-items="@(new SelectList(Model.ListVehiculos, "ID" , "Placa"))">
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label class="col-lg-4 control-label">
                                 Documentos
@@ -117,7 +117,7 @@
                             </h4>
                             <h6 align="left">
                                 Documento: @Model.Actual!._Documentos!.Tipo_Movimiento
-                                Producto: @Model.Actual!._Productos!.Nombre
+                                Producto: @Model.Actual!._Vehiculos!.Placa
                                 Cantidad: @Model.Actual!.Cantidad
                             </h6>
                             <br />
@@ -140,14 +140,14 @@
             {
                 <input id="flNombre"
                        class="cts_forms form-control"
-                       asp-for="@Model.Filtro!._Productos!.Nombre"
+                       asp-for="@Model.Filtro!._Vehiculos!.Placa"
                        placeholder="Nombre Producto" />
                 <br />
                 <div class="containers_vn panel panel-default">
                     <table class="tb_data table table-striped table-bordered tablehover">
                         <tr>
                             <th>
-                                Producto
+                                Vehiculo
                             </th>
                             <th>
                                 Documento
@@ -155,7 +155,7 @@
                             <th>
                                 Cantidad
                             </th>
-                          
+
                             <th class="cl_actions">
                                 Accion
                             </th>
@@ -167,15 +167,14 @@
                             {
                                 <tr>
                                     <td>
-                                        @elemento._Productos!.Nombre
-                                    </td>
+                                        @elemento._Vehiculos!.Placa
                                     <td>
-                                        @elemento._Documentos!.Tipo_Movimiento
+                                        @elemento._Documentos!.Tipo_Movimiento 
                                     </td>
                                     <td>
                                         @elemento.Cantidad
                                     </td>
-                                   
+
                                     <td>
                                         <input type="submit"
                                                value="Modicar"

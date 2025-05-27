@@ -15,7 +15,10 @@ namespace lib_dominio.Entidades
         public DateTime? Fecha { get; set; }
         public int? ID_Bodega { get; set; }
         public decimal? Valor { get; set; }
+        public int? Cantidad { get; set; }
         public int ID_Empresa { get; set; }
+        public int ID_Producto { get; set; }
+
         //public int ID_Empleados { get; set; }
 
         //public List<Vehiculos_Documentos>? vehiculosDocumentos { get; set; }
@@ -25,5 +28,7 @@ namespace lib_dominio.Entidades
         public Bodegas? _Bodegas { get; set; }
         [ForeignKey("ID_Empresa")]
         public Empresas? _Empresas { get; set; }
+        [ForeignKey("ID_Producto")]
+        public Productos? _Productos { get; set; }
     }//Fin clase documentoss
 }

@@ -38,7 +38,6 @@ namespace asp_servicios
             services.AddScoped<IVehiculosAplicacion, VehiculosAplicacion>();
             services.AddScoped<IAuditoriasAplicacion, AuditoriasAplicacion>();
             services.AddScoped<IPermisosAplicacion, PermisosAplicacion>();
-            services.AddScoped<IProductos_DocumentosAplicacion, Productos_DocumentosAplicacion>();
             services.AddScoped<IVehiculos_DocumentosAplicacion, Vehiculos_DocumentosAplicacion>();
 
             // Controladores

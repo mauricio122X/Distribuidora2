@@ -85,8 +85,9 @@ go
 CREATE TABLE [Permisos](
 [ID] INT PRIMARY KEY IDENTITY (1,1) not null,
 [Nombre] NVARCHAR(50) not null,
-[ID_Usuario] INT not null,
-FOREIGN KEY ([ID_Usuario]) REFERENCES [Usuarios] ([ID])
+[ID_Rol] INT not null,
+FOREIGN KEY ([ID_Rol]) REFERENCES [Roles] ([ID])
+
 );
 go
 CREATE TABLE [Auditorias](
@@ -106,6 +107,7 @@ insert into Roles(Nombre,Salario) values('rol1',200) , ('rol2',200);
 insert into Vehiculos(Placa,Tipo,Capacidad) values('123abc','camioneta',100);
 insert into Documentos(Tipo_Movimiento, ID_Bodega, Valor,Fecha,ID_Empresa , ID_Producto , Cantidad) values ('venta',1,200,GETDATE(),1,1,10);
 insert into Usuarios(Carnet,Nombre,Contraseña, ID_Rol,ID_Bodega) VALUES ('123', 'henao','3456', 1, 1) ,('456','mauricio','123',1,1);
+insert into Permisos(Nombre,ID_Rol) values('Master',1 );
 go
 select * from Bodegas;
 select * from Productos;

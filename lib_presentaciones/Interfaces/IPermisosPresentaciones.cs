@@ -9,6 +9,6 @@ namespace lib_presentaciones.Interfaces
         Task<Permisos?> Guardar(Permisos? entidad);
         Task<Permisos?> Modificar(Permisos? entidad);
         Task<Permisos?> Borrar(Permisos? entidad);
-        Task<Permisos?> BuscarIdUsuario(int idusuario);
+        Task<Permisos?> BuscarIdRol(int idrol);
     }
 }

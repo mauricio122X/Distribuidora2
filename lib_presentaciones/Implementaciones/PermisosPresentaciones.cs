@@ -114,14 +114,14 @@ namespace lib_presentaciones.Implementaciones
             return entidad;
         }
 
-        //Buscar Id usuario
-        public async Task<Permisos?> BuscarIdUsuario(int idusuario)
+        //Buscar Id rol
+        public async Task<Permisos?> BuscarIdRol(int idRol)
         {
             var datos = new Dictionary<string, object>();
-            datos["Usuario"] = idusuario!;
+            datos["Rol"] = idRol!;
 
             comunicaciones = new Comunicaciones();
-            datos = comunicaciones.ConstruirUrl(datos, "Permisos/BuscarIdUsuario");
+            datos = comunicaciones.ConstruirUrl(datos, "Permisos/BuscarIdRol");
             var respuesta = await comunicaciones!.Ejecutar(datos);
 
             if (respuesta.ContainsKey("Error"))

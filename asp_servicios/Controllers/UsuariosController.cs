@@ -101,9 +101,11 @@ namespace asp_servicios.Controllers
                     return JsonConversor.ConvertirAString(respuesta);
                 }
 
-                var entidad = JsonConversor.ConvertirAObjeto<Usuarios>(
-                    JsonConversor.ConvertirAString(datos["Entidad"]));
-                var UsuarioID = entidad.ID;
+                //var entidad = JsonConversor.ConvertirAObjeto<Usuarios>(
+                //    JsonConversor.ConvertirAString(datos["Entidad"]));
+                var UsuarioID = Convert.ToInt32(datos["Usuario"]);
+
+                //var UsuarioID = entidad.ID;
 
                 this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion")!);
 

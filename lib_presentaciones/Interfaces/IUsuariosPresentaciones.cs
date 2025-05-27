@@ -9,5 +9,7 @@ namespace lib_presentaciones.Interfaces
         Task<Usuarios?> Guardar(Usuarios? entidad);
         Task<Usuarios?> Modificar(Usuarios? entidad);
         Task<Usuarios?> Borrar(Usuarios? entidad);
+        Task<Usuarios?> BuscarID(int idusuario);
+
     }
 }

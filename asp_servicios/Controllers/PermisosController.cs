@@ -59,7 +59,7 @@ namespace asp_servicios.Controllers
         }
 
         [HttpPost]
-        public string BuscarIdUsuario()
+        public string BuscarIdRol()
         {
             var respuesta = new Dictionary<string, object>();
             try
@@ -73,10 +73,10 @@ namespace asp_servicios.Controllers
 
                 //var entidad = JsonConversor.ConvertirAObjeto<Permisos>(
                 //   JsonConversor.ConvertirAString(datos["Entidad"]));
-                var usuario = Convert.ToInt32(datos["Usuario"]);
+                var rol = Convert.ToInt32(datos["Rol"]);
 
                 this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion")!);
-                respuesta["Entidad"] = this.iAplicacion!.BuscarIdUsuario(usuario);
+                respuesta["Entidades"] = this.iAplicacion!.BuscarIdRol(rol);
 
 
                 respuesta["Respuesta"] = "OK";

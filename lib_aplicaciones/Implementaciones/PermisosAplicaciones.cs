@@ -52,18 +52,19 @@ namespace lib_aplicaciones.Implementaciones
         public List<Permisos> Listar()
         {
             return this.IConexion!.Permisos!.Take(20)
-                .Include(x=>x._Usuario)
+                .Include(x=>x._Rol)
                 .ToList();
         }
-        public Permisos? BuscarIdUsuario(int usuario)
+        public Permisos? BuscarIdRol(int rol)
         {
-            return this.IConexion!.Permisos!.FirstOrDefault(x => x.ID_Usuario!.Equals(usuario));
+            //revisar
+            return this.IConexion!.Permisos!.FirstOrDefault(x => x.ID_Rol!.Equals(rol));
         }
         public List<Permisos> PorCodigo(Permisos? entidad)
         {
             return this.IConexion!.Permisos!
                 .Where(x => x.Nombre!.Contains(entidad!.Nombre!))
-                .Include(x => x._Usuario)
+                .Include(x => x._Rol)
                 .ToList();
         }
 

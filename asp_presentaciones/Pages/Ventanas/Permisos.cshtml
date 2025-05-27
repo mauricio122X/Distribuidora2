@@ -49,7 +49,7 @@
                 <input type="hidden"
                        asp-for="@Model.Actual!.Nombre" />
                 <input type="hidden"
-                       asp-for="@Model.Actual!.ID_Usuario" />
+                       asp-for="@Model.Actual!.ID_Rol" />
 
             }
             @*   Menu que aparece cuando se da nuevo y editar*@
@@ -75,8 +75,8 @@
                             <div class="col-lg-6">
                                 <select id="nmBodegas"
                                         class="form-control"
-                                        asp-for="@Model.Actual!.ID_Usuario"
-                                        asp-items="@(new SelectList(Model.ListUsuarios, "ID", "Nombre"))">
+                                        asp-for="@Model.Actual!.ID_Rol"
+                                        asp-items="@(new SelectList(Model.ListRoles, "ID", "Nombre"))">
                                 </select>
                             </div>
                         </div>
@@ -135,7 +135,7 @@
                                 Nombre
                             </th>
                             <th>
-                                Usuario
+                                Rol
                             <th class="cl_actions">
                                 Accion
                             </th>
@@ -150,7 +150,7 @@
                                         @elemento.Nombre
                                     </td>
                                     <td>
-                                         @elemento._Usuario!.Nombre 
+                                         @elemento._Rol!.Nombre 
                                     </td>
                                     <td>
                                         <input type="submit"

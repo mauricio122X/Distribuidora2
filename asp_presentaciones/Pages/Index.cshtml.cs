@@ -112,24 +112,8 @@ namespace asp_presentacion.Pages
         //        LogConversor.Log(ex, ViewData!);
         //    }
         //}
-        private IProductosPresentacion? iProductosPresentacion = null;
-
-
-
-        public IndexModel(IProductosPresentacion iProductosPresentacion)
-        {
-            try
-            {
-                this.iProductosPresentacion = iProductosPresentacion;
-            }
-            catch (Exception ex)
-            {
-                LogConversor.Log(ex, ViewData!);
-            }
-        }
-
-        [BindProperty] public List<Productos>? Lista { get; set; }
         
+                
 
     }
 }

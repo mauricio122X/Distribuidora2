@@ -4,6 +4,7 @@ using lib_presentaciones.Implementaciones;
 using lib_presentaciones.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Net.WebSockets;
 namespace asp_presentacion.Pages.Ventanas
 {
     public class DocumentosModel : PageModel
@@ -13,9 +14,10 @@ namespace asp_presentacion.Pages.Ventanas
         private IBodegasPresentacion? iBodegasPresentacion = null;
         private IEmpresasPresentacion? iEmpresasPresentacion = null;
         private IPermisosPresentacion? iPermisosPresentacion = null;
+        private IUsuariosPresentacion? iUsuariosPresentacion = null;
 
 
-        public DocumentosModel(IDocumentosPresentacion iPresentacion, IBodegasPresentacion iBodegasPresentacion, IEmpresasPresentacion iEmpresasPresentacion, IPermisosPresentacion iPermisosPresentacion)
+        public DocumentosModel(IDocumentosPresentacion iPresentacion, IBodegasPresentacion iBodegasPresentacion, IEmpresasPresentacion iEmpresasPresentacion, IPermisosPresentacion iPermisosPresentacion, IUsuariosPresentacion? iUsuariosPresentacion)
         {
             try
             {
@@ -23,12 +25,15 @@ namespace asp_presentacion.Pages.Ventanas
                 this.iBodegasPresentacion = iBodegasPresentacion;
                 this.iEmpresasPresentacion = iEmpresasPresentacion;
                 this.iPermisosPresentacion = iPermisosPresentacion;
+                this.iUsuariosPresentacion = iUsuariosPresentacion;
                 Filtro = new Documentos();
             }
             catch (Exception ex)
             {
                 LogConversor.Log(ex, ViewData!);
             }
+
+            this.iUsuariosPresentacion = iUsuariosPresentacion;
         }
         public IFormFile? FormFile { get; set; }
         [BindProperty] public Enumerables.Ventanas Accion { get; set; }
@@ -88,11 +93,13 @@ namespace asp_presentacion.Pages.Ventanas
             try
             {
                 var usuario = Convert.ToInt32(HttpContext.Session.GetString("Usuario"));
-                var task = this.iPermisosPresentacion!.BuscarIdUsuario(usuario);
+                var buscarUsuarios = this.iUsuariosPresentacion!.BuscarID(usuario);
+                var objUsuario = buscarUsuarios.Result;
+                var task = this.iPermisosPresentacion!.BuscarIdRol(objUsuario!.ID_Bodega);
                 var permiso = task.Result;
                 if (permiso?.Nombre != "Master" || permiso == null)
                 {
-                    throw new ArgumentException("No tiene permiso de Nuevo.");
+                    throw new ArgumentException("No tiene permiso de crear.");
                 }
                 Accion = Enumerables.Ventanas.Editar; //Asigna la accion en editar para abrir el menu
                 Actual = new Documentos();//Para crear un objeto nuevo
@@ -107,13 +114,15 @@ namespace asp_presentacion.Pages.Ventanas
         {
             try
             {
-                //var usuario = Convert.ToInt32(HttpContext.Session.GetString("Usuario"));
-                //var task = this.iPermisosPresentacion!.BuscarIdUsuario(usuario);
-                //var permiso = task.Result;
-                //if (permiso?.Nombre != "Master" || permiso == null)
-                //{
-                //    throw new ArgumentException("No tiene permiso de Modificar.");
-                //}
+                var usuario = Convert.ToInt32(HttpContext.Session.GetString("Usuario"));
+                var buscarUsuarios = this.iUsuariosPresentacion!.BuscarID(usuario);
+                var objUsuario = buscarUsuarios.Result;
+                var task = this.iPermisosPresentacion!.BuscarIdRol(objUsuario!.ID_Bodega);
+                var permiso = task.Result;
+                if (permiso?.Nombre != "Master" || permiso == null)
+                {
+                    throw new ArgumentException("No tiene permiso de borrar.");
+                }
                 OnPostBtRefrescar();//llama al metodo refrescar
                 Accion = Enumerables.Ventanas.Editar;//asigna la accion de editar para abrir el formulario
                 Actual = Lista!.FirstOrDefault(x => x.ID.ToString() == data);//Busca la entidad que se quiere modificar
@@ -149,13 +158,15 @@ namespace asp_presentacion.Pages.Ventanas
         {
             try
             {
-                //var usuario = Convert.ToInt32(HttpContext.Session.GetString("Usuario"));
-                //var task = this.iPermisosPresentacion!.BuscarIdUsuario(usuario);
-                //var permiso = task.Result;
-                //if (permiso?.Nombre != "Master" || permiso == null ) 
-                //{
-                //    throw new ArgumentException("No tiene permiso de borrar.");
-                //}
+                var usuario = Convert.ToInt32(HttpContext.Session.GetString("Usuario"));
+                var buscarUsuarios = this.iUsuariosPresentacion!.BuscarID(usuario);
+                var objUsuario = buscarUsuarios.Result;
+                var task = this.iPermisosPresentacion!.BuscarIdRol(objUsuario!.ID_Bodega);
+                var permiso = task.Result;
+                if (permiso?.Nombre != "Master" || permiso == null)
+                {
+                    throw new ArgumentException("No tiene permiso de borrar.");
+                }
                 OnPostBtRefrescar();
                 Accion = Enumerables.Ventanas.Borrar;
                 Actual = Lista!.FirstOrDefault(x => x.ID.ToString() == data);

@@ -10,16 +10,16 @@ namespace asp_presentaciones.Pages.Ventanas
     {
         //listas que recibe para mostrar en la vista
         private IPermisosPresentacion? iPresentacion = null;
-        private IUsuariosPresentacion? iUsuariosPresentacion = null;
+        private IRolesPresentacion? iRolesPresentacion = null;
         
 
 
-        public PermisosModel(IPermisosPresentacion iPresentacion, IUsuariosPresentacion iUsuariosPresentacion)
+        public PermisosModel(IPermisosPresentacion iPresentacion, IRolesPresentacion iRolesPresentacion)
         {
             try
             {
                 this.iPresentacion = iPresentacion;
-                this.iUsuariosPresentacion = iUsuariosPresentacion;
+                this.iRolesPresentacion = iRolesPresentacion;
                 Filtro = new Permisos();
             }
             catch (Exception ex)
@@ -32,7 +32,7 @@ namespace asp_presentaciones.Pages.Ventanas
         [BindProperty] public Permisos? Actual { get; set; }
         [BindProperty] public Permisos? Filtro { get; set; }
         [BindProperty] public List<Permisos>? Lista { get; set; }
-        [BindProperty] public List<Usuarios>? ListUsuarios { get; set; }//Lista que recibe de todas las bodegas
+        [BindProperty] public List<Roles>? ListRoles { get; set; }//Lista que recibe de todas las bodegas
 
 
         //cargar la pagina la reflesca para mostrar la informacion
@@ -66,9 +66,9 @@ namespace asp_presentaciones.Pages.Ventanas
             try
             {
                 //Listas que se van a cargar para elegir
-                var task = this.iUsuariosPresentacion!.Listar(); //Llama el metodo listar de Ibodegaspresentaciones
+                var task = this.iRolesPresentacion!.Listar(); //Llama el metodo listar de Ibodegaspresentaciones
                 task.Wait();//Espere que se ejecute la peticion , task representa que corre de forma asincronica
-                ListUsuarios = task.Result; //Guarda el resultado en la lista 
+                ListRoles = task.Result; //Guarda el resultado en la lista 
             }
             catch (Exception ex)
             {

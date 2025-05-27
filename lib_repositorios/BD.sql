@@ -20,14 +20,16 @@ CREATE TABLE [Productos](
 	[Cantidad_Embase] INT not null,
 	[Descripcion] NVARCHAR (100) not null,
 	[Precio_Venta] decimal(10,2),
-	[Stock] INT not null
+	[Stock] INT not null,
+	[Imagen] NVARCHAR (max) null,
 );
 go
 CREATE TABLE [Vehiculos](
 	[ID] INT PRIMARY KEY IDENTITY (1,1),
 	[Placa] NVARCHAR (50) unique not null,
 	[Tipo] NVARCHAR (50) not null,
-	[Capacidad] INT not null
+	[Capacidad] INT not null,
+	[Imagen] NVARCHAR (max) null,
 );
 go
 CREATE TABLE [Roles](
@@ -66,6 +68,7 @@ CREATE TABLE [Usuarios](
 [Contraseña] NVARCHAR(100) not null,
 [ID_Rol] INT,
 [ID_Bodega] INT,
+[Imagen] NVARCHAR (max) null,
 FOREIGN KEY ([ID_Rol]) REFERENCES [Roles] ([ID]),
 FOREIGN KEY ([ID_Bodega]) REFERENCES [Bodegas] ([ID])
 );
@@ -102,7 +105,7 @@ insert into Productos(Nombre,Precio_Compra,Cantidad_Embase,Descripcion,Precio_Ve
 insert into Roles(Nombre,Salario) values('rol1',200) , ('rol2',200);
 insert into Vehiculos(Placa,Tipo,Capacidad) values('123abc','camioneta',100);
 insert into Documentos(Tipo_Movimiento, ID_Bodega, Valor,Fecha,ID_Empresa , ID_Producto , Cantidad) values ('venta',1,200,GETDATE(),1,1,10);
-insert into Usuarios(Carnet,Nombre,Contraseña, ID_Rol,ID_Bodega) VALUES ('123', 'henao','3456', 1, 1);
+insert into Usuarios(Carnet,Nombre,Contraseña, ID_Rol,ID_Bodega) VALUES ('123', 'henao','3456', 1, 1) ,('456','mauricio','123',1,1);
 go
 select * from Bodegas;
 select * from Productos;

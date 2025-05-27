@@ -103,11 +103,14 @@ namespace asp_servicios.Controllers
 
                 var entidad = JsonConversor.ConvertirAObjeto<Documentos>(
                     JsonConversor.ConvertirAString(datos["Entidad"]));
+                //Guardamos el Usuario(ID) log que se va a mandar por el Json 
+                var usuario = Convert.ToInt32(datos["Usuario"]);
 
                 this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion")!);
-                entidad = this.iAplicacion!.Guardar(entidad);
+                entidad = this.iAplicacion!.Guardar(entidad, usuario);
 
                 respuesta["Entidad"] = entidad!;
+
                 respuesta["Respuesta"] = "OK";
                 respuesta["Fecha"] = DateTime.Now.ToString();
                 return JsonConversor.ConvertirAString(respuesta);
@@ -134,9 +137,11 @@ namespace asp_servicios.Controllers
 
                 var entidad = JsonConversor.ConvertirAObjeto<Documentos>(
                     JsonConversor.ConvertirAString(datos["Entidad"]));
+                //Guardamos el Usuario(ID) log que se va a mandar por el Json 
+                var usuario = Convert.ToInt32(datos["Usuario"]);
 
                 this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion")!);
-                entidad = this.iAplicacion!.Modificar(entidad);
+                entidad = this.iAplicacion!.Modificar(entidad,usuario);
 
                 respuesta["Entidad"] = entidad!;
                 respuesta["Respuesta"] = "OK";
@@ -162,12 +167,14 @@ namespace asp_servicios.Controllers
                     respuesta["Error"] = "lbNoAutenticacion";
                     return JsonConversor.ConvertirAString(respuesta);
                 }
-
+                //recibe un JSON que lo convierte en objeto
                 var entidad = JsonConversor.ConvertirAObjeto<Documentos>(
                     JsonConversor.ConvertirAString(datos["Entidad"]));
+                //Guardamos el Usuario(ID) log que se va a mandar por el Json 
+                var usuario = Convert.ToInt32(datos["Usuario"]);//Lo convertimos en int
 
                 this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion")!);
-                entidad = this.iAplicacion!.Borrar(entidad);
+                entidad = this.iAplicacion!.Borrar(entidad, usuario);
 
                 respuesta["Entidad"] = entidad!;
                 respuesta["Respuesta"] = "OK";

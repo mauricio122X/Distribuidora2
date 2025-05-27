@@ -113,5 +113,26 @@ namespace lib_presentaciones.Implementaciones
                 JsonConversor.ConvertirAString(respuesta["Entidad"]));
             return entidad;
         }
+
+        //Buscar Id usuario
+        public async Task<Permisos?> BuscarIdUsuario(int idusuario)
+        {
+            var datos = new Dictionary<string, object>();
+            datos["Usuario"] = idusuario!;
+
+            comunicaciones = new Comunicaciones();
+            datos = comunicaciones.ConstruirUrl(datos, "Permisos/BuscarIdUsuario");
+            var respuesta = await comunicaciones!.Ejecutar(datos);
+
+            if (respuesta.ContainsKey("Error"))
+            {
+                throw new Exception(respuesta["Error"].ToString()!);
+            }
+
+            //Ya que la respuesta fue correcta retorna el objeto se convierte de dic a obj
+            var permisos = JsonConversor.ConvertirAObjeto<Permisos>
+                (JsonConversor.ConvertirAString(respuesta["Entidades"]));
+            return permisos;
+        }
     }
 }

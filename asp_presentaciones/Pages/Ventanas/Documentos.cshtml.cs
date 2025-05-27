@@ -12,15 +12,17 @@ namespace asp_presentacion.Pages.Ventanas
         private IDocumentosPresentacion? iPresentacion = null;
         private IBodegasPresentacion? iBodegasPresentacion = null;
         private IEmpresasPresentacion? iEmpresasPresentacion = null;
+        private IPermisosPresentacion? iPermisosPresentacion = null;
 
 
-        public DocumentosModel(IDocumentosPresentacion iPresentacion, IBodegasPresentacion iBodegasPresentacion, IEmpresasPresentacion iEmpresasPresentacion)
+        public DocumentosModel(IDocumentosPresentacion iPresentacion, IBodegasPresentacion iBodegasPresentacion, IEmpresasPresentacion iEmpresasPresentacion, IPermisosPresentacion iPermisosPresentacion)
         {
             try
             {
                 this.iPresentacion = iPresentacion;
                 this.iBodegasPresentacion = iBodegasPresentacion;
                 this.iEmpresasPresentacion = iEmpresasPresentacion;
+                this.iPermisosPresentacion = iPermisosPresentacion;
                 Filtro = new Documentos();
             }
             catch (Exception ex)
@@ -42,7 +44,9 @@ namespace asp_presentacion.Pages.Ventanas
         public void OnPostBtRefrescar()
         {
             try
-            {
+
+               {
+                //HttpContext.Session.SetString("Usuario", usuario.ID.ToString()!);
                 var variable_session = HttpContext.Session.GetString("Usuario");
                 if (String.IsNullOrEmpty(variable_session))
                 {
@@ -83,6 +87,13 @@ namespace asp_presentacion.Pages.Ventanas
         {
             try
             {
+                var usuario = Convert.ToInt32(HttpContext.Session.GetString("Usuario"));
+                var task = this.iPermisosPresentacion!.BuscarIdUsuario(usuario);
+                var permiso = task.Result;
+                if (permiso?.Nombre != "Master" || permiso == null)
+                {
+                    throw new ArgumentException("No tiene permiso de Nuevo.");
+                }
                 Accion = Enumerables.Ventanas.Editar; //Asigna la accion en editar para abrir el menu
                 Actual = new Documentos();//Para crear un objeto nuevo
                 CargarCombox();//carga la lista de las tablas relacionadas 
@@ -96,6 +107,13 @@ namespace asp_presentacion.Pages.Ventanas
         {
             try
             {
+                var usuario = Convert.ToInt32(HttpContext.Session.GetString("Usuario"));
+                var task = this.iPermisosPresentacion!.BuscarIdUsuario(usuario);
+                var permiso = task.Result;
+                if (permiso?.Nombre != "Master" || permiso == null)
+                {
+                    throw new ArgumentException("No tiene permiso de Modificar.");
+                }
                 OnPostBtRefrescar();//llama al metodo refrescar
                 Accion = Enumerables.Ventanas.Editar;//asigna la accion de editar para abrir el formulario
                 Actual = Lista!.FirstOrDefault(x => x.ID.ToString() == data);//Busca la entidad que se quiere modificar
@@ -110,12 +128,13 @@ namespace asp_presentacion.Pages.Ventanas
         {
             try
             {
+                var usuario = Convert.ToInt32(HttpContext.Session.GetString("Usuario"));
                 Accion = Enumerables.Ventanas.Editar;
                 Task<Documentos>? task = null;
                 if (Actual!.ID == 0)
-                    task = this.iPresentacion!.Guardar(Actual!)!;
+                    task = this.iPresentacion!.Guardar(Actual!, usuario)!;
                 else
-                    task = this.iPresentacion!.Modificar(Actual!)!;
+                    task = this.iPresentacion!.Modificar(Actual!,usuario)!;
                 task.Wait();
                 Actual = task.Result;
                 Accion = Enumerables.Ventanas.Listas;
@@ -130,6 +149,13 @@ namespace asp_presentacion.Pages.Ventanas
         {
             try
             {
+                var usuario = Convert.ToInt32(HttpContext.Session.GetString("Usuario"));
+                var task = this.iPermisosPresentacion!.BuscarIdUsuario(usuario);
+                var permiso = task.Result;
+                if (permiso?.Nombre != "Master" || permiso == null ) 
+                {
+                    throw new ArgumentException("No tiene permiso de borrar.");
+                }
                 OnPostBtRefrescar();
                 Accion = Enumerables.Ventanas.Borrar;
                 Actual = Lista!.FirstOrDefault(x => x.ID.ToString() == data);
@@ -143,7 +169,9 @@ namespace asp_presentacion.Pages.Ventanas
         {
             try
             {
-                var task = this.iPresentacion!.Borrar(Actual!);
+                //Obtenemos el usuario(json) que esta logiado y lo convertimos en entero
+                var usuario = Convert.ToInt32(HttpContext.Session.GetString("Usuario"));
+                var task = this.iPresentacion!.Borrar(Actual!, usuario);//le mandamos el ID usuario para auditoria
                 Actual = task.Result;
                 OnPostBtRefrescar();
             }

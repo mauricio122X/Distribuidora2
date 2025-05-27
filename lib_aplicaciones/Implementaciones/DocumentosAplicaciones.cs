@@ -8,18 +8,20 @@ namespace lib_aplicaciones.Implementaciones
     public class DocumentosAplicacion : IDocumentosAplicacion
     {
         private IConexion? IConexion = null;
+        private IAuditoriasAplicacion? iAuditoriasAplicacion = null;
 
-        public DocumentosAplicacion(IConexion iConexion)
+        public DocumentosAplicacion(IConexion iConexion , IAuditoriasAplicacion iAuditoriasAplicacion )
         {
             this.IConexion = iConexion;
+            this.iAuditoriasAplicacion = iAuditoriasAplicacion;
         }
 
         public void Configurar(string StringConexion)
         {
             this.IConexion!.StringConexion = StringConexion;
         }
-
-        public Documentos? Borrar(Documentos? entidad)
+        //Metodo Borrar que recibe la entidad(Docuemntos) y el ID del usuario log
+        public Documentos? Borrar(Documentos? entidad, int usuario)
         {
             if (entidad == null)
                 throw new Exception("lbFaltaInformacion");
@@ -31,10 +33,17 @@ namespace lib_aplicaciones.Implementaciones
 
             this.IConexion!.Documentos!.Remove(entidad);
             this.IConexion.SaveChanges();
+            //Cuando se elimina la entidad(Documentos) se crea la Auditoria
+            this.iAuditoriasAplicacion!.Guardar(new Auditorias()
+            {
+                ID_Usuario = usuario,
+                Fecha = DateTime.Now,
+                Accion = "Borrar",
+            });
             return entidad;
         }
 
-        public Documentos? Guardar(Documentos? entidad)
+        public Documentos? Guardar(Documentos? entidad, int usuario)
         {
             if (entidad == null)
                 throw new Exception("lbFaltaInformacion");
@@ -43,9 +52,17 @@ namespace lib_aplicaciones.Implementaciones
                 throw new Exception("lbYaSeGuardo");
 
             // Calculos
-
+            
             this.IConexion!.Documentos!.Add(entidad);
             this.IConexion.SaveChanges();
+
+            this.iAuditoriasAplicacion!.Guardar(new Auditorias()
+            {
+                ID_Usuario = usuario,
+                Fecha = DateTime.Now,
+                Accion = "Nuevo",
+            });
+
             return entidad;
         }
 
@@ -66,7 +83,7 @@ namespace lib_aplicaciones.Implementaciones
                 .ToList();
         }
 
-        public Documentos? Modificar(Documentos? entidad)
+        public Documentos? Modificar(Documentos? entidad, int usuario)
         {
             if (entidad == null)
                 throw new Exception("lbFaltaInformacion");
@@ -79,6 +96,13 @@ namespace lib_aplicaciones.Implementaciones
             var entry = this.IConexion!.Entry<Documentos>(entidad);
             entry.State = EntityState.Modified;
             this.IConexion.SaveChanges();
+            // Cuando se Modifique una entidad Documento va a crear una Auditoria
+            this.iAuditoriasAplicacion!.Guardar(new Auditorias()
+            {
+                ID_Usuario = usuario,
+                Fecha = DateTime.Now,
+                Accion = "Modificar",
+            });
             return entidad;
         }
     }

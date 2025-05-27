@@ -1,4 +1,4 @@
-﻿<center>
+﻿@* <center>
     <div class='popup'>
         <div class='pp_ms_inner'>
             <div style='width:95%'>
@@ -11,8 +11,18 @@
                 <input type="submit"
                        value="Cerrar"
                        asp-page-handler="BtCerrar"
-                       class="btn btn-secondary" />
+                       class="btn btn-secondary" /> 
             </div>
         </div>
     </div>
-</center>
+</center> *@
+@* <div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">Well done!</h4>
+    <p>@ViewData["Mensaje"]</p>
+</div> *@
+<div class="alert alert-danger d-flex align-items-center" role="alert">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill" /></svg>
+    <div>
+        @ViewData["Mensaje"]
+    </div>
+</div>

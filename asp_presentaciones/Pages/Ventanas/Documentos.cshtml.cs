@@ -107,13 +107,13 @@ namespace asp_presentacion.Pages.Ventanas
         {
             try
             {
-                var usuario = Convert.ToInt32(HttpContext.Session.GetString("Usuario"));
-                var task = this.iPermisosPresentacion!.BuscarIdUsuario(usuario);
-                var permiso = task.Result;
-                if (permiso?.Nombre != "Master" || permiso == null)
-                {
-                    throw new ArgumentException("No tiene permiso de Modificar.");
-                }
+                //var usuario = Convert.ToInt32(HttpContext.Session.GetString("Usuario"));
+                //var task = this.iPermisosPresentacion!.BuscarIdUsuario(usuario);
+                //var permiso = task.Result;
+                //if (permiso?.Nombre != "Master" || permiso == null)
+                //{
+                //    throw new ArgumentException("No tiene permiso de Modificar.");
+                //}
                 OnPostBtRefrescar();//llama al metodo refrescar
                 Accion = Enumerables.Ventanas.Editar;//asigna la accion de editar para abrir el formulario
                 Actual = Lista!.FirstOrDefault(x => x.ID.ToString() == data);//Busca la entidad que se quiere modificar
@@ -149,13 +149,13 @@ namespace asp_presentacion.Pages.Ventanas
         {
             try
             {
-                var usuario = Convert.ToInt32(HttpContext.Session.GetString("Usuario"));
-                var task = this.iPermisosPresentacion!.BuscarIdUsuario(usuario);
-                var permiso = task.Result;
-                if (permiso?.Nombre != "Master" || permiso == null ) 
-                {
-                    throw new ArgumentException("No tiene permiso de borrar.");
-                }
+                //var usuario = Convert.ToInt32(HttpContext.Session.GetString("Usuario"));
+                //var task = this.iPermisosPresentacion!.BuscarIdUsuario(usuario);
+                //var permiso = task.Result;
+                //if (permiso?.Nombre != "Master" || permiso == null ) 
+                //{
+                //    throw new ArgumentException("No tiene permiso de borrar.");
+                //}
                 OnPostBtRefrescar();
                 Accion = Enumerables.Ventanas.Borrar;
                 Actual = Lista!.FirstOrDefault(x => x.ID.ToString() == data);

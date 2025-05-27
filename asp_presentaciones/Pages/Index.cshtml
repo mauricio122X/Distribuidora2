@@ -6,54 +6,106 @@
 }
 @if (!Model.EstaLogueado)
 {
-    <div class="container"
-         align="left"
-         style="width:100%">
-        <h3>
-            Login
-        </h3>
-        <form method="POST">
-            <div style="width:60%">
-                <div class="form-group">
-                    <label class="control-label">
-                        Usuario:
-                    </label>
-                    <input onchange="keyUp(this)"
-                           asp-for="@Model.Email"
-                           class="form-control" />
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Mercado - Productos</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <style>
+            .product-card {
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                transition: box-shadow 0.3s ease-in-out;
+                background-color: #fff;
+                margin-bottom: 30px;
+            }
+
+                .product-card:hover {
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                }
+
+            .product-image {
+                width: 100%;
+                height: 180px;
+                object-fit: cover;
+            }
+
+            .product-info {
+                padding: 15px;
+                text-align: center;
+            }
+
+            .product-name {
+                font-size: 1.2rem;
+                font-weight: 600;
+                margin-bottom: 8px;
+                color: #333;
+            }
+
+            .product-price {
+                font-size: 1.1rem;
+                color: #198754; /* bootstrap green */
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body class="bg-light">
+
+        <div class="container py-4">
+            <h1 class="mb-4 text-center">Productos Disponibles</h1>
+            <div class="row">
+                <!-- Producto 1 -->
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/300x180.png?text=Camiseta+Deportiva" alt="Camiseta Deportiva" class="product-image" />
+                        <div class="product-info">
+                            <div class="product-name">Camiseta Deportiva</div>
+                            <div class="product-price">$29.99</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label">
-                        Contrasena:
-                    </label>
-                    <input type="password"
-                           onchange="keyUp(this)"
-                           asp-for="@Model.Contrasena"
-                           class="form-control" />
+                <!-- Producto 2 -->
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/300x180.png?text=Zapatillas+Running" alt="Zapatillas Running" class="product-image" />
+                        <div class="product-info">
+                            <div class="product-name">Zapatillas Running</div>
+                            <div class="product-price">$79.99</div>
+                        </div>
+                    </div>
                 </div>
-                <input type="submit"
-                       value="Limpiar"
-                       asp-page-handler="BtClean"
-                       class="btn btn-default" />
-                <input type="submit"
-                       value="Entrar"
-                       asp-page-handler="BtEnter"
-                       class="btn btn-default" />
+                <!-- Producto 3 -->
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/300x180.png?text=Gorra+Ejecutiva" alt="Gorra Ejecutiva" class="product-image" />
+                        <div class="product-info">
+                            <div class="product-name">Gorra Ejecutiva</div>
+                            <div class="product-price">$15.00</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Producto 4 -->
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/300x180.png?text=Mochila+Urbana" alt="Mochila Urbana" class="product-image" />
+                        <div class="product-info">
+                            <div class="product-name">Mochila Urbana</div>
+                            <div class="product-price">$49.99</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Puedes añadir más productos aquí siguiendo la misma estructura -->
             </div>
-        </form>
-    </div>
-}
-else
-{
-    <div class="text-center">
-        <h1 class="display-4">
-            Bienvenido
-        </h1>
-        <form method="POST">
-            <input type="submit"
-                   value="Cerrar"
-                   asp-page-handler="BtClose"
-                   class="btn btn-default" />
-        </form>
-    </div>
+        </div>
+
+        <!-- Bootstrap JS Bundle -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    </html>
+
 }

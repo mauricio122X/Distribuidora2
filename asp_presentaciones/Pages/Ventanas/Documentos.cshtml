@@ -84,7 +84,6 @@
                                        type="date"
                                        class="cts_forms form-control"
                                        asp-for="@Model.Actual!.Fecha" />
-
                             </div>
                         </div>
                         <div class="form-group">
@@ -120,6 +119,28 @@
                                         asp-for="@Model.Actual!.ID_Empresa"
                                         asp-items="@(new SelectList(Model.ListEmpresas, "ID", "Nombre"))">
                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label">
+                                    Producto
+                                </label>
+                                <div class="col-lg-6">
+                                    <select id="nmBodegas"
+                                            class="form-control"
+                                            asp-for="@Model.Actual!.ID_Producto"
+                                            asp-items="@(new SelectList(Model.ListProductos, "ID", "Nombre"))">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label">
+                                    Cantidad
+                                </label>
+                                <div class="col-lg-6">
+                                    <input id="nmMateria"
+                                           class="cts_forms form-control"
+                                           asp-for="@Model.Actual!.Cantidad" />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -184,13 +205,19 @@
                                 Fecha
                             </th>
                             <th>
-                                valor
-                            </th>
-                            <th>
                                 Bodega
                             </th>
                             <th>
                                 Empresa
+                            </th>
+                            <th>
+                                Producto
+                            </th>
+                            <th>
+                                Cantidad
+                            </th>
+                            <th>
+                                valor
                             </th>
                             <th class="cl_actions">
                                 Accion
@@ -209,13 +236,19 @@
                                         @elemento.Fecha
                                     </td>
                                     <td>
-                                        @elemento.Valor
-                                    </td>
-                                    <td>
                                         @elemento._Bodegas?.Nombre
                                     </td>
                                     <td>
                                         @elemento._Empresas?.Nombre
+                                    </td>
+                                    <td>
+                                        @elemento._Productos!.Nombre
+                                    </td>
+                                    <td>
+                                        @elemento.Cantidad
+                                    </td>
+                                    <td>
+                                        @elemento.Valor
                                     </td>
                                     <td>
                                         <input type="submit"

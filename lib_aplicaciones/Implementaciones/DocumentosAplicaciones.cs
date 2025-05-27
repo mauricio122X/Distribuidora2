@@ -71,6 +71,7 @@ namespace lib_aplicaciones.Implementaciones
             return this.IConexion!.Documentos!.Take(20)
                 .Include(x => x._Empresas)
                 .Include(x => x._Bodegas)
+                .Include(x => x._Productos)
                 .ToList();
         }
 
@@ -80,6 +81,7 @@ namespace lib_aplicaciones.Implementaciones
                 .Where(x => x.Tipo_Movimiento!.Contains(entidad!.Tipo_Movimiento!))
                 .Include(x => x._Empresas)
                 .Include(x => x._Bodegas)
+                .Include(x => x._Productos)
                 .ToList();
         }
 

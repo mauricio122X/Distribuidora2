@@ -15,9 +15,16 @@ namespace asp_presentacion.Pages.Ventanas
         private IEmpresasPresentacion? iEmpresasPresentacion = null;
         private IPermisosPresentacion? iPermisosPresentacion = null;
         private IUsuariosPresentacion? iUsuariosPresentacion = null;
+        private IProductosPresentacion? iProductosPresentacion = null;
 
 
-        public DocumentosModel(IDocumentosPresentacion iPresentacion, IBodegasPresentacion iBodegasPresentacion, IEmpresasPresentacion iEmpresasPresentacion, IPermisosPresentacion iPermisosPresentacion, IUsuariosPresentacion? iUsuariosPresentacion)
+
+        public DocumentosModel(IDocumentosPresentacion iPresentacion, 
+            IBodegasPresentacion iBodegasPresentacion, 
+            IEmpresasPresentacion iEmpresasPresentacion, 
+            IPermisosPresentacion iPermisosPresentacion, 
+            IUsuariosPresentacion? iUsuariosPresentacion,
+            IProductosPresentacion? iProductosPresentacion)
         {
             try
             {
@@ -26,6 +33,7 @@ namespace asp_presentacion.Pages.Ventanas
                 this.iEmpresasPresentacion = iEmpresasPresentacion;
                 this.iPermisosPresentacion = iPermisosPresentacion;
                 this.iUsuariosPresentacion = iUsuariosPresentacion;
+                this.iProductosPresentacion = iProductosPresentacion;
                 Filtro = new Documentos();
             }
             catch (Exception ex)
@@ -41,7 +49,9 @@ namespace asp_presentacion.Pages.Ventanas
         [BindProperty] public Documentos? Filtro { get; set; }
         [BindProperty] public List<Documentos>? Lista { get; set; }
         [BindProperty] public List<Bodegas>? ListBodegas { get; set; }//Lista que recibe de todas las bodegas
-        [BindProperty] public List<Empresas>? ListEmpresas { get; set; }//Lista que recibe de todos los roles
+        [BindProperty] public List<Empresas>? ListEmpresas { get; set; }//Lista que recibe de todos los Empresas
+        [BindProperty] public List<Productos>? ListProductos { get; set; }//Lista que recibe de todos los Productos
+
 
 
         //cargar la pagina la reflesca para mostrar la informacion
@@ -78,10 +88,13 @@ namespace asp_presentacion.Pages.Ventanas
             {
                 var task = this.iBodegasPresentacion!.Listar(); //Llama el metodo listar de Ibodegaspresentaciones
                 var task2 = this.iEmpresasPresentacion!.Listar(); //Llama el metodo listar de IDocumentosPresentaciones
+                var task3 = this.iProductosPresentacion!.Listar();
                 task.Wait();//Espere que se ejecute la peticion , task representa que corre de forma asincronica
                 task2.Wait();//Espere que se ejecute la peticion , task representa que corre de forma asincronica
+                task3.Wait();
                 ListBodegas = task.Result; //Guarda el resultado en la lista 
                 ListEmpresas = task2.Result; //Guarda el resultado en la lista
+                ListProductos = task3.Result;
             }
             catch (Exception ex)
             {
@@ -95,7 +108,7 @@ namespace asp_presentacion.Pages.Ventanas
                 var usuario = Convert.ToInt32(HttpContext.Session.GetString("Usuario"));
                 var buscarUsuarios = this.iUsuariosPresentacion!.BuscarID(usuario);
                 var objUsuario = buscarUsuarios.Result;
-                var task = this.iPermisosPresentacion!.BuscarIdRol(objUsuario!.ID_Bodega);
+                var task = this.iPermisosPresentacion!.BuscarIdRol(objUsuario!.ID_Rol);
                 var permiso = task.Result;
                 if (permiso?.Nombre != "Master" || permiso == null)
                 {
@@ -117,7 +130,7 @@ namespace asp_presentacion.Pages.Ventanas
                 var usuario = Convert.ToInt32(HttpContext.Session.GetString("Usuario"));
                 var buscarUsuarios = this.iUsuariosPresentacion!.BuscarID(usuario);
                 var objUsuario = buscarUsuarios.Result;
-                var task = this.iPermisosPresentacion!.BuscarIdRol(objUsuario!.ID_Bodega);
+                var task = this.iPermisosPresentacion!.BuscarIdRol(objUsuario!.ID_Rol);
                 var permiso = task.Result;
                 if (permiso?.Nombre != "Master" || permiso == null)
                 {
@@ -161,7 +174,7 @@ namespace asp_presentacion.Pages.Ventanas
                 var usuario = Convert.ToInt32(HttpContext.Session.GetString("Usuario"));
                 var buscarUsuarios = this.iUsuariosPresentacion!.BuscarID(usuario);
                 var objUsuario = buscarUsuarios.Result;
-                var task = this.iPermisosPresentacion!.BuscarIdRol(objUsuario!.ID_Bodega);
+                var task = this.iPermisosPresentacion!.BuscarIdRol(objUsuario!.ID_Rol);
                 var permiso = task.Result;
                 if (permiso?.Nombre != "Master" || permiso == null)
                 {

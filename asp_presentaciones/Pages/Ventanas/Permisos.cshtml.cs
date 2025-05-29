@@ -113,7 +113,7 @@ namespace asp_presentaciones.Pages.Ventanas
                 else
                     task = this.iPresentacion!.Modificar(Actual!)!;
                 task.Wait();
-                Actual = task.Result;
+                Actual = task.Result;   
                 Accion = Enumerables.Ventanas.Listas;
                 OnPostBtRefrescar();
             }

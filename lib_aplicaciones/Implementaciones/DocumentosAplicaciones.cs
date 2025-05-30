@@ -79,8 +79,10 @@ namespace lib_aplicaciones.Implementaciones
                 throw new Exception("lbYaSeGuardo");
 
             // Calculos
+            //Modifica el stock de producto dependiendo de compra o venta
             this.iProductosAplicacion!.ModificarStock(entidad);
-            
+            //Calcula el precio total de documento dependiendo si fue compra o venta
+            CalcularPrecio(entidad);            
 
             this.IConexion!.Documentos!.Add(entidad);
             this.IConexion.SaveChanges();
@@ -141,6 +143,20 @@ namespace lib_aplicaciones.Implementaciones
                 Fecha = DateTime.Now,
                 Accion = "Modificar",
             });
+            return entidad;
+        }
+
+        //Metodo que calcula el valor total de la compra o venta segun documentos
+        public Documentos? CalcularPrecio(Documentos? entidad) 
+        {
+            if(entidad == null)
+                throw new Exception("lbFaltaInformacion");
+            var producto = this.IConexion!.Productos!.FirstOrDefault(x => x.ID == entidad.ID_Producto);
+            if(entidad.Tipo_Movimiento == "Venta")
+                entidad.Valor = entidad.Cantidad * producto!.Precio_Venta;
+            if (entidad.Tipo_Movimiento == "Compra")
+                entidad.Valor = entidad.Cantidad * producto!.Precio_Compra;
+
             return entidad;
         }
     }

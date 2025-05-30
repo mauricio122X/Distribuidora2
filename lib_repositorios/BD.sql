@@ -1,4 +1,5 @@
 use master;
+go
 drop database IF EXISTS DB_Distribuidora;
 go
 CREATE DATABASE DB_Distribuidora ;
@@ -52,7 +53,7 @@ CREATE TABLE [Documentos](
 	[Tipo_Movimiento] NVARCHAR (50) not null,
 	[ID_Bodega] INT not null,
 	[ID_Producto] INT not null,
-	[Valor] DECIMAL(10,2) not null,
+	[Valor] DECIMAL(10,2) ,
 	[Fecha] SMALLDATETIME not null,
 	[Cantidad] INT not null,
 	[ID_Empresa] INT not null,

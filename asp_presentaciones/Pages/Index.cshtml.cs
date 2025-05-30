@@ -217,7 +217,7 @@ namespace asp_presentacion.Pages
                 if(Documento!.Tipo_Movimiento == "" )
                     throw new ArgumentException("Selecione un tipo de movimiento.");
                 Documento!.Fecha = DateTime.Now;
-                Documento!.Valor = 1;
+                //Documento!.Valor = 1;
                 //Entra solo si encuentra el permiso master o guardar
                 if (permiso == null || permiso!.Any(x => x.Nombre == "Master" || x.Nombre == "Guardar"))
                 {

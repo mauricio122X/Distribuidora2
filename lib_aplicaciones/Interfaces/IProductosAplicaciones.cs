@@ -10,5 +10,7 @@ namespace lib_aplicaciones.Interfaces
         Productos? Guardar(Productos? entidad);
         Productos? Modificar(Productos? entidad);
         Productos? Borrar(Productos? entidad);
+        void ModificarStock(Documentos documento);
+
     }
 }

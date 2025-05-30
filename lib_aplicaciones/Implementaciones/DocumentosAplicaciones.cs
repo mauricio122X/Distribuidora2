@@ -12,17 +12,21 @@ namespace lib_aplicaciones.Implementaciones
         private IAuditoriasAplicacion? iAuditoriasAplicacion = null;
         private IUsuariosAplicacion? iUsuariosAplicacion = null;
         private IPermisosAplicacion? iPermisosAplicacion = null;
+        private IProductosAplicacion? iProductosAplicacion = null;
+
 
         // Constructor que recibe las dependencias necesarias para la aplicacion Documentos
         public DocumentosAplicacion(IConexion iConexion , 
             IAuditoriasAplicacion iAuditoriasAplicacion, 
             IPermisosAplicacion iPermisosAplicacion,
-            IUsuariosAplicacion iUsuariosAplicacion)
+            IUsuariosAplicacion iUsuariosAplicacion,
+            IProductosAplicacion iProductosAplicacion)
         {
             this.IConexion = iConexion;
             this.iAuditoriasAplicacion = iAuditoriasAplicacion;
             this.iPermisosAplicacion = iPermisosAplicacion;
             this.iUsuariosAplicacion = iUsuariosAplicacion;
+            this.iProductosAplicacion = iProductosAplicacion;
         }
 
         public void Configurar(string StringConexion)
@@ -75,7 +79,9 @@ namespace lib_aplicaciones.Implementaciones
                 throw new Exception("lbYaSeGuardo");
 
             // Calculos
+            this.iProductosAplicacion!.ModificarStock(entidad);
             
+
             this.IConexion!.Documentos!.Add(entidad);
             this.IConexion.SaveChanges();
 

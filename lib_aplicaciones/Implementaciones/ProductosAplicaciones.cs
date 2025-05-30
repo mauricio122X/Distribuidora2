@@ -76,5 +76,25 @@ namespace lib_aplicaciones.Implementaciones
             this.IConexion.SaveChanges();
             return entidad;
         }
+
+        public void ModificarStock(Documentos documento)
+        {
+            var producto = this.IConexion!.Productos!.FirstOrDefault(x => x.ID.Equals(documento.ID_Producto));
+
+            if (documento == null )
+                throw new Exception("lbFaltaInformacion");
+            if (documento.Tipo_Movimiento == "Compra")
+                producto!.Stock += documento.Cantidad;
+            if(documento.Tipo_Movimiento == "Venta")
+                if(documento.Cantidad > producto!.Stock)
+                    throw new Exception("No Hay Stock Suficiente");
+                else
+                    producto!.Stock -= documento.Cantidad;
+
+
+            var entry = this.IConexion!.Entry<Productos>(producto!);
+            entry.State = EntityState.Modified;
+            this.IConexion.SaveChanges();
+        }
     }
 }

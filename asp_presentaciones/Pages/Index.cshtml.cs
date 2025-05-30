@@ -214,7 +214,7 @@ namespace asp_presentacion.Pages
                 //Genera la tarea de documentos
                 Task<Documentos>? task2 = null;
                 //Le ingresa la hora y el valor automaticamente al documento
-                if(Documento!.Tipo_Movimiento != "" )
+                if(Documento!.Tipo_Movimiento == "" )
                     throw new ArgumentException("Selecione un tipo de movimiento.");
                 Documento!.Fecha = DateTime.Now;
                 Documento!.Valor = 1;

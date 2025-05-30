@@ -10,6 +10,6 @@ namespace lib_aplicaciones.Interfaces
         Permisos? Guardar(Permisos? entidad);
         Permisos? Modificar(Permisos? entidad);
         Permisos? Borrar(Permisos? entidad);
-        Permisos? BuscarIdRol(int rol);
+        List<Permisos> BuscarIdRol(int rol);
     }
 }

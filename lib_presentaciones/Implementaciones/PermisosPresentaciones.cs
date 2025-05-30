@@ -115,8 +115,9 @@ namespace lib_presentaciones.Implementaciones
         }
 
         //Buscar Id rol
-        public async Task<Permisos?> BuscarIdRol(int idRol)
+        public async Task<List<Permisos>> BuscarIdRol(int idRol)
         {
+            var lista = new List<Permisos>();
             var datos = new Dictionary<string, object>();
             datos["Rol"] = idRol!;
 
@@ -130,9 +131,9 @@ namespace lib_presentaciones.Implementaciones
             }
 
             //Ya que la respuesta fue correcta retorna el objeto se convierte de dic a obj
-            var permisos = JsonConversor.ConvertirAObjeto<Permisos>
-                (JsonConversor.ConvertirAString(respuesta["Entidades"]));
-            return permisos;
+            lista = JsonConversor.ConvertirAObjeto<List<Permisos>>(
+                JsonConversor.ConvertirAString(respuesta["Entidades"]));
+            return lista;
         }
     }
 }

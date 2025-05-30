@@ -7,22 +7,40 @@ namespace lib_aplicaciones.Implementaciones
 {
     public class DocumentosAplicacion : IDocumentosAplicacion
     {
+        //Inyectamos las dependencias necesarias para la aplicacion Documentos
         private IConexion? IConexion = null;
         private IAuditoriasAplicacion? iAuditoriasAplicacion = null;
+        private IUsuariosAplicacion? iUsuariosAplicacion = null;
+        private IPermisosAplicacion? iPermisosAplicacion = null;
 
-        public DocumentosAplicacion(IConexion iConexion , IAuditoriasAplicacion iAuditoriasAplicacion )
+        // Constructor que recibe las dependencias necesarias para la aplicacion Documentos
+        public DocumentosAplicacion(IConexion iConexion , 
+            IAuditoriasAplicacion iAuditoriasAplicacion, 
+            IPermisosAplicacion iPermisosAplicacion,
+            IUsuariosAplicacion iUsuariosAplicacion)
         {
             this.IConexion = iConexion;
             this.iAuditoriasAplicacion = iAuditoriasAplicacion;
+            this.iPermisosAplicacion = iPermisosAplicacion;
+            this.iUsuariosAplicacion = iUsuariosAplicacion;
         }
 
         public void Configurar(string StringConexion)
         {
             this.IConexion!.StringConexion = StringConexion;
         }
+
         //Metodo Borrar que recibe la entidad(Docuemntos) y el ID del usuario log
         public Documentos? Borrar(Documentos? entidad, int usuario)
         {
+            // Verifica si el usuario tiene permisos para borrar
+            var objUsuario = this.iUsuariosAplicacion!.BuscarID(usuario);
+            var permiso = this.iPermisosAplicacion!.BuscarIdRol(objUsuario!.ID_Rol);
+            //Busca si algun permiso cumple la condicion si no(!) entra al if
+            if (permiso == null || !permiso!.Any(x => x.Nombre == "Master" || x.Nombre == "Borrar"))
+            {
+                throw new Exception("No tiene Permiso de borrar");
+            }
             if (entidad == null)
                 throw new Exception("lbFaltaInformacion");
 
@@ -45,6 +63,11 @@ namespace lib_aplicaciones.Implementaciones
 
         public Documentos? Guardar(Documentos? entidad, int usuario)
         {
+            var objUsuario = this.iUsuariosAplicacion!.BuscarID(usuario);
+            var permiso = this.iPermisosAplicacion!.BuscarIdRol(objUsuario!.ID_Rol);
+            //Busca si algun permiso cumple la condicion si no(!) entra al if
+            if (permiso == null || !permiso!.Any(x => x.Nombre == "Master" || x.Nombre == "Guardar"))
+                throw new Exception("No tiene Permiso de guardar");
             if (entidad == null)
                 throw new Exception("lbFaltaInformacion");
 
@@ -76,7 +99,7 @@ namespace lib_aplicaciones.Implementaciones
         }
 
         public List<Documentos> PorCodigo(Documentos? entidad)
-        {
+        {   
             return this.IConexion!.Documentos!
                 .Where(x => x.Tipo_Movimiento!.Contains(entidad!.Tipo_Movimiento!))
                 .Include(x => x._Empresas)
@@ -87,6 +110,13 @@ namespace lib_aplicaciones.Implementaciones
 
         public Documentos? Modificar(Documentos? entidad, int usuario)
         {
+            var objUsuario = this.iUsuariosAplicacion!.BuscarID(usuario);
+            var permiso = this.iPermisosAplicacion!.BuscarIdRol(objUsuario!.ID_Rol);
+            if (permiso == null || !permiso!.Any(x => x.Nombre == "Master" || x.Nombre == "Modificar"))
+
+            {
+                throw new Exception("No tiene Permiso de mpdificar");
+            }
             if (entidad == null)
                 throw new Exception("lbFaltaInformacion");
 

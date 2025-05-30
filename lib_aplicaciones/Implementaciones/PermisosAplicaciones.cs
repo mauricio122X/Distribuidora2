@@ -55,10 +55,11 @@ namespace lib_aplicaciones.Implementaciones
                 .Include(x=>x._Rol)
                 .ToList();
         }
-        public Permisos? BuscarIdRol(int rol)
+        public List<Permisos> BuscarIdRol(int rol)
         {
-            //revisar
-            return this.IConexion!.Permisos!.FirstOrDefault(x => x.ID_Rol!.Equals(rol));
+            return this.IConexion!.Permisos!
+                    .Where(x => x.ID_Rol == rol)
+                    .ToList();
         }
         public List<Permisos> PorCodigo(Permisos? entidad)
         {

@@ -122,11 +122,15 @@ namespace asp_presentacion.Pages
         private IEmpresasPresentacion? iEmpresasPresentacion = null;
         private IBodegasPresentacion? iBodegasPresentacion = null;
         private IDocumentosPresentacion? iDocumentosPresentacion = null;
+        private IUsuariosPresentacion? iUsuariosPresentacion = null;
+        private IPermisosPresentacion? iPermisosPresentacion = null;
 
         public IndexModel(IProductosPresentacion iProductosPresentacion, 
             IEmpresasPresentacion? iEmpresasPresentacion, 
             IBodegasPresentacion? iBodegasPresentacion,
-            IDocumentosPresentacion iDocumentosPresentacion)
+            IDocumentosPresentacion iDocumentosPresentacion,
+            IUsuariosPresentacion iUsuariosPresentacion,
+            IPermisosPresentacion iPermisosPresentacion)
         {
             try
             {
@@ -134,6 +138,8 @@ namespace asp_presentacion.Pages
                 this.iEmpresasPresentacion = iEmpresasPresentacion;
                 this.iBodegasPresentacion = iBodegasPresentacion;
                 this.iDocumentosPresentacion = iDocumentosPresentacion;
+                this.iUsuariosPresentacion = iUsuariosPresentacion;
+                this.iPermisosPresentacion = iPermisosPresentacion;
             }
             catch (Exception ex)
             {
@@ -196,21 +202,33 @@ namespace asp_presentacion.Pages
         {
             try
             {
+                //Obtiene el id de la seccion
                 var usuario = Convert.ToInt32(HttpContext.Session.GetString("Usuario"));
-                Task<Documentos>? task = null;
-                Documento!.Tipo_Movimiento = "Compra";
+                //Busca los permisos del usuario log
+                var buscarUsuarios = this.iUsuariosPresentacion!.BuscarID(usuario);
+                var objUsuario = buscarUsuarios.Result;
+                if (objUsuario == null)
+                    throw new ArgumentException("No esta log.");
+                var task = this.iPermisosPresentacion!.BuscarIdRol(objUsuario!.ID_Rol);
+                var permiso = task.Result; 
+                //Genera la tarea de documentos
+                Task<Documentos>? task2 = null;
+                //Le ingresa la hora y el valor automaticamente al documento
+                if(Documento!.Tipo_Movimiento != "" )
+                    throw new ArgumentException("Selecione un tipo de movimiento.");
                 Documento!.Fecha = DateTime.Now;
                 Documento!.Valor = 1;
-                if (usuario != 0)
+                //Entra solo si encuentra el permiso master o guardar
+                if (permiso == null || permiso!.Any(x => x.Nombre == "Master" || x.Nombre == "Guardar"))
                 {
-                    task = this.iDocumentosPresentacion!.Guardar(Documento!, usuario)!;
+                    task2 = this.iDocumentosPresentacion!.Guardar(Documento!, usuario)!;
                 }
                 else 
                 {
                     throw new ArgumentException("No tiene permiso de general un documento.");
                 }
                 task.Wait();
-                Documento = task.Result;
+                Documento = task2.Result;
                 Actual = null;
                 OnPostBtRefrescar();
             }

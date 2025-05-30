@@ -110,7 +110,8 @@ namespace asp_presentacion.Pages.Ventanas
                 var objUsuario = buscarUsuarios.Result;
                 var task = this.iPermisosPresentacion!.BuscarIdRol(objUsuario!.ID_Rol);
                 var permiso = task.Result;
-                if (permiso?.Nombre != "Master" || permiso == null)
+                //Busca si algun permiso cumple la condicion si no(!) entra al if
+                if (permiso == null || !permiso!.Any(x => x.Nombre == "Master" || x.Nombre == "Guardar"))
                 {
                     throw new ArgumentException("No tiene permiso de crear.");
                 }
@@ -132,7 +133,8 @@ namespace asp_presentacion.Pages.Ventanas
                 var objUsuario = buscarUsuarios.Result;
                 var task = this.iPermisosPresentacion!.BuscarIdRol(objUsuario!.ID_Rol);
                 var permiso = task.Result;
-                if (permiso?.Nombre != "Master" || permiso == null)
+                //Busca si algun permiso cumple la condicion si no(!) entra al if
+                if (permiso == null || !permiso!.Any(x => x.Nombre == "Master" || x.Nombre == "Modificar"))
                 {
                     throw new ArgumentException("No tiene permiso de borrar.");
                 }
@@ -176,7 +178,8 @@ namespace asp_presentacion.Pages.Ventanas
                 var objUsuario = buscarUsuarios.Result;
                 var task = this.iPermisosPresentacion!.BuscarIdRol(objUsuario!.ID_Rol);
                 var permiso = task.Result;
-                if (permiso?.Nombre != "Master" || permiso == null)
+                //Busca si algun permiso cumple la condicion si no(!) entra al if
+                if (permiso == null || !permiso!.Any(x => x.Nombre == "Master" || x.Nombre == "Borrar"))
                 {
                     throw new ArgumentException("No tiene permiso de borrar.");
                 }

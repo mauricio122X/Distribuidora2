@@ -83,6 +83,17 @@
                     <div class="containers_vn panel panel-default">
                         <h3>Formulario de compra</h3>
                         <div>
+                                <div class="form-group">
+                                    <label class="col-lg-4 control-label">Tipo movimiento</label>
+                                    <div class="col-lg-6">
+                                        <select asp-for="@Model.Documento!.Tipo_Movimiento" class="form-control">
+                                            <option value="">Seleccione una opción</option>
+                                            <option value="Compra">Compra</option>
+                                            <option value="Venta">Venta</option>
+                                        </select>
+                                    </div>
+                                </div>
+
                             <div class="form-group">
                                 <label class="col-lg-4 control-label">
                                     Producto
@@ -133,6 +144,10 @@
                                    value="Guardar"
                                    asp-page-handler="BtGuardar"
                                    class="btn btn-secondary" />
+                                <input type="submit"
+                                       value="Cerrar"
+                                       asp-page-handler="BtCerrar"
+                                       class="btn btn-secondary" />
                         </div>
                     </div>
                         @* Si se genera algun error muestre el mensaje en las ventanas emergentes *@

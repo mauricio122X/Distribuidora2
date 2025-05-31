@@ -2,6 +2,8 @@ using lib_dominio.Nucleo;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using lib_presentaciones.Interfaces;
+using lib_dominio.Entidades;
+using lib_presentaciones.Implementaciones;
 namespace asp_presentacion.Pages
 {
     /// <summary>
@@ -11,6 +13,9 @@ namespace asp_presentacion.Pages
     {
         // Estado de sesión del usuario
         public bool EstaLogueado = false;
+        //public Usuarios? UsuarioActual { get; set; }
+        public List<Permisos?> ListPermisos { get; set; }
+
 
         // Propiedades vinculadas al formulario
         [BindProperty]
@@ -20,11 +25,14 @@ namespace asp_presentacion.Pages
         public string? Contrasena { get; set; }
 
         private IUsuariosPresentacion? iUsuariosPresentacion = null;
-        public LoginModel(IUsuariosPresentacion iUsuariosPresentacion)
+        private IPermisosPresentacion? iPermisosPresentacion = null;
+
+        public LoginModel(IUsuariosPresentacion iUsuariosPresentacion , IPermisosPresentacion iPermisosPresentacion)
         {
             try
             {
                 this.iUsuariosPresentacion = iUsuariosPresentacion;
+                this.iPermisosPresentacion = iPermisosPresentacion;
             }
             catch (Exception ex)
             {
@@ -36,10 +44,11 @@ namespace asp_presentacion.Pages
         public void OnGet()
         {
             var variable_session = HttpContext.Session.GetString("Usuario");
-
+            
             if (!string.IsNullOrEmpty(variable_session))
             {
                 EstaLogueado = true;
+               
                 return;
             }
         }
@@ -84,10 +93,16 @@ namespace asp_presentacion.Pages
                     OnPostBtClean();
                     return;
                 }
+                //Busca los permisos que tenga el usuario log
+                var permisos = this.iPermisosPresentacion!.BuscarIdRol(usuario!.ID_Rol);
+                //Los guarda en ListaPermisos
+                ListPermisos = permisos!.Result;
 
                 // Usuario autenticado
                 ViewData["Logged"] = true;
                 HttpContext.Session.SetString("Usuario", usuario.ID.ToString()!);//Obtengo el ID del que se log
+                // guarda los permisos en formarto json de forma de contesto, esto para no estar buscando los permisos
+                HttpContext.Session.SetString("Permisos", JsonConversor.ConvertirAString(ListPermisos));
                 EstaLogueado = true;
 
                 // Limpiar campos después de login

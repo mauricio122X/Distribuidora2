@@ -104,11 +104,16 @@ go
 insert into Bodegas(Nombre,Capacidad_Max) values('Bodega 1', 1000), ('Bodega2',200);
 insert	into Empresas values ('Empresa1' ,'calle1','123','cliente','123' );
 insert into Productos(Nombre,Precio_Compra,Cantidad_Embase,Descripcion,Precio_Venta,Stock) values ('producto1',200,20,'descripcion1',300,5);
-insert into Roles(Nombre,Salario) values('rol1',200) , ('rol2',200);
-insert into Vehiculos(Placa,Tipo,Capacidad) values('123abc','camioneta',100);
+INSERT INTO roles (nombre, salario) VALUES
+	('Master', 8000.00),
+	('Administrador', 6000.00),
+	('Encargado de Inventario', 4000.00),
+	('Encargado de Pedidos', 4200.00),
+	('Conductor', 3000.00),
+	('Usuario de Consulta', 2500.00);insert into Vehiculos(Placa,Tipo,Capacidad) values('123abc','camioneta',100);
 insert into Documentos(Tipo_Movimiento, ID_Bodega, Valor,Fecha,ID_Empresa , ID_Producto , Cantidad) values ('venta',1,200,GETDATE(),1,1,10);
 insert into Usuarios(Carnet,Nombre,Contraseña, ID_Rol,ID_Bodega) VALUES ('123', 'henao','3456', 1, 1) ,('456','mauricio','123',1,1);
-insert into Permisos(Nombre,ID_Rol) values('Master',1 );
+insert into Permisos(Nombre,ID_Rol) values('Guardar',1 ) , ('Borrar',1 ) , ('Modificar',1 ) , ('Listar',1 );
 go
 select * from Bodegas;
 select * from Productos;

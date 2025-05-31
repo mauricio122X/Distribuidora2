@@ -41,7 +41,7 @@ namespace lib_aplicaciones.Implementaciones
             var objUsuario = this.iUsuariosAplicacion!.BuscarID(usuario);
             var permiso = this.iPermisosAplicacion!.BuscarIdRol(objUsuario!.ID_Rol);
             //Busca si algun permiso cumple la condicion si no(!) entra al if
-            if (permiso == null || !permiso!.Any(x => x.Nombre == "Master" || x.Nombre == "Borrar"))
+            if (permiso == null || !permiso!.Any(x =>x.Nombre == "Borrar"))
             {
                 throw new Exception("No tiene Permiso de borrar");
             }
@@ -70,7 +70,7 @@ namespace lib_aplicaciones.Implementaciones
             var objUsuario = this.iUsuariosAplicacion!.BuscarID(usuario);
             var permiso = this.iPermisosAplicacion!.BuscarIdRol(objUsuario!.ID_Rol);
             //Busca si algun permiso cumple la condicion si no(!) entra al if
-            if (permiso == null || !permiso!.Any(x => x.Nombre == "Master" || x.Nombre == "Guardar"))
+            if (permiso == null || !permiso!.Any(x => x.Nombre == "Guardar"))
                 throw new Exception("No tiene Permiso de guardar");
             if (entidad == null)
                 throw new Exception("lbFaltaInformacion");
@@ -120,7 +120,7 @@ namespace lib_aplicaciones.Implementaciones
         {
             var objUsuario = this.iUsuariosAplicacion!.BuscarID(usuario);
             var permiso = this.iPermisosAplicacion!.BuscarIdRol(objUsuario!.ID_Rol);
-            if (permiso == null || !permiso!.Any(x => x.Nombre == "Master" || x.Nombre == "Modificar"))
+            if (permiso == null || !permiso!.Any(x => x.Nombre == "Modificar"))
 
             {
                 throw new Exception("No tiene Permiso de mpdificar");

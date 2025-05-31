@@ -162,8 +162,6 @@ namespace asp_presentacion.Pages
         [BindProperty] public List<Empresas>? ListEmpresas { get; set; }
 
         [BindProperty] public Enumerables.Ventanas Accion { get; set; }
-
-
         public virtual void OnGet() { OnPostBtRefrescar(); }
         public void OnPostBtRefrescar()
         {
@@ -219,7 +217,7 @@ namespace asp_presentacion.Pages
                 Documento!.Fecha = DateTime.Now;
                 //Documento!.Valor = 1;
                 //Entra solo si encuentra el permiso master o guardar
-                if (permiso == null || permiso!.Any(x => x.Nombre == "Master" || x.Nombre == "Guardar"))
+                if (permiso == null || permiso!.Any(x => x.Nombre == "Guardar"))
                 {
                     task2 = this.iDocumentosPresentacion!.Guardar(Documento!, usuario)!;
                 }

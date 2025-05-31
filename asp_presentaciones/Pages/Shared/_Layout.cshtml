@@ -1,7 +1,18 @@
-﻿@{
+﻿@using lib_dominio.Entidades
+@using lib_dominio.Nucleo
+@{
+    //Verifica del context de la session si alguien esta log(se genera cuando alguien entra en el formulario de login)
     var estaLogueado = Context.Session.GetString("Usuario") != null;
+    //Obtiene los permisos que se guardaron en HttpContext.Session.SetString en login en formato json
+    var permisos = Context.Session.GetString("Permisos");
+    //Convierte el json a lista Permisos
+    List<Permisos>? Listpermisos = null;
+    if (!string.IsNullOrEmpty(permisos))
+    {
+        Listpermisos = JsonConversor.ConvertirAObjeto<List<Permisos>>(permisos);
+    }
 }
-<!DOCTYPE html>
+<!DOCTYPE html>     
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -46,7 +57,14 @@ bg-white border-bottom box-shadow mb-3">
                                 Login
                             </a>
                         </li>
-                        @if (estaLogueado)
+                        <li class="nav-item">
+                            <a class="nav-link text-dark"
+                               asp-area=""
+                               asp-page="/Ventanas/Mandados">
+                                Mandados
+                            </a>
+                        </li>
+                        @if (estaLogueado && Listpermisos?.FirstOrDefault(x => x.Nombre == "Listar") != null)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark"

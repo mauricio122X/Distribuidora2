@@ -88,6 +88,17 @@
                         </div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">
+                                Codigo
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmMateria"
+                                       type="date"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.Codigo" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
                                 Valor
                             </label>
                             <div class="col-lg-6">
@@ -142,6 +153,20 @@
                                            asp-for="@Model.Actual!.Cantidad" />
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label">
+                                    Estado
+                                </label>
+                                <div class="col-lg-6">
+                                    <select asp-for="@Model.Actual!.Estado" class="form-control">
+                                        <option value="">Seleccione una opción</option>
+                                        <option value="Pendiente">Pendiente</option>
+                                        <option value="Transito">Transito</option>
+                                        <option value="Asignado">Asignado</option>
+                                        <option value="Entregado">Entregado</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -192,12 +217,15 @@
             {
                 <input id="flNombre"
                        class="cts_forms form-control"
-                       asp-for="@Model.Filtro!.Tipo_Movimiento"
+                       asp-for="@Model.Filtro!.Codigo"
                        placeholder="Movimiento" />
                 <br />
                 <div class="containers_vn panel panel-default">
                     <table class="tb_data table table-striped table-bordered tablehover">
                         <tr>
+                            <th>
+                                Codigo
+                            </th>
                             <th>
                                 Tipo movimiento
                             </th>
@@ -219,6 +247,9 @@
                             <th>
                                 valor
                             </th>
+                            <th>
+                                Estado
+                            </th>
                             <th class="cl_actions">
                                 Accion
                             </th>
@@ -229,6 +260,9 @@
                             @foreach (var elemento in Model.Lista)
                             {
                                 <tr>
+                                    <td>
+                                        @elemento.Codigo
+                                    </td>
                                     <td>
                                         @elemento.Tipo_Movimiento
                                     </td>
@@ -249,6 +283,9 @@
                                     </td>
                                     <td>
                                         @elemento.Valor
+                                    </td>
+                                    <td>
+                                        @elemento.Estado
                                     </td>
                                     <td>
                                         <input type="submit"

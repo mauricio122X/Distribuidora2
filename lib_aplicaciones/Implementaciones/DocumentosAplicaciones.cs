@@ -109,7 +109,7 @@ namespace lib_aplicaciones.Implementaciones
         public List<Documentos> PorCodigo(Documentos? entidad)
         {   
             return this.IConexion!.Documentos!
-                .Where(x => x.Tipo_Movimiento!.Contains(entidad!.Tipo_Movimiento!))
+                .Where(x => x.Codigo!.Contains(entidad!.Codigo!))
                 .Include(x => x._Empresas)
                 .Include(x => x._Bodegas)
                 .Include(x => x._Productos)

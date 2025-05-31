@@ -51,11 +51,13 @@ go
 CREATE TABLE [Documentos](
 	[ID] INT PRIMARY KEY IDENTITY (1,1),
 	[Tipo_Movimiento] NVARCHAR (50) not null,
+	[Codigo] NVARCHAR (50) unique not null,
 	[ID_Bodega] INT not null,
 	[ID_Producto] INT not null,
 	[Valor] DECIMAL(10,2) ,
 	[Fecha] SMALLDATETIME not null,
 	[Cantidad] INT not null,
+	[Estado] NVARCHAR(100) not null,
 	[ID_Empresa] INT not null,
 	FOREIGN KEY ([ID_Bodega]) REFERENCES [Bodegas] ([ID]),
 	FOREIGN KEY ([ID_Producto]) REFERENCES [Productos] ([ID]),
@@ -76,7 +78,6 @@ FOREIGN KEY ([ID_Bodega]) REFERENCES [Bodegas] ([ID])
 go
 CREATE TABLE [Vehiculos_Documentos](
 [ID] INT PRIMARY KEY IDENTITY (1,1) not null,
-[Cantidad] INT not null,
 [ID_Documentos] INT not null,
 [ID_Vehiculos] INT not null,
 FOREIGN KEY ([ID_Documentos]) REFERENCES [Documentos] ([ID]),
@@ -111,7 +112,7 @@ INSERT INTO roles (nombre, salario) VALUES
 	('Encargado de Pedidos', 4200.00),
 	('Conductor', 3000.00),
 	('Usuario de Consulta', 2500.00);insert into Vehiculos(Placa,Tipo,Capacidad) values('123abc','camioneta',100);
-insert into Documentos(Tipo_Movimiento, ID_Bodega, Valor,Fecha,ID_Empresa , ID_Producto , Cantidad) values ('venta',1,200,GETDATE(),1,1,10);
+insert into Documentos(Codigo,Tipo_Movimiento, ID_Bodega, Valor,Fecha,ID_Empresa , ID_Producto , Cantidad, Estado) values ('123','venta',1,200,GETDATE(),1,1,10,'Entregado');
 insert into Usuarios(Carnet,Nombre,Contraseña, ID_Rol,ID_Bodega) VALUES ('123', 'henao','3456', 1, 1) ,('456','mauricio','123',1,1);
 insert into Permisos(Nombre,ID_Rol) values('Guardar',1 ) , ('Borrar',1 ) , ('Modificar',1 ) , ('Listar',1 );
 go

@@ -68,7 +68,7 @@ namespace asp_presentacion.Pages.Ventanas
                     HttpContext.Response.Redirect("/");
                     return;
                 }
-                Filtro!.Tipo_Movimiento = Filtro!.Tipo_Movimiento ?? "";
+                Filtro!.Codigo = Filtro!.Codigo ?? "";
                 //Filtro!.Materia = Filtro!.Materia ?? ""; 
                 Accion = Enumerables.Ventanas.Listas;
                 var task = this.iPresentacion!.PorCodigo(Filtro!);

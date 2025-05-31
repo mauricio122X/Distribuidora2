@@ -11,11 +11,13 @@ namespace lib_dominio.Entidades
     public class Documentos
     {
         [Key] public int ID { get; set; }
+        public string? Codigo { get; set; }
         public string? Tipo_Movimiento { get; set; }
         public DateTime? Fecha { get; set; }
         public int? ID_Bodega { get; set; }
         public decimal? Valor { get; set; }
         public int? Cantidad { get; set; }
+        public string? Estado { get; set; }
         public int ID_Empresa { get; set; }
         public int ID_Producto { get; set; }
 

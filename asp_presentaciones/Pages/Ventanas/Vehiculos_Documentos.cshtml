@@ -83,16 +83,6 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-lg-4 control-label">
-                                Cantidad
-                            </label>
-                            <div class="col-lg-6">
-                                <input id="nmEstudiante"
-                                       class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.Cantidad" /> @* Si en actual tiene un registro pone la info(Nombre) si no lo deja en blanco *@
-                            </div>
-                        </div>
                     </div>
                 </div>
             }
@@ -118,7 +108,6 @@
                             <h6 align="left">
                                 Documento: @Model.Actual!._Documentos!.Tipo_Movimiento
                                 Producto: @Model.Actual!._Vehiculos!.Placa
-                                Cantidad: @Model.Actual!.Cantidad
                             </h6>
                             <br />
                             <br />
@@ -151,11 +140,7 @@
                             </th>
                             <th>
                                 Documento
-                            </th>
-                            <th>
-                                Cantidad
-                            </th>
-
+                            </th>                     
                             <th class="cl_actions">
                                 Accion
                             </th>
@@ -171,10 +156,6 @@
                                     <td>
                                         @elemento._Documentos!.Tipo_Movimiento 
                                     </td>
-                                    <td>
-                                        @elemento.Cantidad
-                                    </td>
-
                                     <td>
                                         <input type="submit"
                                                value="Modicar"

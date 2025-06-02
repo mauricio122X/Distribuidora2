@@ -92,7 +92,6 @@
                             </label>
                             <div class="col-lg-6">
                                 <input id="nmMateria"
-                                       type="date"
                                        class="cts_forms form-control"
                                        asp-for="@Model.Actual!.Codigo" />
                             </div>
@@ -159,11 +158,11 @@
                                 </label>
                                 <div class="col-lg-6">
                                     <select asp-for="@Model.Actual!.Estado" class="form-control">
-                                        <option value="">Seleccione una opción</option>
-                                        <option value="Pendiente">Pendiente</option>
-                                        <option value="Transito">Transito</option>
-                                        <option value="Asignado">Asignado</option>
-                                        <option value="Entregado">Entregado</option>
+                                            <option value="">Seleccione una opción</option>
+                                            <option value="Pendiente">Pendiente</option>
+                                            <option value="Transito">Transito</option>
+                                            <option value="Asignado">Asignado</option>
+                                            <option value="Entregado">Entregado</option>
                                     </select>
                                 </div>
                             </div>

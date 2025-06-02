@@ -1,7 +1,7 @@
 ﻿@page
 @model asp_presentacion.Pages.Ventanas.AuditoriasModel
 @{
-    ViewData["Titulo"] = "";
+    ViewData["Titulo"] = "Auditorias";
 }
 <center>
     <div>
@@ -9,7 +9,7 @@
               enctype="multipart/form-data">
             @Html.AntiForgeryToken()
             <div align="left">
-                <h3>Auditorias</h3> @* <!--Titulo -->  *@
+                <h3>@ViewData["Titulo"]</h3> @* <!--Titulo -->  *@
             </div>
             @* Botones Reflescar , nuevo , guardar , cancelar *@
             <div align="left"

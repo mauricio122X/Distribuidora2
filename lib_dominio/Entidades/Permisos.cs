@@ -8,7 +8,7 @@ namespace lib_dominio.Entidades
     public class Permisos
     {
         [Key] public int ID { get; set; }
-        public int ID_Rol{ get; set; }
+        public int ID_Rol { get; set; }
         public string? Nombre { get; set; }
 
         [ForeignKey("ID_Rol")]

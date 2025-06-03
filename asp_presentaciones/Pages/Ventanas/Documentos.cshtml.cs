@@ -4,6 +4,7 @@ using lib_presentaciones.Implementaciones;
 using lib_presentaciones.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using OfficeOpenXml;
 using System.Net.WebSockets;
 namespace asp_presentacion.Pages.Ventanas
 {
@@ -225,6 +226,58 @@ namespace asp_presentacion.Pages.Ventanas
             {
                 if (Accion == Enumerables.Ventanas.Listas)
                     OnPostBtRefrescar();
+            }
+            catch (Exception ex)
+            {
+                LogConversor.Log(ex, ViewData!);
+            }
+        }
+
+        public virtual void OnPostBtImprimir(string data)
+        {
+            try
+            {
+                CargarCombox();
+                OnPostBtRefrescar();
+                string rutaArchivo = @"C:\\Gato\\Distribuidora2\\Documentos.xlsx";
+                string DirectoriPath = Path.GetDirectoryName(rutaArchivo)!;
+
+                if (!Directory.Exists(DirectoriPath)) //Si no existe se crea
+                {
+                    Directory.CreateDirectory(DirectoriPath);
+                }
+                ExcelPackage.License.SetNonCommercialOrganization("My Noncommercial organization"); //Para que sepa que es no comercial :)
+                using (var Paquete = new ExcelPackage())
+                {
+                    var HojaExcel = Paquete.Workbook.Worksheets.Add("Documentos");
+                    //Columnas
+                    HojaExcel.Cells[1, 1].Value = "Codigo";
+                    HojaExcel.Cells[1, 2].Value = "Tipo Movimiento";
+                    HojaExcel.Cells[1, 3].Value = "Fecha";
+                    HojaExcel.Cells[1, 4].Value = "ID_Bodega";
+                    HojaExcel.Cells[1, 5].Value = "Valor";
+                    HojaExcel.Cells[1, 6].Value = "Cantidad";
+                    HojaExcel.Cells[1, 7].Value = "Estado";
+                    HojaExcel.Cells[1, 8].Value = "ID_Empresa";
+                    HojaExcel.Cells[1, 9].Value = "ID_Producto";
+                    //Informacion
+                    int i = 0;
+                    while (i < Lista.Count)
+                    {
+                        HojaExcel.Cells[i + 2, 1].Value = Lista[i].Codigo;
+                        HojaExcel.Cells[i + 2, 2].Value = Lista[i].Tipo_Movimiento;
+                        HojaExcel.Cells[i + 2, 3].Value = Lista[i].Fecha.ToString();
+                        HojaExcel.Cells[i + 2, 4].Value = ListBodegas![(Lista[i].ID_Bodega.Value) - 1].ID;
+                        HojaExcel.Cells[i + 2, 5].Value = Lista[i].Valor;
+                        HojaExcel.Cells[i + 2, 6].Value = Lista[i].Cantidad;
+                        HojaExcel.Cells[i + 2, 7].Value = Lista[i].Estado;
+                        HojaExcel.Cells[i + 2, 8].Value = ListEmpresas![(Lista[i].ID_Empresa) - 1].ID;
+                        HojaExcel.Cells[i + 2, 9].Value = ListProductos![(Lista[i].ID_Producto) - 1].ID;
+                        i++;
+                    }
+                    FileInfo archivo = new FileInfo(rutaArchivo);
+                    Paquete.SaveAs(archivo); //Guardamos el archivo
+                }
             }
             catch (Exception ex)
             {

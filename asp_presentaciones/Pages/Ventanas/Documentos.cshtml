@@ -288,6 +288,13 @@
                                     </td>
                                     <td>
                                         <input type="submit"
+                                               value="Imprimir"
+                                               asp-page-handler="BtImprimir"
+                                               class="btn btn-secondary"
+                                               asp-route-data="@elemento.ID" />
+                                    </td>
+                                    <td>
+                                        <input type="submit"
                                                value="Modicar"
                                                asp-page-handler="BtModificar"
                                                class="btn btn-secondary"

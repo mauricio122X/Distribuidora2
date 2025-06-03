@@ -239,7 +239,7 @@ namespace asp_presentacion.Pages.Ventanas
             {
                 CargarCombox();
                 OnPostBtRefrescar();
-                string rutaArchivo = @"C:\\Gato\\Distribuidora2\\Documentos.xlsx";
+                string rutaArchivo = @"C:\\itm\\ProgramacionSoftware\\Distribuidora2\\Documentos.xlsx";
                 string DirectoriPath = Path.GetDirectoryName(rutaArchivo)!;
 
                 if (!Directory.Exists(DirectoriPath)) //Si no existe se crea

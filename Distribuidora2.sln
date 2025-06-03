@@ -30,8 +30,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lib_presentaciones", "lib_p
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "asp_presentaciones", "asp_presentaciones\asp_presentaciones.csproj", "{FD0DAC4B-26E8-4B7F-B439-631B84FCE6BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ut_PruebasPresentaciones", "ut_PruebasPresentaciones\ut_PruebasPresentaciones.csproj", "{B674E938-4CA0-48ED-891D-B12F9D46B935}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,10 +64,6 @@ Global
 		{FD0DAC4B-26E8-4B7F-B439-631B84FCE6BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD0DAC4B-26E8-4B7F-B439-631B84FCE6BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD0DAC4B-26E8-4B7F-B439-631B84FCE6BD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B674E938-4CA0-48ED-891D-B12F9D46B935}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B674E938-4CA0-48ED-891D-B12F9D46B935}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B674E938-4CA0-48ED-891D-B12F9D46B935}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B674E938-4CA0-48ED-891D-B12F9D46B935}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,7 +76,6 @@ Global
 		{35A633E4-D221-49D4-999D-7990B1413DE9} = {B1DCCCB3-9A57-44B5-80E3-BEADC9BBC607}
 		{AB847EBA-B9A7-4A23-B406-7AF10404EFA0} = {8425EC32-B731-4B82-8E34-CC4741BF3333}
 		{FD0DAC4B-26E8-4B7F-B439-631B84FCE6BD} = {8425EC32-B731-4B82-8E34-CC4741BF3333}
-		{B674E938-4CA0-48ED-891D-B12F9D46B935} = {1AD625AB-7A66-48EF-AF64-2844F05BF2A3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {26AA670A-7891-4173-8785-9D0FB1C2326B}

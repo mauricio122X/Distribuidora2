@@ -7,13 +7,13 @@ using lib_dominio.Entidades;
 namespace ut_presentaciones.Repositorios
 {
     [TestClass]
-    public class DocumentosPrueba
+    public class AuditoriasPrueba
     {
         private readonly IConexion? iConexion;
-        private List<Documentos>? lista;
-        private Documentos? entidad;
+        private List<Auditorias>? lista;
+        private Auditorias? entidad;
 
-        public DocumentosPrueba()
+        public AuditoriasPrueba()
         {
             iConexion = new Conexion();
             iConexion.StringConexion = Configuracion.ObtenerValor("StringConexion");
@@ -30,26 +30,24 @@ namespace ut_presentaciones.Repositorios
 
         public bool Listar()
         {
-            lista = iConexion!.Documentos!.ToList();
+            lista = iConexion!.Auditorias!.ToList();
             return lista.Count > 0;
         }
 
         public bool Guardar()
         {
-            var bodegas = this.iConexion!.Bodegas!.FirstOrDefault(x => x.ID == 1);
-            var empresas = this.iConexion!.Empresas!.FirstOrDefault(x => x.ID == 1);
-            var productos = this.iConexion!.Productos!.FirstOrDefault(x => x.ID == 1);
-            entidad = EntidadesNucleo.Documentos(bodegas!, empresas!, productos!)!;
-            iConexion!.Documentos!.Add(entidad!);
+            var usuarios = this.iConexion!.Usuarios!.FirstOrDefault(x => x.ID == 1);
+            entidad = EntidadesNucleo.Auditorias(usuarios!)!;
+            iConexion!.Auditorias!.Add(entidad!);
             iConexion!.SaveChanges();
             return true;
         }
 
         public bool Modificar()
         {
-            entidad!.Tipo_Movimiento = "Prueba-Compra";
+            entidad!.Accion = "Prueba-Compra";
 
-            var entry = iConexion!.Entry<Documentos>(entidad);
+            var entry = iConexion!.Entry<Auditorias>(entidad);
             entry.State = EntityState.Modified;
             iConexion!.SaveChanges();
             return true;
@@ -57,9 +55,13 @@ namespace ut_presentaciones.Repositorios
 
         public bool Borrar()
         {
-            iConexion!.Documentos!.Remove(entidad!);
+            iConexion!.Auditorias!.Remove(entidad!);
             iConexion!.SaveChanges();
             return true;
         }
     }
 }
+
+
+
+

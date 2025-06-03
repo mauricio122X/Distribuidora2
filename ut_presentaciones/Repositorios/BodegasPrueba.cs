@@ -44,7 +44,7 @@ namespace ut_presentaciones.Repositorios
 
         public bool Modificar()
         {
-            entidad!.Capacidad_Max = 1;
+            entidad!.Capacidad_max = 1;
 
             var entry = iConexion!.Entry<Bodegas>(entidad);
             entry.State = EntityState.Modified;

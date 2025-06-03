@@ -46,9 +46,8 @@ namespace ut_presentaciones.Repositorios
 
         public bool Modificar()
         {
-            entidad!.Cantidad = 1;
 
-            var entry = iConexion!.Entry<Vehiculos_Documentos>(entidad);
+            var entry = iConexion!.Entry<Vehiculos_Documentos>(entidad!);
             entry.State = EntityState.Modified;
             iConexion!.SaveChanges();
             return true;

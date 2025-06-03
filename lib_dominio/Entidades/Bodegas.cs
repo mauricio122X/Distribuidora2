@@ -6,7 +6,7 @@ namespace lib_dominio.Entidades
     {
         [Key]public int ID { get; set; }
         public string? Nombre { get; set; }
-        public int? Capacidad_Max { get; set; }
+        public int? Capacidad_max { get; set; }
 
         //public List<Empleados>? BodegasEmpleados { get; set; }
         //public List<Documentos>? BodegasDocumentos { get; set; }

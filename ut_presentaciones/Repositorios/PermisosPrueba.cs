@@ -7,13 +7,13 @@ using lib_dominio.Entidades;
 namespace ut_presentaciones.Repositorios
 {
     [TestClass]
-    public class DocumentosPrueba
+    public class PermisosPrueba
     {
         private readonly IConexion? iConexion;
-        private List<Documentos>? lista;
-        private Documentos? entidad;
+        private List<Permisos>? lista;
+        private Permisos? entidad;
 
-        public DocumentosPrueba()
+        public PermisosPrueba()
         {
             iConexion = new Conexion();
             iConexion.StringConexion = Configuracion.ObtenerValor("StringConexion");
@@ -30,26 +30,24 @@ namespace ut_presentaciones.Repositorios
 
         public bool Listar()
         {
-            lista = iConexion!.Documentos!.ToList();
+            lista = iConexion!.Permisos!.ToList();
             return lista.Count > 0;
         }
 
         public bool Guardar()
         {
-            var bodegas = this.iConexion!.Bodegas!.FirstOrDefault(x => x.ID == 1);
-            var empresas = this.iConexion!.Empresas!.FirstOrDefault(x => x.ID == 1);
-            var productos = this.iConexion!.Productos!.FirstOrDefault(x => x.ID == 1);
-            entidad = EntidadesNucleo.Documentos(bodegas!, empresas!, productos!)!;
-            iConexion!.Documentos!.Add(entidad!);
+            var roles = this.iConexion!.Roles!.FirstOrDefault(x => x.ID == 1);
+            entidad = EntidadesNucleo.Permisos(roles!)!;
+            iConexion!.Permisos!.Add(entidad!);
             iConexion!.SaveChanges();
             return true;
         }
 
         public bool Modificar()
         {
-            entidad!.Tipo_Movimiento = "Prueba-Compra";
+            entidad!.Nombre = "Prueba - Nombre";
 
-            var entry = iConexion!.Entry<Documentos>(entidad);
+            var entry = iConexion!.Entry<Permisos>(entidad);
             entry.State = EntityState.Modified;
             iConexion!.SaveChanges();
             return true;
@@ -57,7 +55,7 @@ namespace ut_presentaciones.Repositorios
 
         public bool Borrar()
         {
-            iConexion!.Documentos!.Remove(entidad!);
+            iConexion!.Permisos!.Remove(entidad!);
             iConexion!.SaveChanges();
             return true;
         }

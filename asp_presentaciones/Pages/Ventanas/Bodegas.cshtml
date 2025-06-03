@@ -49,7 +49,7 @@
                 <input type="hidden"
                        asp-for="@Model.Actual!.Nombre" />
                 <input type="hidden"
-                       asp-for="@Model.Actual!.Capacidad_Max" />
+                       asp-for="@Model.Actual!.Capacidad_max" />
             }
             @*   Menu que aparece cuando se da nuevo y editar*@
             @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Editar)
@@ -74,7 +74,7 @@
                             <div class="col-lg-6">
                                 <input id="nmMateria"
                                        class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.Capacidad_Max" />
+                                       asp-for="@Model.Actual!.Capacidad_max" />
                             </div>
                         </div>                     
                     </div>
@@ -148,7 +148,7 @@
                                         @elemento.Nombre
                                     </td>
                                     <td>
-                                        @elemento.Capacidad_Max
+                                        @elemento.Capacidad_max
                                     </td>   
                                     <td>
                                         <input type="submit"
